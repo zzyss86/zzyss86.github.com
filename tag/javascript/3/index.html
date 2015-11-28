@@ -79,64 +79,26 @@
                 <em>on</em>
                 <a href="/tag/javascript">javascript</a>
             </span>
-            <h2><a href="/post/ni-ming-han-shu-feng-zhuang">通过匿名函数实现JS的代码封装（类封装）</a></h2>
+            <h2><a href="/post/javascript-get-reg">js获取GET参数(简易正则实现方式)</a></h2>
         </header>
-        <p>JS没有严格的类似JAVA的类概念，但可以通过原型链实现类。</p>
-<p>通常意义上，推荐使用在构造函数中接受属性值，在原型链上注册方法属性。详情可参考《JavaScript高级程序设计(第2版)》</p>
-<p>类似以下代码：</p>
-<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> myClass = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(a, b, c)</span></span>{
-    <span class="hljs-keyword">this</span>.a = a;
-    <span class="hljs-keyword">this</span>.b = b;
-    <span class="hljs-keyword">this</span>.c = c;
-    <span class="hljs-comment">// 构造函数</span>
-}
+        <p>js获取GET参数，比较常用到，一般的实现方式通过截取字符串，我用正则简单的实现了一下，在我目前的项目中基本通用，没有遇到问题。</p>
+<p>下接上代码，如果获取的参数不存在时，返回空。</p>
+<pre><code class="hljs javascript"><span class="hljs-comment">//window.location.href = test.html?uin=1000&amp;skey=523</span>
+<span class="hljs-comment">//window.location.href = test.html#uin=1000&amp;skey=523</span>
 
-myClass.prototype = {
-    f1: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{alert(<span class="hljs-keyword">this</span>.a);},
-    f2: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{alert(<span class="hljs-keyword">this</span>.b);},
-    f2: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{alert(<span class="hljs-keyword">this</span>.c);}
-    <span class="hljs-comment">//该类的方法</span>
-}
-<span class="hljs-keyword">var</span> classA = <span class="hljs-keyword">new</span> myClass(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);
-classA.f1();
-</code></pre>
-<p><strong>匿名函数</strong></p>
-<p>顾名思义，匿名函数就是没有实际名字的函数。</p>
-<p>大家知道小括号的作用吗？小括号能把我们的表达式组合分块，并且每一块，也就是每一对小括号，都有一个返回值。这个返回值实际上也就是小括号中表达式的返回值。所以，当我们用一对小括号把匿名函数括起来的时候，实际上小括号对返回的，就是一个匿名函数的Function对象。因此，小括号对加上匿名函数就如同有名字的函数般被我们取得它的引用位置了。所以如果在这个引用变量后面再加上参数列表，就会实现普通函数的调用形式。</p>
-<p>如 <code>(function(){alert(“匿名函数”);});</code></p>
-<p>但小括号返回的仅是函数表达式，函数并没有运行起来。要运行函数表达式在后再再加上();</p>
-<p>变成 <code>(function(){alert(“匿名函数”);})();</code></p>
-<p>这样就产生了一个困扰，这样写会产生闭包吗？大家都知道闭包对于GC的垃圾回收机制有影响，建议少用闭包。</p>
-<p>下面我们就来探讨一下。</p>
-<p>以我的理解来说吧。是否应用了闭包特性，必须确定该段代码有没有最重要的要素：未销毁的局部变量。</p>
-<p>只能说这种写法有闭包的特性，只否形成闭包，还要看有没有未销毁的局部变量。</p>
-<p><strong>匿名函数封装类</strong></p>
-<pre><code class="hljs javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
-
-    <span class="hljs-keyword">var</span> myClass = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(a, b, c)</span></span>{
-        <span class="hljs-keyword">this</span>.a = a;
-        <span class="hljs-keyword">this</span>.b = b;
-        <span class="hljs-keyword">this</span>.c = c;
-        <span class="hljs-comment">// 构造函数</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUrlArgs</span><span class="hljs-params">(_name)</span></span>{
+    <span class="hljs-keyword">var</span> url = <span class="hljs-built_in">window</span>.location.href;
+    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">".+"</span>+_name+<span class="hljs-string">"=([^&amp;]+).*"</span>,<span class="hljs-string">"gi"</span>).test(url)){
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">RegExp</span>.$<span class="hljs-number">1</span>;
+    }<span class="hljs-keyword">else</span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;
     }
-
-    myClass.prototype = {
-        f1: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{alert(<span class="hljs-keyword">this</span>.a);},
-        f2: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{alert(<span class="hljs-keyword">this</span>.b);},
-        f2: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{alert(<span class="hljs-keyword">this</span>.c);}
-        <span class="hljs-comment">//该类的方法</span>
-    }
-
-    <span class="hljs-built_in">window</span>.myClass = myClass;
-})();
-<span class="hljs-keyword">var</span> classA = <span class="hljs-keyword">new</span> myClass(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);
-<span class="hljs-keyword">var</span> classB = <span class="hljs-keyword">new</span> myClass(<span class="hljs-number">10</span>,<span class="hljs-number">20</span>,<span class="hljs-number">30</span>);
-classA.f1();
-classB.f1();
+}
+alert(getUrlArgs(<span class="hljs-string">"uin"</span>));
+alert(getUrlArgs(<span class="hljs-string">"skey"</span>));
 </code></pre>
-<p>其中window.myClass = myClass;这一段，也可以使用return 抛可供调用的API接口。</p>
 
-        <p><a href="/post/ni-ming-han-shu-feng-zhuang" rel="nofollow" class="read-more">Read more »</a></p>
+        <p><a href="/post/javascript-get-reg" rel="nofollow" class="read-more">Read more »</a></p>
     </article>
     <article class="post">
         <header class="post-header">
@@ -232,6 +194,38 @@ classB.f1();
                 <em>on</em>
                 <a href="/tag/javascript">javascript</a>
                 ,
+                <a href="/tag/html5">html5</a>
+            </span>
+            <h2><a href="/post/html5-userdata-localstage">浏览器本地存储兼容方案（html5、userData）</a></h2>
+        </header>
+        <h4 id="-">一、本地存储概况</h4>
+<p>目前支持以下方法，实现浏览器端的本地存储：</p>
+<h5 id="1-cookie-">1、cookie ;</h5>
+<p>每个cookie的大小不能超过4K。</p>
+<p>Cookie数：</p>
+<ul>
+<li>IE7跟IE8限制为50个。</li>
+<li>Firefox限制为50个。</li>
+<li>Opera限制30个</li>
+<li>Safari/Chrome/WebKit没有限制</li>
+</ul>
+<p>每次的http请求，cookie都会包含在包头里发送给服务器，cookie在http请求中是明文传递的。</p>
+<h5 id="2-flash-lso-">2、flash LSO ;</h5>
+<p>local shared objects (LSOs).</p>
+<p>Flash的LSOs 就如同Web浏览器中的cookies，它们被一些开发者称为“超级cookies”，因为LSOs可以存储大量数据，且存储和读取的都是原生的ActionScript数据类型。LSOs 默认的空间大小100 KB， 用户可以通过Flash Player’s Settings Manager控制LSOs的使用空间大小，来严格限制被使用的空间。</p>
+<h5 id="3-userdata-">3、userData ；</h5>
+<p>是微软为IE专门在系统中开辟的一块存储空间，所以说只支持Windows+IE的组合，实际测试在2000（IE5.5）、XP（IE6、IE7），Vista（IE7）下都是可以正常使用的。</p>
+<p>单个文件的大小限制是128KB，一个域名下总共可以保存1024KB的文件，文件个数应该没有限制。在受限站点里这两个值分别是64KB和640KB，所以如果考虑到各种情况的话，单个文件最好能控制64KB以下。</p>
+
+        <p><a href="/post/html5-userdata-localstage" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年2月20日">2012年2月20日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+                ,
                 <a href="/tag/soundmanager2">soundmanager2</a>
             </span>
             <h2><a href="/post/javascript-soundmanager2">javascript音频管理方案：SoundManager2</a></h2>
@@ -257,38 +251,6 @@ soundManager.onready(<span class="hljs-function"><span class="hljs-keyword">func
 </code></pre>
 
         <p><a href="/post/javascript-soundmanager2" rel="nofollow" class="read-more">Read more »</a></p>
-    </article>
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta">
-                <time datetime="2012年2月20日">2012年2月20日</time>
-                <em>on</em>
-                <a href="/tag/javascript">javascript</a>
-                ,
-                <a href="/tag/html5">html5</a>
-            </span>
-            <h2><a href="/post/html5-userdata-localstage">浏览器本地存储兼容方案（html5、userData）</a></h2>
-        </header>
-        <h4 id="-">一、本地存储概况</h4>
-<p>目前支持以下方法，实现浏览器端的本地存储：</p>
-<h5 id="1-cookie-">1、cookie ;</h5>
-<p>每个cookie的大小不能超过4K。</p>
-<p>Cookie数：</p>
-<ul>
-<li>IE7跟IE8限制为50个。</li>
-<li>Firefox限制为50个。</li>
-<li>Opera限制30个</li>
-<li>Safari/Chrome/WebKit没有限制</li>
-</ul>
-<p>每次的http请求，cookie都会包含在包头里发送给服务器，cookie在http请求中是明文传递的。</p>
-<h5 id="2-flash-lso-">2、flash LSO ;</h5>
-<p>local shared objects (LSOs).</p>
-<p>Flash的LSOs 就如同Web浏览器中的cookies，它们被一些开发者称为“超级cookies”，因为LSOs可以存储大量数据，且存储和读取的都是原生的ActionScript数据类型。LSOs 默认的空间大小100 KB， 用户可以通过Flash Player’s Settings Manager控制LSOs的使用空间大小，来严格限制被使用的空间。</p>
-<h5 id="3-userdata-">3、userData ；</h5>
-<p>是微软为IE专门在系统中开辟的一块存储空间，所以说只支持Windows+IE的组合，实际测试在2000（IE5.5）、XP（IE6、IE7），Vista（IE7）下都是可以正常使用的。</p>
-<p>单个文件的大小限制是128KB，一个域名下总共可以保存1024KB的文件，文件个数应该没有限制。在受限站点里这两个值分别是64KB和640KB，所以如果考虑到各种情况的话，单个文件最好能控制64KB以下。</p>
-
-        <p><a href="/post/html5-userdata-localstage" rel="nofollow" class="read-more">Read more »</a></p>
     </article>
 
     <nav role="navigation" class="pagination">

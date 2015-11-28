@@ -262,55 +262,6 @@ v<span class="hljs-number">0</span>.<span class="hljs-number">10.0</span>
                 <em>on</em>
                 <a href="/tag/RaspberryPi">RaspberryPi</a>
             </span>
-            <h2><a href="/post/raspberry-pi-ying-pan-aria2">用树莓派+移动硬盘+aria2搭建低功耗下载机</a></h2>
-        </header>
-        <p>移动硬盘挂载及NAS相关请参阅上文《【智能家居】用树莓派+移动硬盘+MINIDLNA打造家用媒体服务器（电影服务器、NAS、ipad看片利器）》</p>
-<h4 id="-">一、安装</h4>
-<p>1、安装aria2</p>
-<pre><code class="hljs shell"><span class="hljs-title">sudo</span> apt-get install aria2
-</code></pre>
-<p>2、安装aria2 web在线管理端YAAW</p>
-<p>YAAW项目地址：<a href="https://github.com/binux/yaaw">https://github.com/binux/yaaw</a><br>下载资源包，放置http服务器下，http服务器的相关配置，本文不做详细介绍<br>DEMO：<a href="http://binux.github.com/yaaw/demo/">http://binux.github.com/yaaw/demo/</a>  </p>
-<h4 id="-aria2">二、配置aria2</h4>
-<p>aria2在线手册：<a href="http://aria2.sourceforge.net/manual/en/html/">http://aria2.sourceforge.net/manual/en/html/</a></p>
-<p><strong>一些有用的aria2参数：</strong></p>
-<p>-i 导入从loli.lu导出的aria2文件<br>-j 同时下载数限制，由于路由和总带宽限制，建议设为3（默认5）<br>-x 同一个服务器的同时链接数，建议为5-10（默认1）<br>-k 文件最小分片，文件最多的线程数取决于能分出多少片，当文件小于最小分片大小时，只能开出一个线程，建议为2M（默认20M）<br>-s 一个文件最多用几个线程下载，建议为8-10（默认5）<br>–file-allocation 文件预分配，如果USB设备是U盘，SD卡，预分配浪费时间，建议为none（默认prealloc)  </p>
-<p>创建配置文件：</p>
-<pre><code class="hljs shell"><span class="hljs-comment">#创建空白session文件</span>
-sudo touch /home/<span class="hljs-constant">pi</span>/aria2.session
-<span class="hljs-comment">#创建配置文件</span>
-sudo nano /home/<span class="hljs-constant">pi</span>/aria2.conf
-</code></pre>
-<p>在配置文件中放入：（以下内容不解释，请查阅手册）</p>
-<pre><code class="hljs shell"><span class="hljs-comment">#下载目录，自行修改</span>
-<span class="hljs-variable">dir=</span>/mnt/myusbdrive/moive/download/
-<span class="hljs-variable">disable-ipv6=</span><span class="hljs-constant">true</span>
-<span class="hljs-comment">#打开rpc的目的是为了给web管理端用</span>
-<span class="hljs-variable">enable-rpc=</span><span class="hljs-constant">true</span>
-<span class="hljs-variable">rpc-allow-origin-all=</span><span class="hljs-constant">true</span>
-<span class="hljs-variable">rpc-listen-all=</span><span class="hljs-constant">true</span>
-<span class="hljs-comment">#rpc-listen-port=6800</span>
-<span class="hljs-variable">continue=</span><span class="hljs-constant">true</span>
-<span class="hljs-variable">input-file=</span>/home/pi/aria2.session
-<span class="hljs-variable">save-session=</span>/home/pi/aria2.session
-<span class="hljs-variable">max-concurrent-downloads=</span><span class="hljs-number">3</span>
-</code></pre>
-<h4 id="-">三、用配置文件启动</h4>
-<pre><code class="hljs shell">sudo aria2c --<span class="hljs-keyword">conf</span>-path=/home/pi/aria2.<span class="hljs-keyword">conf</span>
-</code></pre>
-<p>若以上执行正常，没有报错，可以再加一“-D”的参数，让aria2随机启动。</p>
-<pre><code class="hljs shell">sudo aria2c --<span class="hljs-keyword">conf</span>-path=/home/pi/aria2.<span class="hljs-keyword">conf</span> -D
-</code></pre>
-
-        <p><a href="/post/raspberry-pi-ying-pan-aria2" rel="nofollow" class="read-more">Read more »</a></p>
-    </article>
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta">
-                <time datetime="2013年2月23日">2013年2月23日</time>
-                <em>on</em>
-                <a href="/tag/RaspberryPi">RaspberryPi</a>
-            </span>
             <h2><a href="/post/raspberry-pi-minidlna-nas-ipad">【智能家居】用树莓派+移动硬盘+MINIDLNA打造家用媒体服务器（电影服务器、NAS、ipad看片利器）</a></h2>
         </header>
         <p>关键词：树莓派、移动硬盘、MINIDLNA、电影服务器、NAS、ipad看片利器、DLNA、UPnP</p>
@@ -402,6 +353,55 @@ friendly_name=DLNA
 <p>chrome支持mkv视频，经测试Chrome html5 video支持mkv格式的视频，但不能外挂字幕！显示Google利用于自己收购的VP8编码技术力挺WebM（VP8/Vorbis/WebM），mkv也属于WebM的一种。</p>
 
         <p><a href="/post/raspberry-pi-minidlna-nas-ipad" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年2月23日">2013年2月23日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-ying-pan-aria2">用树莓派+移动硬盘+aria2搭建低功耗下载机</a></h2>
+        </header>
+        <p>移动硬盘挂载及NAS相关请参阅上文《【智能家居】用树莓派+移动硬盘+MINIDLNA打造家用媒体服务器（电影服务器、NAS、ipad看片利器）》</p>
+<h4 id="-">一、安装</h4>
+<p>1、安装aria2</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> apt-get install aria2
+</code></pre>
+<p>2、安装aria2 web在线管理端YAAW</p>
+<p>YAAW项目地址：<a href="https://github.com/binux/yaaw">https://github.com/binux/yaaw</a><br>下载资源包，放置http服务器下，http服务器的相关配置，本文不做详细介绍<br>DEMO：<a href="http://binux.github.com/yaaw/demo/">http://binux.github.com/yaaw/demo/</a>  </p>
+<h4 id="-aria2">二、配置aria2</h4>
+<p>aria2在线手册：<a href="http://aria2.sourceforge.net/manual/en/html/">http://aria2.sourceforge.net/manual/en/html/</a></p>
+<p><strong>一些有用的aria2参数：</strong></p>
+<p>-i 导入从loli.lu导出的aria2文件<br>-j 同时下载数限制，由于路由和总带宽限制，建议设为3（默认5）<br>-x 同一个服务器的同时链接数，建议为5-10（默认1）<br>-k 文件最小分片，文件最多的线程数取决于能分出多少片，当文件小于最小分片大小时，只能开出一个线程，建议为2M（默认20M）<br>-s 一个文件最多用几个线程下载，建议为8-10（默认5）<br>–file-allocation 文件预分配，如果USB设备是U盘，SD卡，预分配浪费时间，建议为none（默认prealloc)  </p>
+<p>创建配置文件：</p>
+<pre><code class="hljs shell"><span class="hljs-comment">#创建空白session文件</span>
+sudo touch /home/<span class="hljs-constant">pi</span>/aria2.session
+<span class="hljs-comment">#创建配置文件</span>
+sudo nano /home/<span class="hljs-constant">pi</span>/aria2.conf
+</code></pre>
+<p>在配置文件中放入：（以下内容不解释，请查阅手册）</p>
+<pre><code class="hljs shell"><span class="hljs-comment">#下载目录，自行修改</span>
+<span class="hljs-variable">dir=</span>/mnt/myusbdrive/moive/download/
+<span class="hljs-variable">disable-ipv6=</span><span class="hljs-constant">true</span>
+<span class="hljs-comment">#打开rpc的目的是为了给web管理端用</span>
+<span class="hljs-variable">enable-rpc=</span><span class="hljs-constant">true</span>
+<span class="hljs-variable">rpc-allow-origin-all=</span><span class="hljs-constant">true</span>
+<span class="hljs-variable">rpc-listen-all=</span><span class="hljs-constant">true</span>
+<span class="hljs-comment">#rpc-listen-port=6800</span>
+<span class="hljs-variable">continue=</span><span class="hljs-constant">true</span>
+<span class="hljs-variable">input-file=</span>/home/pi/aria2.session
+<span class="hljs-variable">save-session=</span>/home/pi/aria2.session
+<span class="hljs-variable">max-concurrent-downloads=</span><span class="hljs-number">3</span>
+</code></pre>
+<h4 id="-">三、用配置文件启动</h4>
+<pre><code class="hljs shell">sudo aria2c --<span class="hljs-keyword">conf</span>-path=/home/pi/aria2.<span class="hljs-keyword">conf</span>
+</code></pre>
+<p>若以上执行正常，没有报错，可以再加一“-D”的参数，让aria2随机启动。</p>
+<pre><code class="hljs shell">sudo aria2c --<span class="hljs-keyword">conf</span>-path=/home/pi/aria2.<span class="hljs-keyword">conf</span> -D
+</code></pre>
+
+        <p><a href="/post/raspberry-pi-ying-pan-aria2" rel="nofollow" class="read-more">Read more »</a></p>
     </article>
     <article class="post">
         <header class="post-header">

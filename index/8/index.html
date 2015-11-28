@@ -250,6 +250,38 @@ res.a.com/style.css (外网)</p>
                 <em>on</em>
                 <a href="/tag/javascript">javascript</a>
                 ,
+                <a href="/tag/html5">html5</a>
+            </span>
+            <h2><a href="/post/html5-userdata-localstage">浏览器本地存储兼容方案（html5、userData）</a></h2>
+        </header>
+        <h4 id="-">一、本地存储概况</h4>
+<p>目前支持以下方法，实现浏览器端的本地存储：</p>
+<h5 id="1-cookie-">1、cookie ;</h5>
+<p>每个cookie的大小不能超过4K。</p>
+<p>Cookie数：</p>
+<ul>
+<li>IE7跟IE8限制为50个。</li>
+<li>Firefox限制为50个。</li>
+<li>Opera限制30个</li>
+<li>Safari/Chrome/WebKit没有限制</li>
+</ul>
+<p>每次的http请求，cookie都会包含在包头里发送给服务器，cookie在http请求中是明文传递的。</p>
+<h5 id="2-flash-lso-">2、flash LSO ;</h5>
+<p>local shared objects (LSOs).</p>
+<p>Flash的LSOs 就如同Web浏览器中的cookies，它们被一些开发者称为“超级cookies”，因为LSOs可以存储大量数据，且存储和读取的都是原生的ActionScript数据类型。LSOs 默认的空间大小100 KB， 用户可以通过Flash Player’s Settings Manager控制LSOs的使用空间大小，来严格限制被使用的空间。</p>
+<h5 id="3-userdata-">3、userData ；</h5>
+<p>是微软为IE专门在系统中开辟的一块存储空间，所以说只支持Windows+IE的组合，实际测试在2000（IE5.5）、XP（IE6、IE7），Vista（IE7）下都是可以正常使用的。</p>
+<p>单个文件的大小限制是128KB，一个域名下总共可以保存1024KB的文件，文件个数应该没有限制。在受限站点里这两个值分别是64KB和640KB，所以如果考虑到各种情况的话，单个文件最好能控制64KB以下。</p>
+
+        <p><a href="/post/html5-userdata-localstage" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年2月20日">2012年2月20日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+                ,
                 <a href="/tag/soundmanager2">soundmanager2</a>
             </span>
             <h2><a href="/post/javascript-soundmanager2">javascript音频管理方案：SoundManager2</a></h2>
@@ -275,38 +307,6 @@ soundManager.onready(<span class="hljs-function"><span class="hljs-keyword">func
 </code></pre>
 
         <p><a href="/post/javascript-soundmanager2" rel="nofollow" class="read-more">Read more »</a></p>
-    </article>
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta">
-                <time datetime="2012年2月20日">2012年2月20日</time>
-                <em>on</em>
-                <a href="/tag/javascript">javascript</a>
-                ,
-                <a href="/tag/html5">html5</a>
-            </span>
-            <h2><a href="/post/html5-userdata-localstage">浏览器本地存储兼容方案（html5、userData）</a></h2>
-        </header>
-        <h4 id="-">一、本地存储概况</h4>
-<p>目前支持以下方法，实现浏览器端的本地存储：</p>
-<h5 id="1-cookie-">1、cookie ;</h5>
-<p>每个cookie的大小不能超过4K。</p>
-<p>Cookie数：</p>
-<ul>
-<li>IE7跟IE8限制为50个。</li>
-<li>Firefox限制为50个。</li>
-<li>Opera限制30个</li>
-<li>Safari/Chrome/WebKit没有限制</li>
-</ul>
-<p>每次的http请求，cookie都会包含在包头里发送给服务器，cookie在http请求中是明文传递的。</p>
-<h5 id="2-flash-lso-">2、flash LSO ;</h5>
-<p>local shared objects (LSOs).</p>
-<p>Flash的LSOs 就如同Web浏览器中的cookies，它们被一些开发者称为“超级cookies”，因为LSOs可以存储大量数据，且存储和读取的都是原生的ActionScript数据类型。LSOs 默认的空间大小100 KB， 用户可以通过Flash Player’s Settings Manager控制LSOs的使用空间大小，来严格限制被使用的空间。</p>
-<h5 id="3-userdata-">3、userData ；</h5>
-<p>是微软为IE专门在系统中开辟的一块存储空间，所以说只支持Windows+IE的组合，实际测试在2000（IE5.5）、XP（IE6、IE7），Vista（IE7）下都是可以正常使用的。</p>
-<p>单个文件的大小限制是128KB，一个域名下总共可以保存1024KB的文件，文件个数应该没有限制。在受限站点里这两个值分别是64KB和640KB，所以如果考虑到各种情况的话，单个文件最好能控制64KB以下。</p>
-
-        <p><a href="/post/html5-userdata-localstage" rel="nofollow" class="read-more">Read more »</a></p>
     </article>
     <article class="post">
         <header class="post-header">

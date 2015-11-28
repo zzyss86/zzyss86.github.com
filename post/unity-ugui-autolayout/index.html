@@ -136,61 +136,62 @@
 </ul>
 <p><strong>此段代码比较关键，故直接贴出来：</strong></p>
 <p>HorizontalOrVerticalLayoutGroup.cs</p>
-<pre><code>    protected void SetChildrenAlongAxis(<span class="hljs-keyword">int</span> axis, bool isVertical)
-    {
-        <span class="hljs-keyword">float</span> <span class="hljs-keyword">size</span> = rectTransform.rect.<span class="hljs-keyword">size</span>[axis];
-
-        bool alongOtherAxis = (isVertical ^ (axis == <span class="hljs-number">1</span>));
-        <span class="hljs-keyword">if</span> (alongOtherAxis)
+<pre><code class="hljs cs">        protected void SetChildrenAlongAxis(<span class="hljs-keyword">int</span> axis, bool isVertical)
         {
-            <span class="hljs-keyword">float</span> innerSize = <span class="hljs-keyword">size</span> - (axis == <span class="hljs-number">0</span> ? padding.horizontal : padding.vertical);
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rectChildren.Count; i++)
+            <span class="hljs-keyword">float</span> <span class="hljs-keyword">size</span> = rectTransform.rect.<span class="hljs-keyword">size</span>[axis];
+
+            bool alongOtherAxis = (isVertical ^ (axis == <span class="hljs-number">1</span>));
+            <span class="hljs-keyword">if</span> (alongOtherAxis)
             {
-                RectTransform child = rectChildren[i];
-                <span class="hljs-keyword">float</span> <span class="hljs-keyword">min</span> = LayoutUtility.GetMinSize(child, axis);
-                <span class="hljs-keyword">float</span> preferred = LayoutUtility.GetPreferredSize(child, axis);
-                <span class="hljs-keyword">float</span> flexible = LayoutUtility.GetFlexibleSize(child, axis);
-                <span class="hljs-keyword">if</span> ((axis == <span class="hljs-number">0</span> ? childForceExpandWidth : childForceExpandHeight))
-                    flexible = Mathf.Max(flexible, <span class="hljs-number">1</span>);
+                <span class="hljs-keyword">float</span> innerSize = <span class="hljs-keyword">size</span> - (axis == <span class="hljs-number">0</span> ? padding.horizontal : padding.vertical);
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rectChildren.Count; i++)
+                {
+                    RectTransform child = rectChildren[i];
+                    <span class="hljs-keyword">float</span> <span class="hljs-keyword">min</span> = LayoutUtility.GetMinSize(child, axis);
+                    <span class="hljs-keyword">float</span> preferred = LayoutUtility.GetPreferredSize(child, axis);
+                    <span class="hljs-keyword">float</span> flexible = LayoutUtility.GetFlexibleSize(child, axis);
+                    <span class="hljs-keyword">if</span> ((axis == <span class="hljs-number">0</span> ? childForceExpandWidth : childForceExpandHeight))
+                        flexible = Mathf.Max(flexible, <span class="hljs-number">1</span>);
 
-                <span class="hljs-keyword">float</span> requiredSpace = Mathf.Clamp(innerSize, <span class="hljs-keyword">min</span>, flexible &gt; <span class="hljs-number">0</span> ? <span class="hljs-keyword">size</span> : preferred);
-                <span class="hljs-keyword">float</span> startOffset = GetStartOffset(axis, requiredSpace);
-                SetChildAlongAxis(child, axis, startOffset, requiredSpace);
+                    <span class="hljs-keyword">float</span> requiredSpace = Mathf.Clamp(innerSize, <span class="hljs-keyword">min</span>, flexible &gt; <span class="hljs-number">0</span> ? <span class="hljs-keyword">size</span> : preferred);
+                    <span class="hljs-keyword">float</span> startOffset = GetStartOffset(axis, requiredSpace);
+                    SetChildAlongAxis(child, axis, startOffset, requiredSpace);
+                }
             }
-        }
-        <span class="hljs-keyword">else</span>
-        {
-            <span class="hljs-keyword">float</span> pos = (axis == <span class="hljs-number">0</span> ? padding.left : padding.top);
-            <span class="hljs-keyword">if</span> (GetTotalFlexibleSize(axis) == <span class="hljs-number">0</span> &amp;&amp; GetTotalPreferredSize(axis) &lt; <span class="hljs-keyword">size</span>)
-                pos = GetStartOffset(axis, GetTotalPreferredSize(axis) - (axis == <span class="hljs-number">0</span> ? padding.horizontal : padding.vertical));
-
-            <span class="hljs-keyword">float</span> minMaxLerp = <span class="hljs-number">0</span>;
-            <span class="hljs-keyword">if</span> (GetTotalMinSize(axis) != GetTotalPreferredSize(axis))
-                minMaxLerp = Mathf.Clamp01((<span class="hljs-keyword">size</span> - GetTotalMinSize(axis)) / (GetTotalPreferredSize(axis) - GetTotalMinSize(axis)));
-
-            <span class="hljs-keyword">float</span> itemFlexibleMultiplier = <span class="hljs-number">0</span>;
-            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">size</span> &gt; GetTotalPreferredSize(axis))
+            <span class="hljs-keyword">else</span>
             {
-                <span class="hljs-keyword">if</span> (GetTotalFlexibleSize(axis) &gt; <span class="hljs-number">0</span>)
-                    itemFlexibleMultiplier = (<span class="hljs-keyword">size</span> - GetTotalPreferredSize(axis)) / GetTotalFlexibleSize(axis);
-            }
+                <span class="hljs-keyword">float</span> pos = (axis == <span class="hljs-number">0</span> ? padding.left : padding.top);
+                <span class="hljs-keyword">if</span> (GetTotalFlexibleSize(axis) == <span class="hljs-number">0</span> &amp;&amp; GetTotalPreferredSize(axis) &lt; <span class="hljs-keyword">size</span>)
+                    pos = GetStartOffset(axis, GetTotalPreferredSize(axis) - (axis == <span class="hljs-number">0</span> ? padding.horizontal : padding.vertical));
 
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rectChildren.Count; i++)
-            {
-                RectTransform child = rectChildren[i];
-                <span class="hljs-keyword">float</span> <span class="hljs-keyword">min</span> = LayoutUtility.GetMinSize(child, axis);
-                <span class="hljs-keyword">float</span> preferred = LayoutUtility.GetPreferredSize(child, axis);
-                <span class="hljs-keyword">float</span> flexible = LayoutUtility.GetFlexibleSize(child, axis);
-                <span class="hljs-keyword">if</span> ((axis == <span class="hljs-number">0</span> ? childForceExpandWidth : childForceExpandHeight))
-                    flexible = Mathf.Max(flexible, <span class="hljs-number">1</span>);
+                <span class="hljs-keyword">float</span> minMaxLerp = <span class="hljs-number">0</span>;
+                <span class="hljs-keyword">if</span> (GetTotalMinSize(axis) != GetTotalPreferredSize(axis))
+                    minMaxLerp = Mathf.Clamp01((<span class="hljs-keyword">size</span> - GetTotalMinSize(axis)) / (GetTotalPreferredSize(axis) - GetTotalMinSize(axis)));
 
-                <span class="hljs-keyword">float</span> childSize = Mathf.Lerp(<span class="hljs-keyword">min</span>, preferred, minMaxLerp);
-                childSize += flexible * itemFlexibleMultiplier;
-                SetChildAlongAxis(child, axis, pos, childSize);
-                pos += childSize + spacing;
+                <span class="hljs-keyword">float</span> itemFlexibleMultiplier = <span class="hljs-number">0</span>;
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">size</span> &gt; GetTotalPreferredSize(axis))
+                {
+                    <span class="hljs-keyword">if</span> (GetTotalFlexibleSize(axis) &gt; <span class="hljs-number">0</span>)
+                        itemFlexibleMultiplier = (<span class="hljs-keyword">size</span> - GetTotalPreferredSize(axis)) / GetTotalFlexibleSize(axis);
+                }
+
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; rectChildren.Count; i++)
+                {
+                    RectTransform child = rectChildren[i];
+                    <span class="hljs-keyword">float</span> <span class="hljs-keyword">min</span> = LayoutUtility.GetMinSize(child, axis);
+                    <span class="hljs-keyword">float</span> preferred = LayoutUtility.GetPreferredSize(child, axis);
+                    <span class="hljs-keyword">float</span> flexible = LayoutUtility.GetFlexibleSize(child, axis);
+                    <span class="hljs-keyword">if</span> ((axis == <span class="hljs-number">0</span> ? childForceExpandWidth : childForceExpandHeight))
+                        flexible = Mathf.Max(flexible, <span class="hljs-number">1</span>);
+
+                    <span class="hljs-keyword">float</span> childSize = Mathf.Lerp(<span class="hljs-keyword">min</span>, preferred, minMaxLerp);
+                    childSize += flexible * itemFlexibleMultiplier;
+                    SetChildAlongAxis(child, axis, pos, childSize);
+                    pos += childSize + spacing;
+                }
             }
-        }
-</code></pre><h3 id="-">（四）、渲染</h3>
+</code></pre>
+<h3 id="-">（四）、渲染</h3>
 <p>根据上面的类和接口示意图，当UI元素RectTransform发生变化时，并不会立即触发UI重建。为了提高性能，节省开销，uGUI也是在帧的末尾（渲染发生之前）才会进行重新进入UI重建。主要是通过<code>Canvas.willRenderCanvases</code>事件进行触发。</p>
 <p>在uGUI布局系统中，主要是通过LayoutRebuilder类和CanvasUpdateRegistry类实现的。</p>
 <ul>
@@ -251,10 +252,11 @@ childSize += flexible * itemFlexibleMultiplier;
 <h4 id="2-">2、部份按比例</h4>
 <p>王三和老王，他必须要80平米，剩下的120平，王一和王二一人一半，这种情况下怎么分呢？</p>
 <p>理论上只要给王三分80，给王一和王二flexible设为1，即可。但实际结果又不并不是所期望的样子，为什么呢？其实这种情况下需要老王把childForceExpandWidth设为false，因为在uGUI处理中，如果childForceExpandWidth设为了true，即使王三没有设置flexible，也会被强制设为1。</p>
-<pre><code><span class="hljs-keyword">if</span> <span class="hljs-comment">((axis == 0 ? childForceExpandWidth : childForceExpandHeight)</span>)
-    flexible = Mathf.Max<span class="hljs-comment">(flexible, 1)</span>;
+<pre><code class="hljs cs">    <span class="hljs-keyword">if</span> <span class="hljs-comment">((axis == 0 ? childForceExpandWidth : childForceExpandHeight)</span>)
+        flexible = Mathf.Max<span class="hljs-comment">(flexible, 1)</span>;
 </code></pre>
-        <p class="last-edit-time">最后修改时间：2015年11月29日星期日凌晨3点05</p>
+
+        <p class="last-edit-time">最后修改时间：2015年11月29日星期日凌晨3点28</p>
         <div class="share_wrapper">
             <div class="jiathis_style_32x32">
                 <a class="jiathis_button_qzone"></a>

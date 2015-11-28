@@ -257,29 +257,6 @@ GB2312的汉字编码规则为：第一个字节的值在0xB0到0xF7之间，第
                 <em>on</em>
                 <a href="/tag/as3">as3</a>
             </span>
-            <h2><a href="/post/as3-vector-shu-zu">AS3 Vector数组的多种声明及添加项方法</a></h2>
-        </header>
-        <p>我们知道：和JS一样，ActionScript3.0中的Array数组可以存放多种类型，甚至在同一个Array数组中，可以同时存入String,Object,Number…，但其实我们在实际开发中，通常一个数组中所保存的元素类型都是一致的，为了改进这种情况下的效率，AS3.0新增了一个Vector类。</p>
-<p>它强制要求数组中的每个元素都必须是同样的类型，从而提高了数组的运行效率。</p>
-<pre><code class="hljs actionscript"><span class="hljs-comment">//方法一</span>
-<span class="hljs-keyword">var</span> list:Vector.&lt;<span class="hljs-typename">int</span>&gt; = <span class="hljs-built_in">new</span> Vector.&lt;<span class="hljs-typename">int</span>&gt;();
-list2.push<span class="hljs-number">(1</span>,<span class="hljs-number"> 2</span>,<span class="hljs-number"> 3</span>);
-<span class="hljs-comment">//方法二          </span>
-<span class="hljs-keyword">var</span> list:Vector.&lt;<span class="hljs-typename">int</span>&gt; = Vector.&lt;<span class="hljs-typename">int</span>&gt;(<span class="hljs-number">[1</span>,<span class="hljs-number"> 2</span>,<span class="hljs-number"> 3</span>]);
-<span class="hljs-comment">//方法三  </span>
-<span class="hljs-keyword">var</span> list:Vector.&lt;<span class="hljs-typename">int</span>&gt; = <span class="hljs-built_in">new</span> &lt;<span class="hljs-typename">int</span>&gt;<span class="hljs-number">[1</span>,<span class="hljs-number"> 2</span>,<span class="hljs-number"> 3</span>];
-</code></pre>
-<p>相关测试表明，Vector比Array在运行效率上能快一倍左右，所以，对于同类型的数组，建议使用Vector.</p>
-
-        <p><a href="/post/as3-vector-shu-zu" rel="nofollow" class="read-more">Read more »</a></p>
-    </article>
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta">
-                <time datetime="2012年6月22日">2012年6月22日</time>
-                <em>on</em>
-                <a href="/tag/as3">as3</a>
-            </span>
             <h2><a href="/post/starling-flash-stats">Starling版本的Flash概要分析类：Stats</a></h2>
         </header>
         <p><img src="/assets/upload/hires_stats.png" alt=""></p>
@@ -299,42 +276,25 @@ list2.push<span class="hljs-number">(1</span>,<span class="hljs-number"> 2</span
     <article class="post">
         <header class="post-header">
             <span class="post-meta">
-                <time datetime="2012年6月11日">2012年6月11日</time>
+                <time datetime="2012年6月22日">2012年6月22日</time>
                 <em>on</em>
-                <a href="/tag/javascript">javascript</a>
+                <a href="/tag/as3">as3</a>
             </span>
-            <h2><a href="/post/js-pan-duan-shu-zu">JS判断数组类型的两种方法</a></h2>
+            <h2><a href="/post/as3-vector-shu-zu">AS3 Vector数组的多种声明及添加项方法</a></h2>
         </header>
-        <h4 id="-">一、构造函数法</h4>
-<p>在JS中，虽然没有严格的面向对象编程，但程序的设计还是有面向对象的味道。所有引用类型的数据，都是基于object；Array类型的数据，typeof时也会显示object；这给我们判断array类型，带来了不便。</p>
-<p>细想一下array的创建过程，<code>var arr = new Array(1,2,3);</code>或<code>var arr = [1,2,3];</code>实际上是创建了一个Array对象的实例，也就是说实例所对应的构造函数应该是Array；根据此原理，判断方法如下：</p>
-<pre><code class="hljs javascript"><span class="hljs-function">function <span class="hljs-title">isArray</span><span class="hljs-params">(<span class="hljs-keyword">object</span>)</span></span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">object</span> &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>===<span class="hljs-string">'object'</span> &amp;&amp;
-            Array == <span class="hljs-keyword">object</span>.constructor;
-}
+        <p>我们知道：和JS一样，ActionScript3.0中的Array数组可以存放多种类型，甚至在同一个Array数组中，可以同时存入String,Object,Number…，但其实我们在实际开发中，通常一个数组中所保存的元素类型都是一致的，为了改进这种情况下的效率，AS3.0新增了一个Vector类。</p>
+<p>它强制要求数组中的每个元素都必须是同样的类型，从而提高了数组的运行效率。</p>
+<pre><code class="hljs actionscript"><span class="hljs-comment">//方法一</span>
+<span class="hljs-keyword">var</span> list:Vector.&lt;<span class="hljs-typename">int</span>&gt; = <span class="hljs-built_in">new</span> Vector.&lt;<span class="hljs-typename">int</span>&gt;();
+list2.push<span class="hljs-number">(1</span>,<span class="hljs-number"> 2</span>,<span class="hljs-number"> 3</span>);
+<span class="hljs-comment">//方法二          </span>
+<span class="hljs-keyword">var</span> list:Vector.&lt;<span class="hljs-typename">int</span>&gt; = Vector.&lt;<span class="hljs-typename">int</span>&gt;(<span class="hljs-number">[1</span>,<span class="hljs-number"> 2</span>,<span class="hljs-number"> 3</span>]);
+<span class="hljs-comment">//方法三  </span>
+<span class="hljs-keyword">var</span> list:Vector.&lt;<span class="hljs-typename">int</span>&gt; = <span class="hljs-built_in">new</span> &lt;<span class="hljs-typename">int</span>&gt;<span class="hljs-number">[1</span>,<span class="hljs-number"> 2</span>,<span class="hljs-number"> 3</span>];
 </code></pre>
-<p><strong>注意：</strong></p>
-<p>该种判断方法，被判断的array必须是在当前页面声明的！比如，一个页面（父页面）有一个框架，框架中引用了一个页面（子页面），在子页面中声明了一个array，并将其赋值给父页面的一个变量，这时判断该变量，<code>Array == object.constructor;</code>会返回false；</p>
-<p><strong>原因：</strong></p>
-<ul>
-<li><p>1、array属于引用型数据，在传递过程中，仅仅是引用地址的传递。</p>
-</li>
-<li><p>2、每个页面的Array原生对象所引用的地址是不一样的，在子页面声明的array，所对应的构造函数，是子页面的Array对象；父页面来进行判断，使用的Array并不等于子页面的Array；切记，不然很难跟踪问题！</p>
-</li>
-</ul>
-<h4 id="-">二、特性判断方法</h4>
-<p>即然上述方法，存在一定的缺陷，我们可根据数组的一些特性来判断其类型，代码如下：</p>
-<pre><code class="hljs javascript"><span class="hljs-function">function <span class="hljs-title">isArray</span><span class="hljs-params">(<span class="hljs-keyword">object</span>)</span></span>{
-    <span class="hljs-keyword">return</span>  <span class="hljs-keyword">object</span> &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>===<span class="hljs-string">'object'</span> &amp;&amp;   
-            <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>.length===<span class="hljs-string">'number'</span> &amp;&amp; 
-            <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>.splice===<span class="hljs-string">'function'</span> &amp;&amp;   
-             <span class="hljs-comment">//判断length属性是否是可枚举的 对于数组 将得到false </span>
-            !(<span class="hljs-keyword">object</span>.propertyIsEnumerable(<span class="hljs-string">'length'</span>));
-}
-</code></pre>
-<p>有length和splice并不一定是数组，因为可以为对象添加属性，而不能枚举length属性，才是最重要的判断因子。</p>
+<p>相关测试表明，Vector比Array在运行效率上能快一倍左右，所以，对于同类型的数组，建议使用Vector.</p>
 
-        <p><a href="/post/js-pan-duan-shu-zu" rel="nofollow" class="read-more">Read more »</a></p>
+        <p><a href="/post/as3-vector-shu-zu" rel="nofollow" class="read-more">Read more »</a></p>
     </article>
     <article class="post">
         <header class="post-header">
@@ -376,6 +336,46 @@ testA();
 <p>这一点区别非常重要，特别对于js和as同时使用的前端开发来讲，掌握两者的其础知识，能避免你犯错！</p>
 
         <p><a href="/post/js-as3-function-qu-bie" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年6月11日">2012年6月11日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+            </span>
+            <h2><a href="/post/js-pan-duan-shu-zu">JS判断数组类型的两种方法</a></h2>
+        </header>
+        <h4 id="-">一、构造函数法</h4>
+<p>在JS中，虽然没有严格的面向对象编程，但程序的设计还是有面向对象的味道。所有引用类型的数据，都是基于object；Array类型的数据，typeof时也会显示object；这给我们判断array类型，带来了不便。</p>
+<p>细想一下array的创建过程，<code>var arr = new Array(1,2,3);</code>或<code>var arr = [1,2,3];</code>实际上是创建了一个Array对象的实例，也就是说实例所对应的构造函数应该是Array；根据此原理，判断方法如下：</p>
+<pre><code class="hljs javascript"><span class="hljs-function">function <span class="hljs-title">isArray</span><span class="hljs-params">(<span class="hljs-keyword">object</span>)</span></span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">object</span> &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>===<span class="hljs-string">'object'</span> &amp;&amp;
+            Array == <span class="hljs-keyword">object</span>.constructor;
+}
+</code></pre>
+<p><strong>注意：</strong></p>
+<p>该种判断方法，被判断的array必须是在当前页面声明的！比如，一个页面（父页面）有一个框架，框架中引用了一个页面（子页面），在子页面中声明了一个array，并将其赋值给父页面的一个变量，这时判断该变量，<code>Array == object.constructor;</code>会返回false；</p>
+<p><strong>原因：</strong></p>
+<ul>
+<li><p>1、array属于引用型数据，在传递过程中，仅仅是引用地址的传递。</p>
+</li>
+<li><p>2、每个页面的Array原生对象所引用的地址是不一样的，在子页面声明的array，所对应的构造函数，是子页面的Array对象；父页面来进行判断，使用的Array并不等于子页面的Array；切记，不然很难跟踪问题！</p>
+</li>
+</ul>
+<h4 id="-">二、特性判断方法</h4>
+<p>即然上述方法，存在一定的缺陷，我们可根据数组的一些特性来判断其类型，代码如下：</p>
+<pre><code class="hljs javascript"><span class="hljs-function">function <span class="hljs-title">isArray</span><span class="hljs-params">(<span class="hljs-keyword">object</span>)</span></span>{
+    <span class="hljs-keyword">return</span>  <span class="hljs-keyword">object</span> &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>===<span class="hljs-string">'object'</span> &amp;&amp;   
+            <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>.length===<span class="hljs-string">'number'</span> &amp;&amp; 
+            <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>.splice===<span class="hljs-string">'function'</span> &amp;&amp;   
+             <span class="hljs-comment">//判断length属性是否是可枚举的 对于数组 将得到false </span>
+            !(<span class="hljs-keyword">object</span>.propertyIsEnumerable(<span class="hljs-string">'length'</span>));
+}
+</code></pre>
+<p>有length和splice并不一定是数组，因为可以为对象添加属性，而不能枚举length属性，才是最重要的判断因子。</p>
+
+        <p><a href="/post/js-pan-duan-shu-zu" rel="nofollow" class="read-more">Read more »</a></p>
     </article>
 
     <nav role="navigation" class="pagination">

@@ -214,46 +214,6 @@ alert(<span class="hljs-keyword">event</span>.data); <span class="hljs-comment">
                 <time datetime="2012年6月11日">2012年6月11日</time>
                 <em>on</em>
                 <a href="/tag/javascript">javascript</a>
-            </span>
-            <h2><a href="/post/js-pan-duan-shu-zu">JS判断数组类型的两种方法</a></h2>
-        </header>
-        <h4 id="-">一、构造函数法</h4>
-<p>在JS中，虽然没有严格的面向对象编程，但程序的设计还是有面向对象的味道。所有引用类型的数据，都是基于object；Array类型的数据，typeof时也会显示object；这给我们判断array类型，带来了不便。</p>
-<p>细想一下array的创建过程，<code>var arr = new Array(1,2,3);</code>或<code>var arr = [1,2,3];</code>实际上是创建了一个Array对象的实例，也就是说实例所对应的构造函数应该是Array；根据此原理，判断方法如下：</p>
-<pre><code class="hljs javascript"><span class="hljs-function">function <span class="hljs-title">isArray</span><span class="hljs-params">(<span class="hljs-keyword">object</span>)</span></span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">object</span> &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>===<span class="hljs-string">'object'</span> &amp;&amp;
-            Array == <span class="hljs-keyword">object</span>.constructor;
-}
-</code></pre>
-<p><strong>注意：</strong></p>
-<p>该种判断方法，被判断的array必须是在当前页面声明的！比如，一个页面（父页面）有一个框架，框架中引用了一个页面（子页面），在子页面中声明了一个array，并将其赋值给父页面的一个变量，这时判断该变量，<code>Array == object.constructor;</code>会返回false；</p>
-<p><strong>原因：</strong></p>
-<ul>
-<li><p>1、array属于引用型数据，在传递过程中，仅仅是引用地址的传递。</p>
-</li>
-<li><p>2、每个页面的Array原生对象所引用的地址是不一样的，在子页面声明的array，所对应的构造函数，是子页面的Array对象；父页面来进行判断，使用的Array并不等于子页面的Array；切记，不然很难跟踪问题！</p>
-</li>
-</ul>
-<h4 id="-">二、特性判断方法</h4>
-<p>即然上述方法，存在一定的缺陷，我们可根据数组的一些特性来判断其类型，代码如下：</p>
-<pre><code class="hljs javascript"><span class="hljs-function">function <span class="hljs-title">isArray</span><span class="hljs-params">(<span class="hljs-keyword">object</span>)</span></span>{
-    <span class="hljs-keyword">return</span>  <span class="hljs-keyword">object</span> &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>===<span class="hljs-string">'object'</span> &amp;&amp;   
-            <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>.length===<span class="hljs-string">'number'</span> &amp;&amp; 
-            <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>.splice===<span class="hljs-string">'function'</span> &amp;&amp;   
-             <span class="hljs-comment">//判断length属性是否是可枚举的 对于数组 将得到false </span>
-            !(<span class="hljs-keyword">object</span>.propertyIsEnumerable(<span class="hljs-string">'length'</span>));
-}
-</code></pre>
-<p>有length和splice并不一定是数组，因为可以为对象添加属性，而不能枚举length属性，才是最重要的判断因子。</p>
-
-        <p><a href="/post/js-pan-duan-shu-zu" rel="nofollow" class="read-more">Read more »</a></p>
-    </article>
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta">
-                <time datetime="2012年6月11日">2012年6月11日</time>
-                <em>on</em>
-                <a href="/tag/javascript">javascript</a>
                 ,
                 <a href="/tag/as3">as3</a>
             </span>
@@ -288,6 +248,46 @@ testA();
 <p>这一点区别非常重要，特别对于js和as同时使用的前端开发来讲，掌握两者的其础知识，能避免你犯错！</p>
 
         <p><a href="/post/js-as3-function-qu-bie" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年6月11日">2012年6月11日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+            </span>
+            <h2><a href="/post/js-pan-duan-shu-zu">JS判断数组类型的两种方法</a></h2>
+        </header>
+        <h4 id="-">一、构造函数法</h4>
+<p>在JS中，虽然没有严格的面向对象编程，但程序的设计还是有面向对象的味道。所有引用类型的数据，都是基于object；Array类型的数据，typeof时也会显示object；这给我们判断array类型，带来了不便。</p>
+<p>细想一下array的创建过程，<code>var arr = new Array(1,2,3);</code>或<code>var arr = [1,2,3];</code>实际上是创建了一个Array对象的实例，也就是说实例所对应的构造函数应该是Array；根据此原理，判断方法如下：</p>
+<pre><code class="hljs javascript"><span class="hljs-function">function <span class="hljs-title">isArray</span><span class="hljs-params">(<span class="hljs-keyword">object</span>)</span></span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">object</span> &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>===<span class="hljs-string">'object'</span> &amp;&amp;
+            Array == <span class="hljs-keyword">object</span>.constructor;
+}
+</code></pre>
+<p><strong>注意：</strong></p>
+<p>该种判断方法，被判断的array必须是在当前页面声明的！比如，一个页面（父页面）有一个框架，框架中引用了一个页面（子页面），在子页面中声明了一个array，并将其赋值给父页面的一个变量，这时判断该变量，<code>Array == object.constructor;</code>会返回false；</p>
+<p><strong>原因：</strong></p>
+<ul>
+<li><p>1、array属于引用型数据，在传递过程中，仅仅是引用地址的传递。</p>
+</li>
+<li><p>2、每个页面的Array原生对象所引用的地址是不一样的，在子页面声明的array，所对应的构造函数，是子页面的Array对象；父页面来进行判断，使用的Array并不等于子页面的Array；切记，不然很难跟踪问题！</p>
+</li>
+</ul>
+<h4 id="-">二、特性判断方法</h4>
+<p>即然上述方法，存在一定的缺陷，我们可根据数组的一些特性来判断其类型，代码如下：</p>
+<pre><code class="hljs javascript"><span class="hljs-function">function <span class="hljs-title">isArray</span><span class="hljs-params">(<span class="hljs-keyword">object</span>)</span></span>{
+    <span class="hljs-keyword">return</span>  <span class="hljs-keyword">object</span> &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>===<span class="hljs-string">'object'</span> &amp;&amp;   
+            <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>.length===<span class="hljs-string">'number'</span> &amp;&amp; 
+            <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>.splice===<span class="hljs-string">'function'</span> &amp;&amp;   
+             <span class="hljs-comment">//判断length属性是否是可枚举的 对于数组 将得到false </span>
+            !(<span class="hljs-keyword">object</span>.propertyIsEnumerable(<span class="hljs-string">'length'</span>));
+}
+</code></pre>
+<p>有length和splice并不一定是数组，因为可以为对象添加属性，而不能枚举length属性，才是最重要的判断因子。</p>
+
+        <p><a href="/post/js-pan-duan-shu-zu" rel="nofollow" class="read-more">Read more »</a></p>
     </article>
     <article class="post">
         <header class="post-header">
@@ -374,6 +374,115 @@ jQuery EasyUI英文官方手册（API）：<a href="http://www.jeasyui.com/docum
                 <em>on</em>
                 <a href="/tag/javascript">javascript</a>
             </span>
+            <h2><a href="/post/javascript-function-bind">Function中的扩展方法bind()</a></h2>
+        </header>
+        <p>js bind 函数 使用闭包保存执行上下文</p>
+<p>bind()主要具有两个重要作用:</p>
+<p>(1)一般地,方法中的this关键字总是指向调用此方法的对象,这就造成this显得很不稳定,而使用bind()方法能够保证无论什么时候调用此方法,this关键字总是指向你所要的对象.</p>
+<p>(2)提供两次添加参数的机会.第一次是在使用bind()方法的时候,第二次是调用bind()方法返回的句</p>
+<p><strong>prototypejs框架中的实现方式：</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">Function</span>.prototype.bind = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">var</span> __method = <span class="hljs-keyword">this</span>;
+    <span class="hljs-keyword">var</span> args = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>);<span class="hljs-comment">//将arguments转换为数组</span>
+    <span class="hljs-keyword">var</span> object=args.shift(); <span class="hljs-comment">//截取第一个</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> __method.apply(object,
+             args.concat(<span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>))
+    );
+    }
+}
+</code></pre>
+<p><strong>用法实例：</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> name = <span class="hljs-string">"window"</span>;
+<span class="hljs-keyword">var</span> obj = {
+    name: <span class="hljs-string">'JSON'</span>,
+    getName: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+        alert(<span class="hljs-keyword">this</span>.name);
+    }
+};
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">runFun</span><span class="hljs-params">(fun)</span> </span>{
+    fun();
+}
+<span class="hljs-keyword">var</span> getName2 = obj.getName.bind(obj);
+runFun(obj.getName); <span class="hljs-comment">//window</span>
+runFun(getName2); <span class="hljs-comment">//JSON</span>
+</code></pre>
+
+        <p><a href="/post/javascript-function-bind" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年3月5日">2012年3月5日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+            </span>
+            <h2><a href="/post/ni-ming-han-shu-feng-zhuang">通过匿名函数实现JS的代码封装（类封装）</a></h2>
+        </header>
+        <p>JS没有严格的类似JAVA的类概念，但可以通过原型链实现类。</p>
+<p>通常意义上，推荐使用在构造函数中接受属性值，在原型链上注册方法属性。详情可参考《JavaScript高级程序设计(第2版)》</p>
+<p>类似以下代码：</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> myClass = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(a, b, c)</span></span>{
+    <span class="hljs-keyword">this</span>.a = a;
+    <span class="hljs-keyword">this</span>.b = b;
+    <span class="hljs-keyword">this</span>.c = c;
+    <span class="hljs-comment">// 构造函数</span>
+}
+
+myClass.prototype = {
+    f1: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{alert(<span class="hljs-keyword">this</span>.a);},
+    f2: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{alert(<span class="hljs-keyword">this</span>.b);},
+    f2: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{alert(<span class="hljs-keyword">this</span>.c);}
+    <span class="hljs-comment">//该类的方法</span>
+}
+<span class="hljs-keyword">var</span> classA = <span class="hljs-keyword">new</span> myClass(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);
+classA.f1();
+</code></pre>
+<p><strong>匿名函数</strong></p>
+<p>顾名思义，匿名函数就是没有实际名字的函数。</p>
+<p>大家知道小括号的作用吗？小括号能把我们的表达式组合分块，并且每一块，也就是每一对小括号，都有一个返回值。这个返回值实际上也就是小括号中表达式的返回值。所以，当我们用一对小括号把匿名函数括起来的时候，实际上小括号对返回的，就是一个匿名函数的Function对象。因此，小括号对加上匿名函数就如同有名字的函数般被我们取得它的引用位置了。所以如果在这个引用变量后面再加上参数列表，就会实现普通函数的调用形式。</p>
+<p>如 <code>(function(){alert(“匿名函数”);});</code></p>
+<p>但小括号返回的仅是函数表达式，函数并没有运行起来。要运行函数表达式在后再再加上();</p>
+<p>变成 <code>(function(){alert(“匿名函数”);})();</code></p>
+<p>这样就产生了一个困扰，这样写会产生闭包吗？大家都知道闭包对于GC的垃圾回收机制有影响，建议少用闭包。</p>
+<p>下面我们就来探讨一下。</p>
+<p>以我的理解来说吧。是否应用了闭包特性，必须确定该段代码有没有最重要的要素：未销毁的局部变量。</p>
+<p>只能说这种写法有闭包的特性，只否形成闭包，还要看有没有未销毁的局部变量。</p>
+<p><strong>匿名函数封装类</strong></p>
+<pre><code class="hljs javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+
+    <span class="hljs-keyword">var</span> myClass = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(a, b, c)</span></span>{
+        <span class="hljs-keyword">this</span>.a = a;
+        <span class="hljs-keyword">this</span>.b = b;
+        <span class="hljs-keyword">this</span>.c = c;
+        <span class="hljs-comment">// 构造函数</span>
+    }
+
+    myClass.prototype = {
+        f1: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{alert(<span class="hljs-keyword">this</span>.a);},
+        f2: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{alert(<span class="hljs-keyword">this</span>.b);},
+        f2: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{alert(<span class="hljs-keyword">this</span>.c);}
+        <span class="hljs-comment">//该类的方法</span>
+    }
+
+    <span class="hljs-built_in">window</span>.myClass = myClass;
+})();
+<span class="hljs-keyword">var</span> classA = <span class="hljs-keyword">new</span> myClass(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);
+<span class="hljs-keyword">var</span> classB = <span class="hljs-keyword">new</span> myClass(<span class="hljs-number">10</span>,<span class="hljs-number">20</span>,<span class="hljs-number">30</span>);
+classA.f1();
+classB.f1();
+</code></pre>
+<p>其中window.myClass = myClass;这一段，也可以使用return 抛可供调用的API接口。</p>
+
+        <p><a href="/post/ni-ming-han-shu-feng-zhuang" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年3月5日">2012年3月5日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+            </span>
             <h2><a href="/post/javascript-xiao-ji-qiao">javascript中的几个小技巧及原理</a></h2>
         </header>
         <p>以下的几个小技巧，其实考察的是对JS基础知识的掌握和理解。基础的东西一定要打牢固，才能向使你的编码能力有台阶性的上升。</p>
@@ -421,77 +530,6 @@ var str = “”;</p>
 当a();返回false时，就注定整个表达式为false，无需运行b();</p>
 
         <p><a href="/post/javascript-xiao-ji-qiao" rel="nofollow" class="read-more">Read more »</a></p>
-    </article>
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta">
-                <time datetime="2012年3月5日">2012年3月5日</time>
-                <em>on</em>
-                <a href="/tag/javascript">javascript</a>
-            </span>
-            <h2><a href="/post/javascript-get-reg">js获取GET参数(简易正则实现方式)</a></h2>
-        </header>
-        <p>js获取GET参数，比较常用到，一般的实现方式通过截取字符串，我用正则简单的实现了一下，在我目前的项目中基本通用，没有遇到问题。</p>
-<p>下接上代码，如果获取的参数不存在时，返回空。</p>
-<pre><code class="hljs javascript"><span class="hljs-comment">//window.location.href = test.html?uin=1000&amp;skey=523</span>
-<span class="hljs-comment">//window.location.href = test.html#uin=1000&amp;skey=523</span>
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUrlArgs</span><span class="hljs-params">(_name)</span></span>{
-    <span class="hljs-keyword">var</span> url = <span class="hljs-built_in">window</span>.location.href;
-    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">".+"</span>+_name+<span class="hljs-string">"=([^&amp;]+).*"</span>,<span class="hljs-string">"gi"</span>).test(url)){
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">RegExp</span>.$<span class="hljs-number">1</span>;
-    }<span class="hljs-keyword">else</span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;
-    }
-}
-alert(getUrlArgs(<span class="hljs-string">"uin"</span>));
-alert(getUrlArgs(<span class="hljs-string">"skey"</span>));
-</code></pre>
-
-        <p><a href="/post/javascript-get-reg" rel="nofollow" class="read-more">Read more »</a></p>
-    </article>
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta">
-                <time datetime="2012年3月5日">2012年3月5日</time>
-                <em>on</em>
-                <a href="/tag/javascript">javascript</a>
-            </span>
-            <h2><a href="/post/javascript-function-bind">Function中的扩展方法bind()</a></h2>
-        </header>
-        <p>js bind 函数 使用闭包保存执行上下文</p>
-<p>bind()主要具有两个重要作用:</p>
-<p>(1)一般地,方法中的this关键字总是指向调用此方法的对象,这就造成this显得很不稳定,而使用bind()方法能够保证无论什么时候调用此方法,this关键字总是指向你所要的对象.</p>
-<p>(2)提供两次添加参数的机会.第一次是在使用bind()方法的时候,第二次是调用bind()方法返回的句</p>
-<p><strong>prototypejs框架中的实现方式：</strong></p>
-<pre><code class="hljs javascript"><span class="hljs-built_in">Function</span>.prototype.bind = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">var</span> __method = <span class="hljs-keyword">this</span>;
-    <span class="hljs-keyword">var</span> args = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>);<span class="hljs-comment">//将arguments转换为数组</span>
-    <span class="hljs-keyword">var</span> object=args.shift(); <span class="hljs-comment">//截取第一个</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">return</span> __method.apply(object,
-             args.concat(<span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>))
-    );
-    }
-}
-</code></pre>
-<p><strong>用法实例：</strong></p>
-<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> name = <span class="hljs-string">"window"</span>;
-<span class="hljs-keyword">var</span> obj = {
-    name: <span class="hljs-string">'JSON'</span>,
-    getName: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-        alert(<span class="hljs-keyword">this</span>.name);
-    }
-};
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">runFun</span><span class="hljs-params">(fun)</span> </span>{
-    fun();
-}
-<span class="hljs-keyword">var</span> getName2 = obj.getName.bind(obj);
-runFun(obj.getName); <span class="hljs-comment">//window</span>
-runFun(getName2); <span class="hljs-comment">//JSON</span>
-</code></pre>
-
-        <p><a href="/post/javascript-function-bind" rel="nofollow" class="read-more">Read more »</a></p>
     </article>
 
     <nav role="navigation" class="pagination">

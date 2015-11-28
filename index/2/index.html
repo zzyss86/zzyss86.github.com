@@ -339,6 +339,32 @@ type: <span class="hljs-function"><span class="hljs-keyword">function</span><spa
             <span class="post-meta">
                 <time datetime="2013年4月20日">2013年4月20日</time>
                 <em>on</em>
+                <a href="/tag/css">css</a>
+            </span>
+            <h2><a href="/post/css-wang-ye-bian-hui">CSS让网页整体变灰[为雅安地震祈福]</a></h2>
+        </header>
+        <pre><code class="hljs css">html{
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    filter: url("data:image/svg+xml;utf8,<span class="hljs-tag">&lt;<span class="hljs-title">svg</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">\'http:</span>//<span class="hljs-attribute">www.w3.org</span>/<span class="hljs-attribute">2000</span>/
+<span class="hljs-attribute">svg</span>\'&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">filter</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">\'grayscale\'</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">feColorMatrix</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">\'matrix\'</span> <span class="hljs-attribute">values</span>=<span class="hljs-value">\'0.3333</span>
+ <span class="hljs-attribute">0.3333</span> <span class="hljs-attribute">0.3333</span> <span class="hljs-attribute">0</span> <span class="hljs-attribute">0</span> <span class="hljs-attribute">0.3333</span> <span class="hljs-attribute">0.3333</span> <span class="hljs-attribute">0.3333</span> <span class="hljs-attribute">0</span> <span class="hljs-attribute">0</span> <span class="hljs-attribute">0.3333</span> <span class="hljs-attribute">0.3333</span> <span class="hljs-attribute">0.3333</span> <span class="hljs-attribute">0</span> <span class="hljs-attribute">0</span> <span class="hljs-attribute">0</span> <span class="hljs-attribute">0</span> <span class="hljs-attribute">0</span> <span class="hljs-attribute">1</span>
+ <span class="hljs-attribute">0</span>\'/&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">filter</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">svg</span>&gt;</span>#grayscale");
+    filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+}
+</code></pre>
+<p>不过对firefox和flash支持不好，暂时没有总结出最完美的兼容方案。</p>
+
+        <p><a href="/post/css-wang-ye-bian-hui" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年4月20日">2013年4月20日</time>
+                <em>on</em>
                 <a href="/tag/javascript">javascript</a>
             </span>
             <h2><a href="/post/javascript-yi-bu-bian-cheng">Javascript异步编程几种方式及Ajax串行执行探讨</a></h2>
@@ -360,32 +386,6 @@ a(b);
 <p>a执行完后，b再执行。这是典型的回调函数用法，但是回调函数代码高度耦合，代码可读性不高，而且比较混乱，如果回调流程比较长，需要从中减掉一个回调流程时，不易修改。</p>
 
         <p><a href="/post/javascript-yi-bu-bian-cheng" rel="nofollow" class="read-more">Read more »</a></p>
-    </article>
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta">
-                <time datetime="2013年4月20日">2013年4月20日</time>
-                <em>on</em>
-                <a href="/tag/css">css</a>
-            </span>
-            <h2><a href="/post/css-wang-ye-bian-hui">CSS让网页整体变灰[为雅安地震祈福]</a></h2>
-        </header>
-        <pre><code class="hljs css">html{
-    -webkit-filter: grayscale(100%);
-    -moz-filter: grayscale(100%);
-    -ms-filter: grayscale(100%);
-    -o-filter: grayscale(100%);
-    filter: grayscale(100%);
-    filter: url("data:image/svg+xml;utf8,<span class="hljs-tag">&lt;<span class="hljs-title">svg</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">\'http:</span>//<span class="hljs-attribute">www.w3.org</span>/<span class="hljs-attribute">2000</span>/
-<span class="hljs-attribute">svg</span>\'&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">filter</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">\'grayscale\'</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">feColorMatrix</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">\'matrix\'</span> <span class="hljs-attribute">values</span>=<span class="hljs-value">\'0.3333</span>
- <span class="hljs-attribute">0.3333</span> <span class="hljs-attribute">0.3333</span> <span class="hljs-attribute">0</span> <span class="hljs-attribute">0</span> <span class="hljs-attribute">0.3333</span> <span class="hljs-attribute">0.3333</span> <span class="hljs-attribute">0.3333</span> <span class="hljs-attribute">0</span> <span class="hljs-attribute">0</span> <span class="hljs-attribute">0.3333</span> <span class="hljs-attribute">0.3333</span> <span class="hljs-attribute">0.3333</span> <span class="hljs-attribute">0</span> <span class="hljs-attribute">0</span> <span class="hljs-attribute">0</span> <span class="hljs-attribute">0</span> <span class="hljs-attribute">0</span> <span class="hljs-attribute">1</span>
- <span class="hljs-attribute">0</span>\'/&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">filter</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">svg</span>&gt;</span>#grayscale");
-    filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
-}
-</code></pre>
-<p>不过对firefox和flash支持不好，暂时没有总结出最完美的兼容方案。</p>
-
-        <p><a href="/post/css-wang-ye-bian-hui" rel="nofollow" class="read-more">Read more »</a></p>
     </article>
     <article class="post">
         <header class="post-header">

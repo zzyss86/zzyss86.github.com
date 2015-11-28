@@ -466,32 +466,20 @@ sudo apt-<span class="hljs-built_in">get</span> install libgif-<span class="hljs
                 <em>on</em>
                 <a href="/tag/NodeJs">NodeJs</a>
             </span>
-            <h2><a href="/post/mongodb-windows-install">下载安装和配置MongoDB(windows)</a></h2>
+            <h2><a href="/post/node-js-zhou-bian-ku">node.js周边库学习资源列表</a></h2>
         </header>
-        <p><strong>安装Mongo数据库：</strong></p>
-<p>第一步：下载安装包：官方下载地址←单击此处,如果是win系统，注意是64位还是32位版本的，请选择正确的版本。</p>
-<p>第二步：新建目录“F:\MongoDB”(目录可自定义)。解压下载的安装包，找到bin目录下面全部文件，拷贝到刚创建的目录下。</p>
-<p>第三步：在“F:\MongoDB”目录下新建“data”文件夹，它将会作为数据存放的根文件夹。</p>
-<p><strong>配置Mongo服务端：</strong></p>
-<p>windows下打开CMD窗口，按照如下方式输入命令：</p>
-<p>1、配置数据存放的根文件夹</p>
-<pre><code class="hljs shell">F:
-cd /MongoDB
-mongod --dbpath F:<span class="hljs-command">\MongoDB</span><span class="hljs-command">\data</span>
-</code></pre>
-<p>2、配置日志文件存放目录</p>
-<pre><code class="hljs shell">mongod --logpath F:<span class="hljs-command">\MongoDB</span><span class="hljs-command">\logs</span><span class="hljs-command">\mongodb</span>.log
-</code></pre>
-<p>3、将MongoDB 作为 Windows 服务随机启动</p>
-<pre><code class="hljs shell">mongod <span class="hljs-comment">--install</span>
-</code></pre>
-<p>在浏览器输入：<a href="http://localhost:27017/，可以看到如下提示：">http://localhost:27017/，可以看到如下提示：</a></p>
+        <p>好久没有更新博客了，最近的业余时间在专心于node.js相关的学习了，学习列表，和大家共享：</p>
 <blockquote>
-<p>You are trying to access MongoDB on the native driver port. For http diagnostic access, add 1000 to the port number</p>
+<p>npm：NodeJs包管理器</p>
+<p>express：服务器端比较流行的MVC框架，处理服务请求，路由转发，逻辑处理</p>
+<p>mongoose：mongodb包装，更方便使用数据库</p>
+<p>socket.io：实现服务端和客户端socket通信解决方案</p>
+<p>backbone：客户端MVC框架，编写客户端应用（豆瓣说）</p>
+<p>coffeescript：提高JavaScript的可读性，健壮性</p>
+<p>zombie：浏览器子集，编写html解析器，轻形javascript客户端测试</p>
 </blockquote>
-<p>如此，MongoDB数据库服务已经成功启动了。</p>
 
-        <p><a href="/post/mongodb-windows-install" rel="nofollow" class="read-more">Read more »</a></p>
+        <p><a href="/post/node-js-zhou-bian-ku" rel="nofollow" class="read-more">Read more »</a></p>
     </article>
 
     <nav role="navigation" class="pagination">

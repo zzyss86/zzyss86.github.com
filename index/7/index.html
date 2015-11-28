@@ -228,89 +228,6 @@ alert(<span class="hljs-string">"找到的数："</span>+res+<span class="hljs-s
                 <em>on</em>
                 <a href="/tag/javascript">javascript</a>
             </span>
-            <h2><a href="/post/javascript-xiao-ji-qiao">javascript中的几个小技巧及原理</a></h2>
-        </header>
-        <p>以下的几个小技巧，其实考察的是对JS基础知识的掌握和理解。基础的东西一定要打牢固，才能向使你的编码能力有台阶性的上升。</p>
-<h5 id="1-">1、简短取当前时间戳。</h5>
-<p>普通青年的做法：</p>
-<pre><code class="hljs javascript"><span class="hljs-built_in">var</span> time <span class="hljs-subst">=</span> <span class="hljs-literal">new</span> <span class="hljs-built_in">Date</span>()<span class="hljs-built_in">.</span>getTime();
-</code></pre>
-<p>文艺青年的做法：</p>
-<pre><code class="hljs javascript"><span class="hljs-built_in">var</span> time <span class="hljs-subst">=</span> (<span class="hljs-subst">+</span>(<span class="hljs-literal">new</span> <span class="hljs-built_in">Date</span>));
-<span class="hljs-comment">//或</span>
-<span class="hljs-built_in">var</span> time <span class="hljs-subst">=</span> <span class="hljs-subst">+</span>(<span class="hljs-literal">new</span> <span class="hljs-built_in">Date</span>);
-</code></pre>
-<p>效果是一样的，但是文艺青年的做法，明显优雅一些，不过可读性视各位的基础而定。</p>
-<p><strong>原理：</strong></p>
-<p>大家知道小括号的作用吗？小括号能把我们的表达式组合分块，并且每一块，也就是每一对小括号，都有一个返回值。(new Date)其实就是返回当前的Date对象。</p>
-<p>一元加操作符（+），放在数字前面，对数值不会产生任何影响。但放在非数值类型的前面，相当于Number()转型函数。+(new Date)就返回了时间戳数字。但为什么外面还需要一对括号呢，如果用于赋值操作，可有可无，但用于字符串连接操作时，一定要加上。</p>
-<h5 id="2-">2、布尔操作符的妙用</h5>
-<p><strong>判断一个字符串为空</strong>
-var str = “”;</p>
-<p>普通青年的做法：</p>
-<pre><code class="hljs javascript"><span class="hljs-keyword">if</span>(<span class="hljs-keyword">str</span>==<span class="hljs-string">''</span>){
-    alert(<span class="hljs-string">"字会串是空的哦！"</span>);
-}
-</code></pre>
-<p>文艺青年的做法：</p>
-<pre><code class="hljs javascript"><span class="hljs-keyword">if</span><span class="hljs-comment">(!str)</span>{
-    alert<span class="hljs-comment">("字会串是空的哦！")</span>;
-}
-</code></pre>
-<p><strong>原理：</strong></p>
-<p>逻辑非（！）操作符，放在值前面，无论这个值是什么数据类型，这个操作符都会返回一个布尔型，然后再对其求反。
-两个”!!”，实际上就相当于应用Boolean()函数转型。</p>
-<h5 id="3-">3、逻辑与操作符（&amp;&amp;）的妙用</h5>
-<p>a(),和 b(); b的执行需a()返回值为true才能执行，否则不执行。</p>
-<p>普通青年的做法：</p>
-<pre><code class="hljs javascript"><span class="hljs-keyword">if</span><span class="hljs-comment">(a()</span>){
-    b<span class="hljs-comment">()</span>;
-}
-</code></pre>
-<p>文艺青年的做法：</p>
-<pre><code class="hljs javascript">a<span class="hljs-comment">()</span> &amp;&amp; b<span class="hljs-comment">()</span>;
-</code></pre>
-<p><strong>原理：</strong></p>
-<p>逻辑与属于短路操作，如果第一个操作数能够决定结果，那么不会对第二个操作数进行求值。
-当a();返回false时，就注定整个表达式为false，无需运行b();</p>
-
-        <p><a href="/post/javascript-xiao-ji-qiao" rel="nofollow" class="read-more">Read more »</a></p>
-    </article>
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta">
-                <time datetime="2012年3月5日">2012年3月5日</time>
-                <em>on</em>
-                <a href="/tag/javascript">javascript</a>
-            </span>
-            <h2><a href="/post/javascript-get-reg">js获取GET参数(简易正则实现方式)</a></h2>
-        </header>
-        <p>js获取GET参数，比较常用到，一般的实现方式通过截取字符串，我用正则简单的实现了一下，在我目前的项目中基本通用，没有遇到问题。</p>
-<p>下接上代码，如果获取的参数不存在时，返回空。</p>
-<pre><code class="hljs javascript"><span class="hljs-comment">//window.location.href = test.html?uin=1000&amp;skey=523</span>
-<span class="hljs-comment">//window.location.href = test.html#uin=1000&amp;skey=523</span>
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUrlArgs</span><span class="hljs-params">(_name)</span></span>{
-    <span class="hljs-keyword">var</span> url = <span class="hljs-built_in">window</span>.location.href;
-    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">".+"</span>+_name+<span class="hljs-string">"=([^&amp;]+).*"</span>,<span class="hljs-string">"gi"</span>).test(url)){
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">RegExp</span>.$<span class="hljs-number">1</span>;
-    }<span class="hljs-keyword">else</span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;
-    }
-}
-alert(getUrlArgs(<span class="hljs-string">"uin"</span>));
-alert(getUrlArgs(<span class="hljs-string">"skey"</span>));
-</code></pre>
-
-        <p><a href="/post/javascript-get-reg" rel="nofollow" class="read-more">Read more »</a></p>
-    </article>
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta">
-                <time datetime="2012年3月5日">2012年3月5日</time>
-                <em>on</em>
-                <a href="/tag/javascript">javascript</a>
-            </span>
             <h2><a href="/post/javascript-function-bind">Function中的扩展方法bind()</a></h2>
         </header>
         <p>js bind 函数 使用闭包保存执行上下文</p>
@@ -412,6 +329,89 @@ classB.f1();
 <p>其中window.myClass = myClass;这一段，也可以使用return 抛可供调用的API接口。</p>
 
         <p><a href="/post/ni-ming-han-shu-feng-zhuang" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年3月5日">2012年3月5日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+            </span>
+            <h2><a href="/post/javascript-xiao-ji-qiao">javascript中的几个小技巧及原理</a></h2>
+        </header>
+        <p>以下的几个小技巧，其实考察的是对JS基础知识的掌握和理解。基础的东西一定要打牢固，才能向使你的编码能力有台阶性的上升。</p>
+<h5 id="1-">1、简短取当前时间戳。</h5>
+<p>普通青年的做法：</p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">var</span> time <span class="hljs-subst">=</span> <span class="hljs-literal">new</span> <span class="hljs-built_in">Date</span>()<span class="hljs-built_in">.</span>getTime();
+</code></pre>
+<p>文艺青年的做法：</p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">var</span> time <span class="hljs-subst">=</span> (<span class="hljs-subst">+</span>(<span class="hljs-literal">new</span> <span class="hljs-built_in">Date</span>));
+<span class="hljs-comment">//或</span>
+<span class="hljs-built_in">var</span> time <span class="hljs-subst">=</span> <span class="hljs-subst">+</span>(<span class="hljs-literal">new</span> <span class="hljs-built_in">Date</span>);
+</code></pre>
+<p>效果是一样的，但是文艺青年的做法，明显优雅一些，不过可读性视各位的基础而定。</p>
+<p><strong>原理：</strong></p>
+<p>大家知道小括号的作用吗？小括号能把我们的表达式组合分块，并且每一块，也就是每一对小括号，都有一个返回值。(new Date)其实就是返回当前的Date对象。</p>
+<p>一元加操作符（+），放在数字前面，对数值不会产生任何影响。但放在非数值类型的前面，相当于Number()转型函数。+(new Date)就返回了时间戳数字。但为什么外面还需要一对括号呢，如果用于赋值操作，可有可无，但用于字符串连接操作时，一定要加上。</p>
+<h5 id="2-">2、布尔操作符的妙用</h5>
+<p><strong>判断一个字符串为空</strong>
+var str = “”;</p>
+<p>普通青年的做法：</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">if</span>(<span class="hljs-keyword">str</span>==<span class="hljs-string">''</span>){
+    alert(<span class="hljs-string">"字会串是空的哦！"</span>);
+}
+</code></pre>
+<p>文艺青年的做法：</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">if</span><span class="hljs-comment">(!str)</span>{
+    alert<span class="hljs-comment">("字会串是空的哦！")</span>;
+}
+</code></pre>
+<p><strong>原理：</strong></p>
+<p>逻辑非（！）操作符，放在值前面，无论这个值是什么数据类型，这个操作符都会返回一个布尔型，然后再对其求反。
+两个”!!”，实际上就相当于应用Boolean()函数转型。</p>
+<h5 id="3-">3、逻辑与操作符（&amp;&amp;）的妙用</h5>
+<p>a(),和 b(); b的执行需a()返回值为true才能执行，否则不执行。</p>
+<p>普通青年的做法：</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">if</span><span class="hljs-comment">(a()</span>){
+    b<span class="hljs-comment">()</span>;
+}
+</code></pre>
+<p>文艺青年的做法：</p>
+<pre><code class="hljs javascript">a<span class="hljs-comment">()</span> &amp;&amp; b<span class="hljs-comment">()</span>;
+</code></pre>
+<p><strong>原理：</strong></p>
+<p>逻辑与属于短路操作，如果第一个操作数能够决定结果，那么不会对第二个操作数进行求值。
+当a();返回false时，就注定整个表达式为false，无需运行b();</p>
+
+        <p><a href="/post/javascript-xiao-ji-qiao" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年3月5日">2012年3月5日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+            </span>
+            <h2><a href="/post/javascript-get-reg">js获取GET参数(简易正则实现方式)</a></h2>
+        </header>
+        <p>js获取GET参数，比较常用到，一般的实现方式通过截取字符串，我用正则简单的实现了一下，在我目前的项目中基本通用，没有遇到问题。</p>
+<p>下接上代码，如果获取的参数不存在时，返回空。</p>
+<pre><code class="hljs javascript"><span class="hljs-comment">//window.location.href = test.html?uin=1000&amp;skey=523</span>
+<span class="hljs-comment">//window.location.href = test.html#uin=1000&amp;skey=523</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUrlArgs</span><span class="hljs-params">(_name)</span></span>{
+    <span class="hljs-keyword">var</span> url = <span class="hljs-built_in">window</span>.location.href;
+    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">".+"</span>+_name+<span class="hljs-string">"=([^&amp;]+).*"</span>,<span class="hljs-string">"gi"</span>).test(url)){
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">RegExp</span>.$<span class="hljs-number">1</span>;
+    }<span class="hljs-keyword">else</span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;
+    }
+}
+alert(getUrlArgs(<span class="hljs-string">"uin"</span>));
+alert(getUrlArgs(<span class="hljs-string">"skey"</span>));
+</code></pre>
+
+        <p><a href="/post/javascript-get-reg" rel="nofollow" class="read-more">Read more »</a></p>
     </article>
     <article class="post">
         <header class="post-header">

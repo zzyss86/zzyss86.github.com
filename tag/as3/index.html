@@ -95,29 +95,6 @@
                 <em>on</em>
                 <a href="/tag/as3">as3</a>
             </span>
-            <h2><a href="/post/as3-vector-shu-zu">AS3 Vector数组的多种声明及添加项方法</a></h2>
-        </header>
-        <p>我们知道：和JS一样，ActionScript3.0中的Array数组可以存放多种类型，甚至在同一个Array数组中，可以同时存入String,Object,Number…，但其实我们在实际开发中，通常一个数组中所保存的元素类型都是一致的，为了改进这种情况下的效率，AS3.0新增了一个Vector类。</p>
-<p>它强制要求数组中的每个元素都必须是同样的类型，从而提高了数组的运行效率。</p>
-<pre><code class="hljs actionscript"><span class="hljs-comment">//方法一</span>
-<span class="hljs-keyword">var</span> list:Vector.&lt;<span class="hljs-typename">int</span>&gt; = <span class="hljs-built_in">new</span> Vector.&lt;<span class="hljs-typename">int</span>&gt;();
-list2.push<span class="hljs-number">(1</span>,<span class="hljs-number"> 2</span>,<span class="hljs-number"> 3</span>);
-<span class="hljs-comment">//方法二          </span>
-<span class="hljs-keyword">var</span> list:Vector.&lt;<span class="hljs-typename">int</span>&gt; = Vector.&lt;<span class="hljs-typename">int</span>&gt;(<span class="hljs-number">[1</span>,<span class="hljs-number"> 2</span>,<span class="hljs-number"> 3</span>]);
-<span class="hljs-comment">//方法三  </span>
-<span class="hljs-keyword">var</span> list:Vector.&lt;<span class="hljs-typename">int</span>&gt; = <span class="hljs-built_in">new</span> &lt;<span class="hljs-typename">int</span>&gt;<span class="hljs-number">[1</span>,<span class="hljs-number"> 2</span>,<span class="hljs-number"> 3</span>];
-</code></pre>
-<p>相关测试表明，Vector比Array在运行效率上能快一倍左右，所以，对于同类型的数组，建议使用Vector.</p>
-
-        <p><a href="/post/as3-vector-shu-zu" rel="nofollow" class="read-more">Read more »</a></p>
-    </article>
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta">
-                <time datetime="2012年6月22日">2012年6月22日</time>
-                <em>on</em>
-                <a href="/tag/as3">as3</a>
-            </span>
             <h2><a href="/post/starling-flash-stats">Starling版本的Flash概要分析类：Stats</a></h2>
         </header>
         <p><img src="/assets/upload/hires_stats.png" alt=""></p>
@@ -133,6 +110,29 @@ list2.push<span class="hljs-number">(1</span>,<span class="hljs-number"> 2</span
 <p>传统的CPU版本：<a href="https://github.com/mrdoob/Hi-ReS-Stats">https://github.com/mrdoob/Hi-ReS-Stats</a></p>
 
         <p><a href="/post/starling-flash-stats" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年6月22日">2012年6月22日</time>
+                <em>on</em>
+                <a href="/tag/as3">as3</a>
+            </span>
+            <h2><a href="/post/as3-vector-shu-zu">AS3 Vector数组的多种声明及添加项方法</a></h2>
+        </header>
+        <p>我们知道：和JS一样，ActionScript3.0中的Array数组可以存放多种类型，甚至在同一个Array数组中，可以同时存入String,Object,Number…，但其实我们在实际开发中，通常一个数组中所保存的元素类型都是一致的，为了改进这种情况下的效率，AS3.0新增了一个Vector类。</p>
+<p>它强制要求数组中的每个元素都必须是同样的类型，从而提高了数组的运行效率。</p>
+<pre><code class="hljs actionscript"><span class="hljs-comment">//方法一</span>
+<span class="hljs-keyword">var</span> list:Vector.&lt;<span class="hljs-typename">int</span>&gt; = <span class="hljs-built_in">new</span> Vector.&lt;<span class="hljs-typename">int</span>&gt;();
+list2.push<span class="hljs-number">(1</span>,<span class="hljs-number"> 2</span>,<span class="hljs-number"> 3</span>);
+<span class="hljs-comment">//方法二          </span>
+<span class="hljs-keyword">var</span> list:Vector.&lt;<span class="hljs-typename">int</span>&gt; = Vector.&lt;<span class="hljs-typename">int</span>&gt;(<span class="hljs-number">[1</span>,<span class="hljs-number"> 2</span>,<span class="hljs-number"> 3</span>]);
+<span class="hljs-comment">//方法三  </span>
+<span class="hljs-keyword">var</span> list:Vector.&lt;<span class="hljs-typename">int</span>&gt; = <span class="hljs-built_in">new</span> &lt;<span class="hljs-typename">int</span>&gt;<span class="hljs-number">[1</span>,<span class="hljs-number"> 2</span>,<span class="hljs-number"> 3</span>];
+</code></pre>
+<p>相关测试表明，Vector比Array在运行效率上能快一倍左右，所以，对于同类型的数组，建议使用Vector.</p>
+
+        <p><a href="/post/as3-vector-shu-zu" rel="nofollow" class="read-more">Read more »</a></p>
     </article>
     <article class="post">
         <header class="post-header">
