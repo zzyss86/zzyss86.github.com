@@ -1,0 +1,486 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="keyword" content="二分之一,web前端,前端博客,树莓派,RaspberryPi,html5,css3,as3,javascript" />
+  <meta name="description" content="二分之一博客是一个关注web前端及游戏前端的技术博客" />
+  <title>二分之一 - Just Jason's Blog</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/highlight/pojoaque.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+  <!--[if lt IE 9]><script src="/assets/js/html5.js?version=20140909"></script><![endif]-->
+</head>
+
+<body>
+<div class="toolbar">
+    <div class="nav-wrapper clearfix">
+        <ul class="nav-list">
+            <li>
+                <a href="/tag/Unity3D">Unity3D</a>
+            </li>
+            <li>
+                <a href="/tag/javascript">Javascript</a>
+            </li>
+            <li>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </li>
+            <li>
+                <a href="/tag/html5">Html5</a>
+            </li>
+            <li>
+                <a href="/tag/RaspberryPi">Raspberry Pi</a>
+            </li>
+            <li>
+                <a href="/tag/metalsmith">Metalsmith</a>
+            </li>
+        </ul>
+
+        <ul class="nav-list menu">
+            <li>
+                <a href="/about.html">关于我</a>
+            </li>
+            <li>
+                <a href="/mobile/">
+                    <i class="mobile_icon"></i><span class="mobile_msg">手机访问</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<header class="top-header">
+	<section>
+    	<a href="/" class="logo"></a>
+        <h1 class="blog-name">二分之一</h1>
+        <h2 class="blog-description">Just Jason's Blog</h2>
+    </section>
+</header>
+
+
+<div class="wrapper">
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年3月23日">2013年3月23日</time>
+                <em>on</em>
+                <a href="/tag/html5">html5</a>
+                ,
+                <a href="/tag/css">css</a>
+            </span>
+            <h2><a href="/post/fontographer-css3-webfont">使用Fontographer制作图标字体，打造css3 webfont应用</a></h2>
+        </header>
+        <p>关键词：Fontographer使用方法,如何制作图标字体,css3,@font-face,webfont</p>
+<p>接上文《CSS3 bulletproof @font-face语法 和 Fontspring @font-face语法简介》
+上文讲到使用@font-face在web上使用自定义字体，本文主要讲解如何制作图标字体，从而达到图标的更大通用性。</p>
+<p><strong>所需工具：</strong></p>
+<ul>
+<li>1、Adobe Illustrator  </li>
+<li>2、Fontographer 5.1</li>
+</ul>
+<h4 id="-illustrator">一、使用Illustrator</h4>
+<ul>
+<li>1、打开矢量图形  </li>
+<li>2、选择图形复制到剪贴板</li>
+</ul>
+<p>如果图形不是矢量图，可以使用PSD打开，将图形导出EPS格式，再用Illustrator打开，转换为矢量格式，本文不详情。</p>
+<h4 id="-fontographer">二、使用Fontographer</h4>
+<p>1、打开Fontographer，菜单”File”-&gt;”New”新建字体文件，双击第一个带有两个”**”的格子，打开编辑页面。此时为了方便查看，建议通过”Windows”-&gt;”Tile vertically”将字体列表页和编辑页面左右显示在同一屏幕，这样就可以实时看开编辑的效果。</p>
+<p><img src="/assets/upload/20130323201827.png" alt=""></p>
+<p>2、将从Illustrator中复制的图形粘贴到编辑页面。调整位置和大小。</p>
+<p><img src="/assets/upload/20130323202128.png" alt=""></p>
+
+        <p><a href="/post/fontographer-css3-webfont" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年3月21日">2013年3月21日</time>
+                <em>on</em>
+                <a href="/tag/html5">html5</a>
+                ,
+                <a href="/tag/css">css</a>
+            </span>
+            <h2><a href="/post/css3-bulletproof-font-face-fontspring">CSS3 bulletproof @font-face语法 和 Fontspring @font-face语法简介</a></h2>
+        </header>
+        <h4 id="-font-face-">一、@font-face基本语法</h4>
+<pre><code class="hljs css"><span class="hljs-at_rule">@<span class="hljs-keyword">font-face</span></span>
+<span class="hljs-rules">{
+<span class="hljs-rule"><span class="hljs-attribute">font-family</span>:<span class="hljs-value"> myFirstFont</span></span>;
+<span class="hljs-rule"><span class="hljs-attribute">src</span>:<span class="hljs-value"> <span class="hljs-function">url</span>(<span class="hljs-string">'Sansation_Bold.ttf'</span>) <span class="hljs-function">format</span>(<span class="hljs-string">'truetype'</span>)</span></span>;
+<span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value">bold</span></span>;
+<span class="hljs-rule">}</span></span>
+</code></pre>
+<h4 id="-font-face-">二、@font-face各字体格式的支持情况</h4>
+<p><img src="/assets/upload/font_face.jpg" alt=""></p>
+<p>三、@font-face中字体格式format的取值说明</p>
+<p>1、TureTpe(.ttf)格式：<br>.ttf字体是Windows和Mac的最常见的字体，是一种RAW格式，因此他不为网站优化,支持这种字体的浏览器有【IE9+,Firefox3.5+,Chrome4+,Safari3+,Opera10+,iOS Mobile Safari4.2+】；</p>
+<p>2、OpenType(.otf)格式：<br>.otf字体被认为是一种原始的字体格式，其内置在TureType的基础上，所以也提供了更多的功能,支持这种字体的浏览器有【Firefox3.5+,Chrome4.0+,Safari3.1+,Opera10.0+,iOS Mobile Safari4.2+】；</p>
+<p>3、Web Open Font Format(.woff)格式：<br>.woff字体是Web字体中最佳格式，他是一个开放的TrueType/OpenType的压缩版本，同时也支持元数据包的分离,支持这种字体的浏览器有【IE9+,Firefox3.5+,Chrome6+,Safari3.6+,Opera11.1+】；</p>
+
+        <p><a href="/post/css3-bulletproof-font-face-fontspring" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年3月19日">2013年3月19日</time>
+                <em>on</em>
+                <a href="/tag/html5">html5</a>
+                ,
+                <a href="/tag/webapp">webapp</a>
+            </span>
+            <h2><a href="/post/html5-localstorage-sessionstorage">HTML5本地存储localStorage和sessionStorage总结</a></h2>
+        </header>
+        <p>html5本地存储是比cookie（4kb）大的多的本地存储方案，各浏览器支持大小不一致，大约5-10MB左右。各浏览器支持情况：<br>Chrome, Firefox 3.5+, Safari 4+, IE 8+</p>
+<p>localStorage：永久存储本地数据（在没有清理缓存的情况下）<br>sessionStorage：在会话过程中存储本地数据  </p>
+<p><strong>w3c API：</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">interface</span> <span class="hljs-title">Storage</span> {
+  <span class="hljs-keyword">readonly</span> attribute unsigned <span class="hljs-keyword">long</span> length;
+  DOMString? key(unsigned <span class="hljs-keyword">long</span> index);
+  <span class="hljs-function">getter DOMString <span class="hljs-title">getItem</span><span class="hljs-params">(DOMString key)</span></span>;
+  <span class="hljs-function">setter creator <span class="hljs-keyword">void</span> <span class="hljs-title">setItem</span><span class="hljs-params">(DOMString key, DOMString <span class="hljs-keyword">value</span>)</span></span>;
+  <span class="hljs-function">deleter <span class="hljs-keyword">void</span> <span class="hljs-title">removeItem</span><span class="hljs-params">(DOMString key)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">clear</span><span class="hljs-params">()</span></span>;
+};
+</code></pre>
+<p>在线测试DOME：<a href="http://m.2fz1.com/storage.html">http://m.2fz1.com/storage.html</a></p>
+<p>Tips:可以用手机测试，并内置weinre远程调试工具，在wifi环境下，同一局域网，使用webkit内核浏览器，打开以下链接，即可以远程调试：<br><a href="http://debug.phonegap.com/client/#jsonzhou">http://debug.phonegap.com/client/#jsonzhou</a></p>
+<h4 id="-">存的的问题：</h4>
+<p>1、本文在anroid平台下分别使用，自带浏览器、chrome、海豚浏览器、UC进行了API测试，这几款浏览器支持都不错，只是用户如果要主动清掉存储的数据，需要进到“设置-应用程序-应用-清掉数据”。</p>
+<p>2、localStorage可占满硬盘</p>
+<p>W3C标准表示不可以通过子域名来突破单个域名下的存储限制，但大部份浏览器没有严格执行，只有firefox完美实现了w3c的标准，没有此问题。<br>原文：<a href="http://feross.org/fill-disk/">http://feross.org/fill-disk/</a>  </p>
+<p>解决方法：<br>1、<a href="https://code.google.com/p/chromium/issues/detail?id=178980">Chromium bug report </a><br>2、<a href="http://openradar.appspot.com/radar?id=2792401">Apple bug report </a>   </p>
+
+        <p><a href="/post/html5-localstorage-sessionstorage" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年3月13日">2013年3月13日</time>
+                <em>on</em>
+                <a href="/tag/html5">html5</a>
+                ,
+                <a href="/tag/webapp">webapp</a>
+                ,
+                <a href="/tag/NodeJs">NodeJs</a>
+            </span>
+            <h2><a href="/post/weinre-nodejs-phonegap-webapp">使用weinre远程调试手机网页（nodejs、phoneGap）</a></h2>
+        </header>
+        <p>本调试方式需要wifi环境和webkit浏览器。</p>
+<p>weiner主页：<a href="http://people.apache.org/~pmuellr/weinre/docs/latest/Home.html">http://people.apache.org/~pmuellr/weinre/docs/latest/Home.html</a></p>
+<h4 id="-">一、配置调试服务器</h4>
+<h5 id="-nodejs-windows-">（一）、nodejs搭建调试服务器（以windows为例）</h5>
+<p><strong>1、安装node.js</strong><br>安装程序下载：<a href="http://nodejs.org/#download">http://nodejs.org/#download</a><br>本文安装在“F:/nodejs/”目录。  </p>
+<p><strong>2、测试安装是否成功</strong>  </p>
+<p>打开CMD，切换到nodejs所在的安装目录。输入如下命令测试node.js和npm是否安装成功。默认windows最新安装包，会包含npm，如果npm没有安装，请手动安装。</p>
+<pre><code class="hljs shell"><span class="hljs-prompt">C:\Users\jason&gt;</span><span class="hljs-symbol">f:</span>
+<span class="hljs-prompt">F:\&gt;</span>cd nodejs
+<span class="hljs-prompt">F:\nodejs&gt;</span>node -v
+v<span class="hljs-number">0</span>.<span class="hljs-number">10.0</span>
+<span class="hljs-prompt">F:\nodejs&gt;</span>npm -v
+<span class="hljs-number">1.2</span>.<span class="hljs-number">14</span>
+</code></pre>
+<p><strong>3、使用npm安装weinre,在node.js安装目录输入以下命令</strong></p>
+<pre><code class="hljs shell"><span class="hljs-built_in">npm</span> install weinre
+</code></pre>
+<p><strong>4、启动weinre服务器</strong></p>
+<pre><code class="hljs shell">node.<span class="hljs-keyword">exe</span> node_modules\weinre\weinre --boundHost -<span class="hljs-keyword">all</span>-
+</code></pre>
+<p>在windows下，系统防火墙可能会弹出是否允许其访问网络的提示，点击充许即可。</p>
+<p><strong>5、浏览器打开</strong></p>
+<p><a href="http://localhost:8080">http://localhost:8080</a></p>
+<p>如果访问正常，说明服务器已配置成功。</p>
+<h5 id="-phonegap-">（二）、直接使用phoneGap的调试服务器</h5>
+<p>如果觉得服务器配置麻烦，也可以使用phoneGap现成的调试服务器。<br>phoneGap调试服务器地址：<a href="http://debug.phonegap.com/（相当于本机安装的http://localhost:8080）">http://debug.phonegap.com/（相当于本机安装的http://localhost:8080）</a>  </p>
+<h4 id="-weinre-">二、weinre使用方法</h4>
+<p>1、需调试的页面加入JS脚本</p>
+<p>如：</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"http://你的调试服务器地址/target/target-script-min.js#anonymous"</span>&gt;</span><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+</code></pre>
+<p>1.1使用收获夹快速添加调试脚本到需要调试的页面。</p>
+<p>将以下代码添加到书签，访问需要调试的页面时，访问一下书签，即可以通过JS将调试脚本添加到当前页面，但部份浏览器不支持！</p>
+<pre><code class="hljs javascript">javascript:(function(e){e.setAttribute("src","<span class="hljs-link_url">http://你的调试服务器地址/target/target-script-min.js#anonymous");document.getElementsByTagName("body")</span>[<span class="hljs-link_label">0</span>].appendChild(e);})(document.createElement("script"));void(0);
+</code></pre>
+<p>2、在PC端使用webkit浏览器打开控制台</p>
+<p><a href="http://10.18.252.111:8080/client/#anonymous">http://10.18.252.111:8080/client/#anonymous</a></p>
+<h1 id="-">后面为识别码</h1>
+<p>tips：识别码仅仅是为了识别多个需调试的项目时使用，可供多用户操作。</p>
+<p>在控制台，你就可以轻松的调试手机网页了！</p>
+
+        <p><a href="/post/weinre-nodejs-phonegap-webapp" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年3月9日">2013年3月9日</time>
+                <em>on</em>
+                <a href="/tag/html5">html5</a>
+                ,
+                <a href="/tag/webapp">webapp</a>
+            </span>
+            <h2><a href="/post/android-chrome-mobile-web">android下chrome调试手机网页的方法</a></h2>
+        </header>
+        <p>论语曰“工欲善其事,必先利其器”！页面开发由于语言的特殊性，调试本身就有居多不便，在没有firebug和chrome开发者工具之前，简直就是噩梦。移动网页开发，调试比桌面网页开发难度更大。本文将在android平台和大家分享手机网页的调试方法。</p>
+<p><strong>准备：</strong>
+1、Android SDK<br>2、桌面chrome(PC版)<br>3、android手机+移动chrome(Android 4.0系统以上版本)  </p>
+<p><strong>步骤：</strong></p>
+<p>(一)、安装Android SDK<br>参考：我的另一篇文章：<a href="http://www.2fz1.com/?p=318">http://www.2fz1.com/?p=318</a><br>官网文档：<a href="http://developer.android.com/sdk/installing/installing-adt.html#Download">http://developer.android.com/sdk/installing/installing-adt.html#Download</a>  </p>
+<p>Tips:建议将adb.exe加入到环境变量，打开cmd窗口，输入adb，如果没有报错，说明adb.exe加入到环境变量了。</p>
+<p>(二)、用USB连接手机和电脑，并将手机打开“USB调试”模式  </p>
+<p>(三)、打开移动chrome，点击菜单键-&gt;设置-&gt;开发者工具-&gt;启用USB网页调试。  </p>
+<p>(四)、在CMD窗口输入  </p>
+<pre><code class="hljs shell">adb forward <span class="hljs-string">tcp:</span><span class="hljs-number">9222</span> <span class="hljs-string">localabstract:</span>chrome_devtools_remote
+</code></pre>
+<p>(五)、打开PC上的chrome，输入</p>
+<p><a href="http://localhost:9222/">http://localhost:9222/</a></p>
+<p>然后选择对应的手机页面，打开F12，和电脑网页一样调试。</p>
+<p>但该方法需要使用<a href="http://chrome-devtools-frontend.appspot.com来代理页面，但这个域名可能需要翻墙，至少我这边访问不了。">http://chrome-devtools-frontend.appspot.com来代理页面，但这个域名可能需要翻墙，至少我这边访问不了。</a></p>
+<p>参考文档：</p>
+<p><a href="https://developers.google.com/chrome-developer-tools/docs/remote-debugging">https://developers.google.com/chrome-developer-tools/docs/remote-debugging</a></p>
+
+        <p><a href="/post/android-chrome-mobile-web" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年2月25日">2013年2月25日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-wai-ke-diy">DIY树莓派外壳，简单但实用</a></h2>
+        </header>
+        <p><code>树莓派</code>做手工没想象中简单，原来准备的设计图都没用上，雕一个图雕残了，最后整了个简单版树莓派外壳，ps：亚克力板味道好难闻。</p>
+<p><img src="/assets/upload/20130225225315.jpg" alt=""></p>
+
+        <p><a href="/post/raspberry-pi-wai-ke-diy" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年2月23日">2013年2月23日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-ying-pan-aria2">用树莓派+移动硬盘+aria2搭建低功耗下载机</a></h2>
+        </header>
+        <p>移动硬盘挂载及NAS相关请参阅上文《【智能家居】用树莓派+移动硬盘+MINIDLNA打造家用媒体服务器（电影服务器、NAS、ipad看片利器）》</p>
+<h4 id="-">一、安装</h4>
+<p>1、安装aria2</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> apt-get install aria2
+</code></pre>
+<p>2、安装aria2 web在线管理端YAAW</p>
+<p>YAAW项目地址：<a href="https://github.com/binux/yaaw">https://github.com/binux/yaaw</a><br>下载资源包，放置http服务器下，http服务器的相关配置，本文不做详细介绍<br>DEMO：<a href="http://binux.github.com/yaaw/demo/">http://binux.github.com/yaaw/demo/</a>  </p>
+<h4 id="-aria2">二、配置aria2</h4>
+<p>aria2在线手册：<a href="http://aria2.sourceforge.net/manual/en/html/">http://aria2.sourceforge.net/manual/en/html/</a></p>
+<p><strong>一些有用的aria2参数：</strong></p>
+<p>-i 导入从loli.lu导出的aria2文件<br>-j 同时下载数限制，由于路由和总带宽限制，建议设为3（默认5）<br>-x 同一个服务器的同时链接数，建议为5-10（默认1）<br>-k 文件最小分片，文件最多的线程数取决于能分出多少片，当文件小于最小分片大小时，只能开出一个线程，建议为2M（默认20M）<br>-s 一个文件最多用几个线程下载，建议为8-10（默认5）<br>–file-allocation 文件预分配，如果USB设备是U盘，SD卡，预分配浪费时间，建议为none（默认prealloc)  </p>
+<p>创建配置文件：</p>
+<pre><code class="hljs shell"><span class="hljs-comment">#创建空白session文件</span>
+sudo touch /home/<span class="hljs-constant">pi</span>/aria2.session
+<span class="hljs-comment">#创建配置文件</span>
+sudo nano /home/<span class="hljs-constant">pi</span>/aria2.conf
+</code></pre>
+<p>在配置文件中放入：（以下内容不解释，请查阅手册）</p>
+<pre><code class="hljs shell"><span class="hljs-comment">#下载目录，自行修改</span>
+<span class="hljs-variable">dir=</span>/mnt/myusbdrive/moive/download/
+<span class="hljs-variable">disable-ipv6=</span><span class="hljs-constant">true</span>
+<span class="hljs-comment">#打开rpc的目的是为了给web管理端用</span>
+<span class="hljs-variable">enable-rpc=</span><span class="hljs-constant">true</span>
+<span class="hljs-variable">rpc-allow-origin-all=</span><span class="hljs-constant">true</span>
+<span class="hljs-variable">rpc-listen-all=</span><span class="hljs-constant">true</span>
+<span class="hljs-comment">#rpc-listen-port=6800</span>
+<span class="hljs-variable">continue=</span><span class="hljs-constant">true</span>
+<span class="hljs-variable">input-file=</span>/home/pi/aria2.session
+<span class="hljs-variable">save-session=</span>/home/pi/aria2.session
+<span class="hljs-variable">max-concurrent-downloads=</span><span class="hljs-number">3</span>
+</code></pre>
+<h4 id="-">三、用配置文件启动</h4>
+<pre><code class="hljs shell">sudo aria2c --<span class="hljs-keyword">conf</span>-path=/home/pi/aria2.<span class="hljs-keyword">conf</span>
+</code></pre>
+<p>若以上执行正常，没有报错，可以再加一“-D”的参数，让aria2随机启动。</p>
+<pre><code class="hljs shell">sudo aria2c --<span class="hljs-keyword">conf</span>-path=/home/pi/aria2.<span class="hljs-keyword">conf</span> -D
+</code></pre>
+
+        <p><a href="/post/raspberry-pi-ying-pan-aria2" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年2月23日">2013年2月23日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-minidlna-nas-ipad">【智能家居】用树莓派+移动硬盘+MINIDLNA打造家用媒体服务器（电影服务器、NAS、ipad看片利器）</a></h2>
+        </header>
+        <p>关键词：树莓派、移动硬盘、MINIDLNA、电影服务器、NAS、ipad看片利器、DLNA、UPnP</p>
+<p>DLNA/UPnP概念，请自行搜索了解~~</p>
+<p>一直想实现用ipad观看移动硬盘中的电影，所以有了这个方案，再配合下载工具（aria2或Transmission）将树莓派打造成下载机，就能低成本，低功耗的实现NAS。</p>
+<p>我用samba和minidlna搭好NAS后，分别进行了测试，很明显minidlna的速度和资源损耗要比samba小的多，minidlna上到5G的电影也基本不卡，而samba就非常吃力，而且支持samba的视频播放器显示比DLNA/UPnP的要少！</p>
+<p>本方案主要由两部份组成：媒体服务器和ipad或其它移动设备客户端。</p>
+<h4 id="-minidlna-">第一部份：用MINIDLNA搭建媒体服务器</h4>
+<h5 id="-">一、移动硬盘的挂载</h5>
+<p>1、挂载FAT32格式的硬盘</p>
+<pre><code class="hljs shell"><span class="hljs-preprocessor">#创建挂载点</span>
+sudo mkdir /mnt/myusbdrive
+<span class="hljs-preprocessor">#编辑fstab让移动硬盘开机自动挂载</span>
+sudo nano /etc/fstab
+<span class="hljs-preprocessor">#在最后一行添加如下内容</span>
+/dev/sda1 /mnt/myusbdrive auto defaults,noexec,umask=<span class="hljs-number">0000</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>
+<span class="hljs-preprocessor">#保存重启，即可生效</span>
+</code></pre>
+<p><strong>说明：</strong></p>
+<p>sda1是取决于你的实际情况，a表示第一个硬盘，1表示第一个分区。<br>umask=0000 0 0<br>前面四个0就是对所有人,可读可写可执行, 后面两个0,第一个代表dump,0是不备份<br>第二个代表fsck检查的顺序,0表示不检查
+卸载：<code>sudo umount /mnt/myusbdrive</code></p>
+<p>2、挂载NTFS格式的硬盘(读写方式挂载)</p>
+<p>默认挂载NTFS格式的硬盘只有只读权限，需要借助其它工具实现。</p>
+<pre><code class="hljs shell"><span class="hljs-preprocessor">#安装所需软件包</span>
+sudo apt-<span class="hljs-keyword">get</span> install fuse-utils ntfs-<span class="hljs-number">3</span>g
+<span class="hljs-preprocessor">#加载内核模块</span>
+modprobe fuse
+<span class="hljs-preprocessor">#编辑fstab让移动硬盘开机自动挂载</span>
+sudo nano /etc/fstab
+<span class="hljs-preprocessor">#在最后一行添加如下内容</span>
+/dev/sda1 /mnt/myusbdrive ntfs-<span class="hljs-number">3</span>g defaults,noexec,umask=<span class="hljs-number">0000</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>
+<span class="hljs-preprocessor">#保存重启，即可生效</span>
+</code></pre>
+<p>3、测试硬盘挂载是否成功：</p>
+<pre><code class="hljs shell"><span class="hljs-keyword">cd</span> /mnt/myusbdrive
+<span class="hljs-keyword">ls</span>
+</code></pre>
+<h5 id="-minidlna">二、安装MiniDLNA</h5>
+<p>1、安装</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> apt-get install minidlna
+</code></pre>
+<p>2、修改配置</p>
+<pre><code class="hljs shell"><span class="hljs-preprocessor">#打开配置文件</span>
+sudo nano /etc/minidlna.conf
+<span class="hljs-preprocessor">#可参考修改的项有：</span>
+<span class="hljs-preprocessor">#媒体文件目录：</span>
+media_dir=/mnt/myusbdrive/
+<span class="hljs-preprocessor">#数据库目录，minidlna使用的是sqlite数据库来索引文件</span>
+db_dir=/<span class="hljs-keyword">var</span>/lib/minidlna
+<span class="hljs-preprocessor">#服务器IP</span>
+listening_ip=<span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.106</span>
+<span class="hljs-preprocessor">#端口</span>
+port=<span class="hljs-number">8200</span>
+<span class="hljs-preprocessor">#网络名称，用于其它设备发现当前设备</span>
+friendly_name=DLNA
+</code></pre>
+<p>3、你可以选择让minidlna随机启动</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> update-rc.d minidlna defaults
+</code></pre>
+<p>4、启动minidlna服务</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> service minidlna start
+</code></pre>
+<p>5、当你修改配置文件及媒体资源更新时，需要强制刷新，以便minidlna将最新的媒体文件进行索引</p>
+<pre><code class="hljs shell">sudo service minidlna <span class="hljs-keyword">force</span>-reload
+</code></pre>
+<p>6、查看资源个数</p>
+<p><a href="http://192.168.1.106:8200/">http://192.168.1.106:8200/</a></p>
+<p>7、取消minidlna的开机自动启动</p>
+<pre><code class="hljs shell"><span class="hljs-built_in">sudo</span> update-rc.d <span class="hljs-operator">-f</span> minidlna remove
+</code></pre>
+<p>8、停止minidlna服务</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> service minidlna stop
+</code></pre>
+<p>9、停止minidlna所有进程</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> killall minidlna
+</code></pre>
+<p>10、卸载minidlna</p>
+<pre><code class="hljs shell">sudo atp-<span class="hljs-built_in">get</span> remove <span class="hljs-comment">--purge minidlna</span>
+</code></pre>
+<h4 id="-ipad-">第二部份：ipad或其它移动设备客户端</h4>
+<h5 id="-ios-">一、IOS客户端</h5>
+<p>总的来说，IOS下几乎没有好的免费软件来支持UPnP和Samba视频，试用多个软件后总结如下：</p>
+<p>1、Yxplayer免费版，播放视频时有广告，索引UPnP资源时大概要5分钟才能索引完100多部电影</p>
+<p>2、playerXstreme免费版，虽然免费，但是要使用UPnP功能时，需要额外的花￥6买一个扩展功能，但非常悲剧的时，买好了，索引UPnP资源时，一个小时都没有结果，而且很容挂着，几乎钱是白花了。</p>
+<p>3、AVPlayer解码能力很强，不支持UPnP，某些网站有介绍说支持，千万别上当。</p>
+<p>4、【能用】BUZZ Player，￥25，能用，而且索引UPnP资源非常快，唯一不足，还有一些小BUG，有时会挂掉。</p>
+<h5 id="-html5">二、html5</h5>
+<p>w3c其实有一个标准的API，来支持DLNA/UPnP，即Network Service Discovery API（navigator.getNetworkServices() ）但目前只有opera有一个实验版本可以支持这个最新的API。</p>
+<p>chrome支持mkv视频，经测试Chrome html5 video支持mkv格式的视频，但不能外挂字幕！显示Google利用于自己收购的VP8编码技术力挺WebM（VP8/Vorbis/WebM），mkv也属于WebM的一种。</p>
+
+        <p><a href="/post/raspberry-pi-minidlna-nas-ipad" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月30日">2013年1月30日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-xbian-hei-ping">[翻译|转发自官方]XBian 1.0 Alpha 4的BUG修复（黑屏、找不到类库、不能保存视频源）</a></h2>
+        </header>
+        <h4 id="1-libraries-not-found-">1、类库找不到（Libraries not found）</h4>
+<p>bug描述：XBMC无法启动、黑屏，找不到“libEGL.so”<br>用SSH登陆并执行以下命令：</p>
+<pre><code class="hljs shell">sudo su     #default password = <span class="hljs-string">'raspberry'</span>
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"/opt/vc/lib"</span> &gt; /etc/ld.<span class="hljs-keyword">so</span>.<span class="hljs-keyword">conf</span>.<span class="hljs-keyword">d</span>/<span class="hljs-number">00</span>-vmcs.<span class="hljs-keyword">conf</span>
+ldconfig
+reboot
+</code></pre>
+<h4 id="2-sources-xml-">2、sources.xml不正常的权限</h4>
+<p>bug描述：XBMC不能保存视频源<br>用SSH登陆并执行以下命令：</p>
+<pre><code class="hljs shell">sudo /etc/init.d/xbmc <span class="hljs-operator"><span class="hljs-keyword">stop</span>     #<span class="hljs-keyword">default</span> <span class="hljs-keyword">password</span> = <span class="hljs-string">'raspberry'</span>
+sudo chown xbian:xbian .xbmc/userdata/sources.<span class="hljs-keyword">xml</span>
+sudo /etc/init.d/xbmc <span class="hljs-keyword">start</span></span>
+</code></pre>
+<h4 id="3-xbmc-">3、XBMC资源不足</h4>
+<p>bug描述：视频播放失败（一段时间后）黑屏<br>用SSH登陆并执行以下命令：</p>
+<pre><code class="hljs shell">sudo su     #<span class="hljs-keyword">default</span> password = <span class="hljs-string">'raspberry'</span>
+sed -i <span class="hljs-string">'s/gpu_mem_256=100/gpu_mem_256=128/g'</span> <span class="hljs-regexp">/boot/</span>config.txt
+sed -i <span class="hljs-string">'s/gpu_mem_512=100/gpu_mem_512=128/g'</span> <span class="hljs-regexp">/boot/</span>config.txt
+reboot
+</code></pre>
+<p>目前发现该版本，无法使用左下角的退出到命令行界面，播放“优酷”、“奇艺”等切换到下段时，只有声音，没有图像，黑屏。</p>
+<p>用上面第三个方法，应该能解决黑屏问题。</p>
+
+        <p><a href="/post/raspberry-pi-xbian-hei-ping" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月30日">2013年1月30日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-ds18b20-yeelink">【智能家居】树莓派+DS18B20温度传感器+Yeelink实现家庭室内温度监控（python）</a></h2>
+        </header>
+        <p>实现家庭室内温度远程监控只是“智能家居”的初步，目的是下班前如果发现家里温度过高，可提前用手机发送指令提前5-10分钟打开空调降温。</p>
+<h4 id="-">一、硬件准备</h4>
+<p>1、树莓派（Raspberry Pi）一个</p>
+<p>2、DS18B20温度传感器一个（淘宝大概5元左右）</p>
+<p>3、4.7kΩ电阻一个 或 DS18B20模块一个（笔者用，淘宝1.5元一个，其实就是店家帮忙把电阻焊好了，接线稍好看些）。</p>
+<p>4、杜邦线三根（双头母）</p>
+<h4 id="-">二、接线方式（如图所示）</h4>
+<p><img src="/assets/upload/RPI_DS1820.png" alt=""></p>
+
+        <p><a href="/post/raspberry-pi-ds18b20-yeelink" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+
+    <nav role="navigation" class="pagination">
+        <a href="/index/2" class="newer-posts">← Newer Posts</a>
+        
+    	<span class="page-number">Page 3 of 8</span>
+        
+        <a href="/index/4/" class="older-posts">Older Posts →</a>
+	</nav>
+
+
+</div>
+
+<footer>
+	<p class="copyright">&copy; 2014 <a href="/">Jason’s Blog</a>. All rights reserved.</p>
+    <p>Proudly published with <a href="http://metalsmith.io/" target="_blank">Metalsmith</a></p>
+    <p><a href="http://www.miibeian.gov.cn/" target="_blank">闽ICP备09029032号-1</a> |
+        <script language="javascript" type="text/javascript" src="http://js.users.51.la/6883474.js"></script></p>
+</footer>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/uitotop/js/easing.js?version=20140909"></script>
+<script type="text/javascript" src="/assets/uitotop/js/jquery.ui.totop.min.js?version=20140909"></script>
+<script src="/assets/js/app.js?version=20140909"></script>
+<!--[if lt IE 8]><script src="/assets/js/noLtIE8.js?version=20140909"></script><![endif]-->
+
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="keyword" content="二分之一,web前端,前端博客,树莓派,RaspberryPi,html5,css3,as3,javascript" />
+  <meta name="description" content="二分之一博客是一个关注web前端及游戏前端的技术博客" />
+  <title>二分之一 - Just Jason's Blog</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/highlight/pojoaque.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+  <!--[if lt IE 9]><script src="/assets/js/html5.js?version=20140909"></script><![endif]-->
+</head>
+
+<body>
+<div class="toolbar">
+    <div class="nav-wrapper clearfix">
+        <ul class="nav-list">
+            <li>
+                <a href="/tag/Unity3D">Unity3D</a>
+            </li>
+            <li>
+                <a href="/tag/javascript">Javascript</a>
+            </li>
+            <li>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </li>
+            <li>
+                <a href="/tag/html5">Html5</a>
+            </li>
+            <li>
+                <a href="/tag/RaspberryPi">Raspberry Pi</a>
+            </li>
+            <li>
+                <a href="/tag/metalsmith">Metalsmith</a>
+            </li>
+        </ul>
+
+        <ul class="nav-list menu">
+            <li>
+                <a href="/about.html">关于我</a>
+            </li>
+            <li>
+                <a href="/mobile/">
+                    <i class="mobile_icon"></i><span class="mobile_msg">手机访问</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<header class="top-header">
+	<section>
+    	<a href="/" class="logo"></a>
+        <h1 class="blog-name">二分之一</h1>
+        <h2 class="blog-description">Just Jason's Blog</h2>
+    </section>
+</header>
+
+
+<div class="wrapper">
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年11月4日">2012年11月4日</time>
+                <em>on</em>
+                <a href="/tag/html">html</a>
+            </span>
+            <h2><a href="/post/liu-lan-qi-zhan-you-shuai">浏览器占有率抽样调查</a></h2>
+        </header>
+        <p>在朋友网发起的一个调查，投票时间一个月，参与人数25万多人。</p>
+<p>结果如下图，数字公司给IE和webkit带了个套，没有自主开发内核的浏览器反而占了上风，这就是中国的浏览器市场份额的缩影，虽然不完全准确，但从样本的量来看，准确率应该是靠谱的。</p>
+<p>辈催的前端开发们，还是要多兼容一下数字公司的浏览器啊！</p>
+<p><img src="/assets/upload/20121104111903.png" alt=""></p>
+
+        <p><a href="/post/liu-lan-qi-zhan-you-shuai" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年10月28日">2012年10月28日</time>
+                <em>on</em>
+                <a href="/tag/charset">charset</a>
+            </span>
+            <h2><a href="/post/charset-gb2312-utf8-unicode">GB2312、UTF-8、UNICODE编码（内码或码字）在线查询</a></h2>
+        </header>
+        <p>GB2312、UTF-8、UNICODE编码（内码或码字）在线查询：<a href="http://www.2fz1.com/so/">http://www.2fz1.com/so/</a></p>
+<p>根据字符集的编码规则及网上下载的一个码表，使用PHP简单写了一个编码查询工具，希望对大家有帮助！</p>
+<p>该工具能帮助编码知识学习，起到一个更好的帮助作用。</p>
+<p>个人原创工具，服务器性能有限，请勿非法访问PHP接口，谢谢！</p>
+<p><img src="/assets/upload/20121028120624.png" alt=""></p>
+
+        <p><a href="/post/charset-gb2312-utf8-unicode" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年10月27日">2012年10月27日</time>
+                <em>on</em>
+                <a href="/tag/charset">charset</a>
+            </span>
+            <h2><a href="/post/charset-gb2312-utf8-2">谈谈字符集编码，详解utf-8、gb2312编码规则（二）</a></h2>
+        </header>
+        <p>接上文：《谈谈字符集编码及gb2312、utf-8编码原理》</p>
+<h4 id="-unicode-utf-8-">一、Unicode与UTF-8之间的的关系</h4>
+<p>Unicode只是一个符号集，它只规定了符号的二进制代码，却没有规定这个二进制代码应该如何存储。
+比如“二”字的unicode十六进制编码是：“4E8C”，对应二进制是：“100111010001100”共有15位，也就是说至少需要两个字节来存储；但对于unicode编码更大的字符，可能需要3个字节，甚至更多字节来存储。这样问题随之而来，在一段二进制流中如何区分这个字符是3个字节，还是6个字节呢？UTF-8就是unicdoe其中一个实现方式！注意只是其中一个，还有utf-16、utf-10等等…</p>
+<h4 id="-utf-8-">二、UTF-8编码规则</h4>
+<p>使用1-4个字节来存储一个字符，最大的特点是可变长度。</p>
+<p><strong>编码规则：</strong></p>
+<ul>
+<li><p>1）对于单字节的符号，字节的第一位设为0，后面7位为这个符号的unicode码。因此对于英语字母，UTF-8编码和ASCII码是相同的。</p>
+</li>
+<li><p>2）对于n字节的符号（n&gt;1），第一个字节的前n位都设为1，第n+1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的unicode码。</p>
+</li>
+</ul>
+<p><strong>如下表所示：字母x表示可用编码的位。</strong></p>
+<blockquote>
+<p>Unicode符号范围 | UTF-8编码方式<br>(十六进制) | （二进制）<br>——————–+———————————————<br>0000 0000-0000 007F | 0xxxxxxx<br>0000 0080-0000 07FF | 110xxxxx 10xxxxxx （可填11位unicode码）<br>0000 0800-0000 FFFF | 1110xxxx 10xxxxxx 10xxxxxx （可填16位unicode码）<br>0001 0000-0010 FFFF | 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx （可填21位unicode码）  </p>
+</blockquote>
+<p>还以“二”（100111010001100）为例，依上表可知“二”在UTF-8编码中为三个字节使用格式1110xxxx 10xxxxxx 10xxxxxx，从最后一个二进制位开始，依次从后向前填入格式中的x，多出的位补0。这样就得到了
+11100100 10111010 10001100（红色加粗为补0）即十六进制为“E4BA8C”，这个编码即为“二”的UTF-8编码。</p>
+<h4 id="-gb2312-">三、GB2312编码规则</h4>
+<p>GB2312中对所收汉字进行了“分区”处理，每区含有94个汉字/符号。这种表示方式也称为区位码。<br>01-09区为特殊符号。<br>16-55区为一级汉字，按拼音排序。<br>56-87区为二级汉字，按部首/笔画排序。<br>10-15区及88-94区则未有编码。  </p>
+<p>每个汉字及符号以两个字节来表示。第一个字节称为“高位字节”，第二个字节称为“低位字节”。 “高位字节”使用了0xA1-0xF7(把01-87区的区号加上0xA0)，“低位字节”使用了0xA1-0xFE(把01-94加上0xA0)。例如“啊”字在大多数程序中，会以0xB0A1储存。（与区位码对比：0xB0=0xA0+16,0xA1=0xA0+1）。</p>
+<h4 id="-gb2312-utf-8-unicode-">四、GB2312、UTF-8、UNICODE编码（内码或码字）在线查询</h4>
+<p><a href="http://www.2fz1.com/so/">http://www.2fz1.com/so/</a>
+(本站原创工具，请勿非法访问)</p>
+
+        <p><a href="/post/charset-gb2312-utf8-2" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年10月21日">2012年10月21日</time>
+                <em>on</em>
+                <a href="/tag/charset">charset</a>
+            </span>
+            <h2><a href="/post/charset-gb2312-utf8">谈谈字符集编码及gb2312、utf-8编码原理</a></h2>
+        </header>
+        <h4 id="-">一、基础中的基础</h4>
+<p>比特位即bit，是计算机最小的存储单位。以0或1来表示比特位的值。
+Byte是字节数，bit是位数，在计算机中每八位为一字节，也就是1Byte＝8bit；
+Byte和bit都翻译成比特，俗称大B(Byte)和小b(bit)</p>
+<h4 id="-gb2312">二、GB2312</h4>
+<p>从GB2312-1980编码开始，汉字都是采用双字节编码。为了与系统中基本的ASCII字符集区分开，所有汉字编码的每个字节的第一位都是1。例如：“啊”字的编码为0xB0A1。（二进制：10110000 10100001）
+GB2312的汉字编码规则为：第一个字节的值在0xB0到0xF7之间，第二个字节的值在0xA0到0xFE之间。</p>
+<h4 id="-gbk">三、GBK</h4>
+<p>GB12345和GB13000是对GB2312-1980的扩充，所有已经包含在GB2312中的汉字编码不变，另外增加更多的码位。其编码规则大致为：第一个字节的值在0×81到0xFE之间，第二个字节的值在0×40到0xFE之间。由于GB13000是对GB2312的扩展，所以也被成为GBK。</p>
+<h4 id="-utf-8">四、UTF-8</h4>
+<p>UTF-8编码是一种目前广泛应用于网页的编码，它其实是一种Unicode编码，即致力于把全球所有语言纳入一个统一的编码。</p>
+<p>UTF-8用来存储字符串所对应的Unicode的码点，在UTF-8中，0-127之间的码字都使用一个字节来存储，超过128的码字使用2,3甚至6个字节来存储。</p>
+<p>所以UTF-8并不是我们所习惯认为的，一个中文两个字节，在UTF-8中，中文一般占三个字节，对于特殊字符可能占更多的字节。</p>
+<p>关于Unicode编码的相关知识，请搜索阅读《每个程序员都绝对必须知道的关于字符集和Unicode的那点儿事（别找借口！）》这篇文章</p>
+<p>Unicode官网：<a href="http://www.unicode.org/">http://www.unicode.org/</a></p>
+<p>PHP中unicode编码演示：</p>
+<pre><code class="hljs php"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+@Header(<span class="hljs-string">'Content-Type:text/html;charset=utf-8'</span>);
+<span class="hljs-variable">$res</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">'msg'</span>=&gt;<span class="hljs-string">'欢迎光临'</span>);
+<span class="hljs-variable">$res</span> = json_encode(<span class="hljs-variable">$res</span>);
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$res</span>;
+<span class="hljs-preprocessor">?&gt;</span></span>
+</code></pre>
+<p>运行后结果：</p>
+<pre><code class="hljs json">{<span class="hljs-string">"msg"</span>:<span class="hljs-string">"\u6b22\u8fce\u5149\u4e34"</span>}
+</code></pre>
+<p>\u代表的是unicode，后面的数字为16进制，6b22代表汉字：欢（1101011 100010）</p>
+<h4 id="-">五、网页中的字符集申明</h4>
+<p><strong>html:</strong></p>
+<pre><code class="hljs html">&lt;meta <span class="hljs-variable">http-equiv=</span><span class="hljs-string">"Conent-Type"</span> <span class="hljs-variable">content=</span><span class="hljs-string">"text/html"</span> <span class="hljs-variable">charset=</span><span class="hljs-string">"utf-8"</span>&gt;
+</code></pre>
+<p><strong>PHP:</strong></p>
+<pre><code class="hljs php"><span class="hljs-at_rule">@<span class="hljs-function">Header</span>(<span class="hljs-string">'Content-Type:text/html;charset=utf-8'</span>);</span>
+</code></pre>
+<h4 id="-php-">六、PHP中的字符集转换</h4>
+<p>前提是PHP环境要提供iconv支持。</p>
+<pre><code class="hljs php">iconv(<span class="hljs-string">"GB2312"</span>, <span class="hljs-string">"UTF-8"</span>,<span class="hljs-variable">$str</span>);
+</code></pre>
+<h4 id="-gb2312-unicode-">七、GB2312 Unicode转换表</h4>
+<p><a href="http://bbs.ednchina.com/BLOG_ARTICLE_146899.HTM">http://bbs.ednchina.com/BLOG_ARTICLE_146899.HTM</a></p>
+
+        <p><a href="/post/charset-gb2312-utf8" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年9月2日">2012年9月2日</time>
+                <em>on</em>
+                <a href="/tag/html">html</a>
+            </span>
+            <h2><a href="/post/ie6-base-bug">IE6的base标签BUG</a></h2>
+        </header>
+        <p>当页面存在一个自闭合的base节点，它就会把其“下面”所有的元素都拷到它内部。</p>
+<p>此BUG隐秘且危害性大。</p>
+<p>解决办法：</p>
+<p>将自闭合的标签：</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-title">base</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">'http://www.2fz1.com/'</span> /&gt;</span>
+</code></pre>
+<p>转换为：</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-title">base</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">'http://www.2fz1.com/'</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">base</span>&gt;</span>
+</code></pre>
+
+        <p><a href="/post/ie6-base-bug" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年7月26日">2012年7月26日</time>
+                <em>on</em>
+                <a href="/tag/css">css</a>
+            </span>
+            <h2><a href="/post/ul-div-ju-zhong">如何让不定宽度的UL相对父级DIV居中</a></h2>
+        </header>
+        <p>ul居中在oprea和firefox中用margin:0 auto;和text-align:center;就可以轻松的实现了，然而在IE中确是居左显示的，具体的错误原因就有待高手去考证。</p>
+<p>下面的方法可以轻松的实现ul居中显示，注意ul和li都必须定义float，否则无效哦。相信大家都知道<code>float:left</code>和<code>float:right</code>，那么是否想过<code>float:center</code>呢？让UL居中浮动！</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"dondiv"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>列表一<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>列表二<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>列表三<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
+<p>我们希望实现li是浮动的，并且居中的（注：li个数不固定，ul宽度未知）。可以设置ul的<code>text-align:center</code>,再设置li的display，这样的话就可以实现居中，但这样不是我们的初衷，我们需要实现的是f<code>loat:center</code>。</p>
+<p>大家来了解下<code>position:relative</code>，它是依据left，right，top，bottom等属性在正常文档流中偏移位置。那么就可以 让 ul为<code>position:relative;left:50%</code>，然后再让li向左浮动，再让<code>position:relative</code>;<code>right:50%</code>（或 者<code>left:-50%</code>），那么li就像向中间浮动一样居中了。</p>
+<pre><code class="hljs css"><span class="hljs-id">#dondiv</span><span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value">relative</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"><span class="hljs-number">100%</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"><span class="hljs-number">80px</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">background-color</span>:<span class="hljs-value"><span class="hljs-hexcolor">#eee</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">text-align</span>:<span class="hljs-value">center</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">overflow</span>:<span class="hljs-value">hidden</span></span>;
+<span class="hljs-rule">}</span></span>
+<span class="hljs-id">#dondiv</span> <span class="hljs-class">.donul</span> <span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">float</span>:<span class="hljs-value">left</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value">relative</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"><span class="hljs-number">50%</span></span></span>;
+<span class="hljs-rule">}</span></span>
+<span class="hljs-id">#dondiv</span> <span class="hljs-class">.donul</span> <span class="hljs-tag">li</span><span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value">relative</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">right</span>:<span class="hljs-value"><span class="hljs-number">50%</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">float</span>:<span class="hljs-value">left</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">margin</span>:<span class="hljs-value"><span class="hljs-number">10px</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"><span class="hljs-number">0</span> <span class="hljs-number">10px</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">border</span>:<span class="hljs-value">solid <span class="hljs-number">1px</span> <span class="hljs-hexcolor">#000</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">line-height</span>:<span class="hljs-value"><span class="hljs-number">60px</span></span></span>;
+<span class="hljs-rule">}</span></span>
+</code></pre>
+
+        <p><a href="/post/ul-div-ju-zhong" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年6月22日">2012年6月22日</time>
+                <em>on</em>
+                <a href="/tag/as3">as3</a>
+            </span>
+            <h2><a href="/post/as3-vector-shu-zu">AS3 Vector数组的多种声明及添加项方法</a></h2>
+        </header>
+        <p>我们知道：和JS一样，ActionScript3.0中的Array数组可以存放多种类型，甚至在同一个Array数组中，可以同时存入String,Object,Number…，但其实我们在实际开发中，通常一个数组中所保存的元素类型都是一致的，为了改进这种情况下的效率，AS3.0新增了一个Vector类。</p>
+<p>它强制要求数组中的每个元素都必须是同样的类型，从而提高了数组的运行效率。</p>
+<pre><code class="hljs actionscript"><span class="hljs-comment">//方法一</span>
+<span class="hljs-keyword">var</span> list:Vector.&lt;<span class="hljs-typename">int</span>&gt; = <span class="hljs-built_in">new</span> Vector.&lt;<span class="hljs-typename">int</span>&gt;();
+list2.push<span class="hljs-number">(1</span>,<span class="hljs-number"> 2</span>,<span class="hljs-number"> 3</span>);
+<span class="hljs-comment">//方法二          </span>
+<span class="hljs-keyword">var</span> list:Vector.&lt;<span class="hljs-typename">int</span>&gt; = Vector.&lt;<span class="hljs-typename">int</span>&gt;(<span class="hljs-number">[1</span>,<span class="hljs-number"> 2</span>,<span class="hljs-number"> 3</span>]);
+<span class="hljs-comment">//方法三  </span>
+<span class="hljs-keyword">var</span> list:Vector.&lt;<span class="hljs-typename">int</span>&gt; = <span class="hljs-built_in">new</span> &lt;<span class="hljs-typename">int</span>&gt;<span class="hljs-number">[1</span>,<span class="hljs-number"> 2</span>,<span class="hljs-number"> 3</span>];
+</code></pre>
+<p>相关测试表明，Vector比Array在运行效率上能快一倍左右，所以，对于同类型的数组，建议使用Vector.</p>
+
+        <p><a href="/post/as3-vector-shu-zu" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年6月22日">2012年6月22日</time>
+                <em>on</em>
+                <a href="/tag/as3">as3</a>
+            </span>
+            <h2><a href="/post/starling-flash-stats">Starling版本的Flash概要分析类：Stats</a></h2>
+        </header>
+        <p><img src="/assets/upload/hires_stats.png" alt=""></p>
+<p>一睹为快，Stats运行时的效果如上。这个Stats类可以帮你统计出（由上至下）：</p>
+<blockquote>
+<p>当前帧频/预期帧频</p>
+<p>一帧运行所需时间（毫秒）</p>
+<p>当前内存占用</p>
+<p>历史最高内存占用</p>
+</blockquote>
+<p>之前一直用CPU版本的，刚才找到一个可运行在Starling框架上的版本，也就是运行在GPU下的Stats类。</p>
+<p><strong>Starling版本：</strong><a href="http://www.kouma.fr/files/stats.zip">http://www.kouma.fr/files/stats.zip</a> （出处：<a href="http://forum.starling-framework.org/topic/starling-port-of-mrdoobs-stats-class">http://forum.starling-framework.org/topic/starling-port-of-mrdoobs-stats-class</a>）</p>
+<p>传统的CPU版本：<a href="https://github.com/mrdoob/Hi-ReS-Stats">https://github.com/mrdoob/Hi-ReS-Stats</a></p>
+
+        <p><a href="/post/starling-flash-stats" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年6月11日">2012年6月11日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+            </span>
+            <h2><a href="/post/js-pan-duan-shu-zu">JS判断数组类型的两种方法</a></h2>
+        </header>
+        <h4 id="-">一、构造函数法</h4>
+<p>在JS中，虽然没有严格的面向对象编程，但程序的设计还是有面向对象的味道。所有引用类型的数据，都是基于object；Array类型的数据，typeof时也会显示object；这给我们判断array类型，带来了不便。</p>
+<p>细想一下array的创建过程，<code>var arr = new Array(1,2,3);</code>或<code>var arr = [1,2,3];</code>实际上是创建了一个Array对象的实例，也就是说实例所对应的构造函数应该是Array；根据此原理，判断方法如下：</p>
+<pre><code class="hljs javascript"><span class="hljs-function">function <span class="hljs-title">isArray</span><span class="hljs-params">(<span class="hljs-keyword">object</span>)</span></span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">object</span> &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>===<span class="hljs-string">'object'</span> &amp;&amp;
+            Array == <span class="hljs-keyword">object</span>.constructor;
+}
+</code></pre>
+<p><strong>注意：</strong></p>
+<p>该种判断方法，被判断的array必须是在当前页面声明的！比如，一个页面（父页面）有一个框架，框架中引用了一个页面（子页面），在子页面中声明了一个array，并将其赋值给父页面的一个变量，这时判断该变量，<code>Array == object.constructor;</code>会返回false；</p>
+<p><strong>原因：</strong></p>
+<ul>
+<li><p>1、array属于引用型数据，在传递过程中，仅仅是引用地址的传递。</p>
+</li>
+<li><p>2、每个页面的Array原生对象所引用的地址是不一样的，在子页面声明的array，所对应的构造函数，是子页面的Array对象；父页面来进行判断，使用的Array并不等于子页面的Array；切记，不然很难跟踪问题！</p>
+</li>
+</ul>
+<h4 id="-">二、特性判断方法</h4>
+<p>即然上述方法，存在一定的缺陷，我们可根据数组的一些特性来判断其类型，代码如下：</p>
+<pre><code class="hljs javascript"><span class="hljs-function">function <span class="hljs-title">isArray</span><span class="hljs-params">(<span class="hljs-keyword">object</span>)</span></span>{
+    <span class="hljs-keyword">return</span>  <span class="hljs-keyword">object</span> &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>===<span class="hljs-string">'object'</span> &amp;&amp;   
+            <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>.length===<span class="hljs-string">'number'</span> &amp;&amp; 
+            <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>.splice===<span class="hljs-string">'function'</span> &amp;&amp;   
+             <span class="hljs-comment">//判断length属性是否是可枚举的 对于数组 将得到false </span>
+            !(<span class="hljs-keyword">object</span>.propertyIsEnumerable(<span class="hljs-string">'length'</span>));
+}
+</code></pre>
+<p>有length和splice并不一定是数组，因为可以为对象添加属性，而不能枚举length属性，才是最重要的判断因子。</p>
+
+        <p><a href="/post/js-pan-duan-shu-zu" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年6月11日">2012年6月11日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+                ,
+                <a href="/tag/as3">as3</a>
+            </span>
+            <h2><a href="/post/js-as3-function-qu-bie">js容易被忽略的基础：函数语句和函数表达式的区别及与AS3的区别</a></h2>
+        </header>
+        <p>在JS中，定义函数有两种方式，函数语句和函数表达式；</p>
+<p>函数语句定义：</p>
+<pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">testB</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"B"</span>);
+}
+</code></pre>
+<p>函数表达式定义：</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> testA = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"A"</span>);
+}
+</code></pre>
+<p><strong>1、作用域提升</strong></p>
+<p>在定义位置上，函数语句的方式定义，会将其作用域名提升至顶端，而函数表达式定义不会，必须先定义后执行。看下面的例子：</p>
+<pre><code class="hljs javascript">testB();
+testA();
+<span class="hljs-keyword">var</span> testA = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"A"</span>);
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">testB</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"B"</span>);
+}
+</code></pre>
+<p>testA无法执行，因为找不到定义的函数，要想testA执行，必须将它的函数表达式定义放到执行时的前面。</p>
+<p><strong>2、this关键词的指向</strong></p>
+<p>在JS中，函数语句定义和函数表达式定义，<code>this</code>关键词都会指向其运行时的引用，两者没有区别。
+而在AS3中，函数语句定义中的this始终指向当前函数定义的域，而函数表达式定义中的<code>this</code>会随着附加对象的变化而变化，且可以使用<code>call()</code>和<code>apply()</code>改变其this的指向。</p>
+<p>这一点区别非常重要，特别对于js和as同时使用的前端开发来讲，掌握两者的其础知识，能避免你犯错！</p>
+
+        <p><a href="/post/js-as3-function-qu-bie" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+
+    <nav role="navigation" class="pagination">
+        <a href="/index/4" class="newer-posts">← Newer Posts</a>
+        
+    	<span class="page-number">Page 5 of 8</span>
+        
+        <a href="/index/6/" class="older-posts">Older Posts →</a>
+	</nav>
+
+
+</div>
+
+<footer>
+	<p class="copyright">&copy; 2014 <a href="/">Jason’s Blog</a>. All rights reserved.</p>
+    <p>Proudly published with <a href="http://metalsmith.io/" target="_blank">Metalsmith</a></p>
+    <p><a href="http://www.miibeian.gov.cn/" target="_blank">闽ICP备09029032号-1</a> |
+        <script language="javascript" type="text/javascript" src="http://js.users.51.la/6883474.js"></script></p>
+</footer>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/uitotop/js/easing.js?version=20140909"></script>
+<script type="text/javascript" src="/assets/uitotop/js/jquery.ui.totop.min.js?version=20140909"></script>
+<script src="/assets/js/app.js?version=20140909"></script>
+<!--[if lt IE 8]><script src="/assets/js/noLtIE8.js?version=20140909"></script><![endif]-->
+
+</body>
+</html>

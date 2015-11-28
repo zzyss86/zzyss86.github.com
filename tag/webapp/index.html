@@ -1,0 +1,325 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="keyword" content="二分之一,web前端,前端博客,树莓派,RaspberryPi,html5,css3,as3,javascript">
+  <meta name="description" content="二分之一博客是一个关注web前端及游戏前端的技术博客">
+  <title>webapp - 二分之一 - Just Jason's Blog</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/highlight/pojoaque.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+  <!--[if lt IE 9]><script src="/assets/js/html5.js?version=20140909"></script><![endif]-->
+</head>
+
+<body>
+<div class="toolbar">
+    <div class="nav-wrapper clearfix">
+        <ul class="nav-list">
+            <li>
+                <a href="/tag/Unity3D">Unity3D</a>
+            </li>
+            <li>
+                <a href="/tag/javascript">Javascript</a>
+            </li>
+            <li>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </li>
+            <li>
+                <a href="/tag/html5">Html5</a>
+            </li>
+            <li>
+                <a href="/tag/RaspberryPi">Raspberry Pi</a>
+            </li>
+            <li>
+                <a href="/tag/metalsmith">Metalsmith</a>
+            </li>
+        </ul>
+
+        <ul class="nav-list menu">
+            <li>
+                <a href="/about.html">关于我</a>
+            </li>
+            <li>
+                <a href="/mobile/">
+                    <i class="mobile_icon"></i><span class="mobile_msg">手机访问</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<header class="top-header">
+	<section>
+    	<a href="/" class="logo"></a>
+        <h1 class="blog-name">二分之一</h1>
+        <h2 class="blog-description">Just Jason's Blog</h2>
+    </section>
+</header>
+
+
+<div class="wrapper">
+
+<header class="tag-archive-header">
+    <h1>webapp</h1>
+</header>
+
+    <nav role="navigation" class="pagination">
+        
+    	<span class="page-number">Page 1 of 1</span>
+        
+	</nav>
+
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年3月19日">2013年3月19日</time>
+                <em>on</em>
+                <a href="/tag/html5">html5</a>
+                ,
+                <a href="/tag/webapp">webapp</a>
+            </span>
+            <h2><a href="/post/html5-localstorage-sessionstorage">HTML5本地存储localStorage和sessionStorage总结</a></h2>
+        </header>
+        <p>html5本地存储是比cookie（4kb）大的多的本地存储方案，各浏览器支持大小不一致，大约5-10MB左右。各浏览器支持情况：<br>Chrome, Firefox 3.5+, Safari 4+, IE 8+</p>
+<p>localStorage：永久存储本地数据（在没有清理缓存的情况下）<br>sessionStorage：在会话过程中存储本地数据  </p>
+<p><strong>w3c API：</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">interface</span> <span class="hljs-title">Storage</span> {
+  <span class="hljs-keyword">readonly</span> attribute unsigned <span class="hljs-keyword">long</span> length;
+  DOMString? key(unsigned <span class="hljs-keyword">long</span> index);
+  <span class="hljs-function">getter DOMString <span class="hljs-title">getItem</span><span class="hljs-params">(DOMString key)</span></span>;
+  <span class="hljs-function">setter creator <span class="hljs-keyword">void</span> <span class="hljs-title">setItem</span><span class="hljs-params">(DOMString key, DOMString <span class="hljs-keyword">value</span>)</span></span>;
+  <span class="hljs-function">deleter <span class="hljs-keyword">void</span> <span class="hljs-title">removeItem</span><span class="hljs-params">(DOMString key)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">clear</span><span class="hljs-params">()</span></span>;
+};
+</code></pre>
+<p>在线测试DOME：<a href="http://m.2fz1.com/storage.html">http://m.2fz1.com/storage.html</a></p>
+<p>Tips:可以用手机测试，并内置weinre远程调试工具，在wifi环境下，同一局域网，使用webkit内核浏览器，打开以下链接，即可以远程调试：<br><a href="http://debug.phonegap.com/client/#jsonzhou">http://debug.phonegap.com/client/#jsonzhou</a></p>
+<h4 id="-">存的的问题：</h4>
+<p>1、本文在anroid平台下分别使用，自带浏览器、chrome、海豚浏览器、UC进行了API测试，这几款浏览器支持都不错，只是用户如果要主动清掉存储的数据，需要进到“设置-应用程序-应用-清掉数据”。</p>
+<p>2、localStorage可占满硬盘</p>
+<p>W3C标准表示不可以通过子域名来突破单个域名下的存储限制，但大部份浏览器没有严格执行，只有firefox完美实现了w3c的标准，没有此问题。<br>原文：<a href="http://feross.org/fill-disk/">http://feross.org/fill-disk/</a>  </p>
+<p>解决方法：<br>1、<a href="https://code.google.com/p/chromium/issues/detail?id=178980">Chromium bug report </a><br>2、<a href="http://openradar.appspot.com/radar?id=2792401">Apple bug report </a>   </p>
+
+        <p><a href="/post/html5-localstorage-sessionstorage" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年3月13日">2013年3月13日</time>
+                <em>on</em>
+                <a href="/tag/html5">html5</a>
+                ,
+                <a href="/tag/webapp">webapp</a>
+                ,
+                <a href="/tag/NodeJs">NodeJs</a>
+            </span>
+            <h2><a href="/post/weinre-nodejs-phonegap-webapp">使用weinre远程调试手机网页（nodejs、phoneGap）</a></h2>
+        </header>
+        <p>本调试方式需要wifi环境和webkit浏览器。</p>
+<p>weiner主页：<a href="http://people.apache.org/~pmuellr/weinre/docs/latest/Home.html">http://people.apache.org/~pmuellr/weinre/docs/latest/Home.html</a></p>
+<h4 id="-">一、配置调试服务器</h4>
+<h5 id="-nodejs-windows-">（一）、nodejs搭建调试服务器（以windows为例）</h5>
+<p><strong>1、安装node.js</strong><br>安装程序下载：<a href="http://nodejs.org/#download">http://nodejs.org/#download</a><br>本文安装在“F:/nodejs/”目录。  </p>
+<p><strong>2、测试安装是否成功</strong>  </p>
+<p>打开CMD，切换到nodejs所在的安装目录。输入如下命令测试node.js和npm是否安装成功。默认windows最新安装包，会包含npm，如果npm没有安装，请手动安装。</p>
+<pre><code class="hljs shell"><span class="hljs-prompt">C:\Users\jason&gt;</span><span class="hljs-symbol">f:</span>
+<span class="hljs-prompt">F:\&gt;</span>cd nodejs
+<span class="hljs-prompt">F:\nodejs&gt;</span>node -v
+v<span class="hljs-number">0</span>.<span class="hljs-number">10.0</span>
+<span class="hljs-prompt">F:\nodejs&gt;</span>npm -v
+<span class="hljs-number">1.2</span>.<span class="hljs-number">14</span>
+</code></pre>
+<p><strong>3、使用npm安装weinre,在node.js安装目录输入以下命令</strong></p>
+<pre><code class="hljs shell"><span class="hljs-built_in">npm</span> install weinre
+</code></pre>
+<p><strong>4、启动weinre服务器</strong></p>
+<pre><code class="hljs shell">node.<span class="hljs-keyword">exe</span> node_modules\weinre\weinre --boundHost -<span class="hljs-keyword">all</span>-
+</code></pre>
+<p>在windows下，系统防火墙可能会弹出是否允许其访问网络的提示，点击充许即可。</p>
+<p><strong>5、浏览器打开</strong></p>
+<p><a href="http://localhost:8080">http://localhost:8080</a></p>
+<p>如果访问正常，说明服务器已配置成功。</p>
+<h5 id="-phonegap-">（二）、直接使用phoneGap的调试服务器</h5>
+<p>如果觉得服务器配置麻烦，也可以使用phoneGap现成的调试服务器。<br>phoneGap调试服务器地址：<a href="http://debug.phonegap.com/（相当于本机安装的http://localhost:8080）">http://debug.phonegap.com/（相当于本机安装的http://localhost:8080）</a>  </p>
+<h4 id="-weinre-">二、weinre使用方法</h4>
+<p>1、需调试的页面加入JS脚本</p>
+<p>如：</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"http://你的调试服务器地址/target/target-script-min.js#anonymous"</span>&gt;</span><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+</code></pre>
+<p>1.1使用收获夹快速添加调试脚本到需要调试的页面。</p>
+<p>将以下代码添加到书签，访问需要调试的页面时，访问一下书签，即可以通过JS将调试脚本添加到当前页面，但部份浏览器不支持！</p>
+<pre><code class="hljs javascript">javascript:(function(e){e.setAttribute("src","<span class="hljs-link_url">http://你的调试服务器地址/target/target-script-min.js#anonymous");document.getElementsByTagName("body")</span>[<span class="hljs-link_label">0</span>].appendChild(e);})(document.createElement("script"));void(0);
+</code></pre>
+<p>2、在PC端使用webkit浏览器打开控制台</p>
+<p><a href="http://10.18.252.111:8080/client/#anonymous">http://10.18.252.111:8080/client/#anonymous</a></p>
+<h1 id="-">后面为识别码</h1>
+<p>tips：识别码仅仅是为了识别多个需调试的项目时使用，可供多用户操作。</p>
+<p>在控制台，你就可以轻松的调试手机网页了！</p>
+
+        <p><a href="/post/weinre-nodejs-phonegap-webapp" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年3月9日">2013年3月9日</time>
+                <em>on</em>
+                <a href="/tag/html5">html5</a>
+                ,
+                <a href="/tag/webapp">webapp</a>
+            </span>
+            <h2><a href="/post/android-chrome-mobile-web">android下chrome调试手机网页的方法</a></h2>
+        </header>
+        <p>论语曰“工欲善其事,必先利其器”！页面开发由于语言的特殊性，调试本身就有居多不便，在没有firebug和chrome开发者工具之前，简直就是噩梦。移动网页开发，调试比桌面网页开发难度更大。本文将在android平台和大家分享手机网页的调试方法。</p>
+<p><strong>准备：</strong>
+1、Android SDK<br>2、桌面chrome(PC版)<br>3、android手机+移动chrome(Android 4.0系统以上版本)  </p>
+<p><strong>步骤：</strong></p>
+<p>(一)、安装Android SDK<br>参考：我的另一篇文章：<a href="http://www.2fz1.com/?p=318">http://www.2fz1.com/?p=318</a><br>官网文档：<a href="http://developer.android.com/sdk/installing/installing-adt.html#Download">http://developer.android.com/sdk/installing/installing-adt.html#Download</a>  </p>
+<p>Tips:建议将adb.exe加入到环境变量，打开cmd窗口，输入adb，如果没有报错，说明adb.exe加入到环境变量了。</p>
+<p>(二)、用USB连接手机和电脑，并将手机打开“USB调试”模式  </p>
+<p>(三)、打开移动chrome，点击菜单键-&gt;设置-&gt;开发者工具-&gt;启用USB网页调试。  </p>
+<p>(四)、在CMD窗口输入  </p>
+<pre><code class="hljs shell">adb forward <span class="hljs-string">tcp:</span><span class="hljs-number">9222</span> <span class="hljs-string">localabstract:</span>chrome_devtools_remote
+</code></pre>
+<p>(五)、打开PC上的chrome，输入</p>
+<p><a href="http://localhost:9222/">http://localhost:9222/</a></p>
+<p>然后选择对应的手机页面，打开F12，和电脑网页一样调试。</p>
+<p>但该方法需要使用<a href="http://chrome-devtools-frontend.appspot.com来代理页面，但这个域名可能需要翻墙，至少我这边访问不了。">http://chrome-devtools-frontend.appspot.com来代理页面，但这个域名可能需要翻墙，至少我这边访问不了。</a></p>
+<p>参考文档：</p>
+<p><a href="https://developers.google.com/chrome-developer-tools/docs/remote-debugging">https://developers.google.com/chrome-developer-tools/docs/remote-debugging</a></p>
+
+        <p><a href="/post/android-chrome-mobile-web" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年11月11日">2012年11月11日</time>
+                <em>on</em>
+                <a href="/tag/html5">html5</a>
+                ,
+                <a href="/tag/webapp">webapp</a>
+            </span>
+            <h2><a href="/post/android-zhua-bao-wireshark">android网络抓包及Wireshark介绍</a></h2>
+        </header>
+        <p>为了解phonegap及一些android应用的webview使用情况，查找了一些资料，总结如下：</p>
+<p><strong>主要操作流程如下：</strong></p>
+<p>使用TCPdump工具，抓TCP数据包。将数据包上传到PC,通过Wireshark查看数据包。</p>
+<p>如果要从物理设备（手机）上抓包，要确保拥有该设备的root权限。本文是用android虚拟设备进行实验。</p>
+<p><strong>1、下载TCPdump</strong></p>
+<p>TCPdump下载地址<a href="http://www.strazzere.com/android/tcpdump">http://www.strazzere.com/android/tcpdump</a></p>
+<p><strong>2、启动android虚拟机或手机，启动成功后，打开CMD，切换至adb.exe所在的目录</strong></p>
+<p>笔者的adb.exe所在目录为：E:\android\android-sdk\platform-tools\adb.exe</p>
+<p><strong>3、从PC上传TCPdump文件到手机的sd卡</strong></p>
+<pre><code class="hljs shell">adb push E:<span class="hljs-subst">\</span>android<span class="hljs-subst">\</span>tcpdump /<span class="hljs-built_in">data</span>/<span class="hljs-built_in">local</span>/tcpdump
+</code></pre>
+<p><strong>4、设置tcpdump文件的权限</strong></p>
+<pre><code class="hljs shell">adb <span class="hljs-built_in">shell</span> chmod <span class="hljs-number">6755</span> /data/<span class="hljs-built_in">local</span>/tcpdump
+</code></pre>
+<p><strong>5、启动监听程序 并将监听的数据包存放在/sdcard/capture.pcap</strong></p>
+<pre><code class="hljs shell">adb <span class="hljs-built_in">shell</span> /data/<span class="hljs-built_in">local</span>/tcpdump -p -vv -s <span class="hljs-number">0</span> -w /sdcard/capture.pcap
+</code></pre>
+<p><strong>6、取消监听ctrl+c</strong></p>
+<p><strong>7、下载数据包文件（.pcap文件扩展名）</strong></p>
+<pre><code class="hljs shell">adb pull <span class="hljs-regexp">/sdcard/</span>capture.pcap <span class="hljs-string">E:</span>\android
+</code></pre>
+<p>本文下载到E盘android目录</p>
+<p><strong>8、解包</strong></p>
+<p>得到的包文件是.pcap文件扩展名的文件。</p>
+<p>官网下载wireshark软件：（免费开源）</p>
+<p><a href="http://www.wireshark.org/download.html">http://www.wireshark.org/download.html</a></p>
+<p>wireshark是一个免费开源的网络协议包分析软件，对于分析网络协议有很重要的帮助，它不同于Fiddler，不是通过代理实现的，能更加底层的抓取网卡上的数据包。</p>
+<p>对于笔者，大多数情况只需要分析http包，所以我们打开数据包后，进行一下过滤。</p>
+<p><a href="/assets/upload/20121111161410.png">/assets/upload/20121111161410.png</a></p>
+
+        <p><a href="/post/android-zhua-bao-wireshark" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年11月4日">2012年11月4日</time>
+                <em>on</em>
+                <a href="/tag/html5">html5</a>
+                ,
+                <a href="/tag/webapp">webapp</a>
+            </span>
+            <h2><a href="/post/mobile-viewport-meta">移动网页开发中不可或缺的viewport meta标签</a></h2>
+        </header>
+        <p>看Ember.js的一个小项目实例，发现有viewport meta标签，查了一下资料，共享一下：</p>
+<pre><code class="hljs html">&lt;meta <span class="hljs-variable">name=</span><span class="hljs-string">"viewport"</span> <span class="hljs-variable">content=</span><span class="hljs-string">"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"</span> /&gt;
+</code></pre>
+<p>1、width: 控制viewport的大小，可以指定一个值，如600， 或者特殊的值，如device-width为设备的宽度（单位为缩放为100%的CSS的像素）</p>
+<p>2、height: 和width相对应，指定高度</p>
+<p>3、initial-scale: 初始缩放比例，页面第一次加载时的缩放比例</p>
+<p>4、maximum-scale: 允许用户缩放到的最大比例，范围从0到10.0</p>
+<p>5、minimum-scale: 允许用户缩放到的最小比例，范围从0到10.0</p>
+<p>6、user-scalable: 用户是否可以手动缩放，值可以是：①yes、 true允许用户缩放；②no、false不允许用户缩放</p>
+
+        <p><a href="/post/mobile-viewport-meta" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年11月4日">2012年11月4日</time>
+                <em>on</em>
+                <a href="/tag/html5">html5</a>
+                ,
+                <a href="/tag/webapp">webapp</a>
+            </span>
+            <h2><a href="/post/phonegap-eclipse-android">PhoneGap入门：使用Eclipse PhoneGap构建Android应用程序</a></h2>
+        </header>
+        <h4 id="-eclipse">一、安装Eclipse</h4>
+<p>Eclipse是完全免费的开源IDE，你可以从官网下载安装。</p>
+<p>1、访问Eclipse官网：<a href="http://www.eclipse.org/downloads/">http://www.eclipse.org/downloads/</a>，针对您的操作系统下载 Eclipse Classic 程序包。下载完后，解决即可，无需安装。</p>
+<p>2、软件汉化：
+下载语言包，笔者当前使用的Eclipse是4.2.1版本的，使用的最新语言包为<a href="http://www.eclipse.org/downloads/download.php?file=/technology/babel/babel_language_packs/R0.10.0/juno/BabelLanguagePack-eclipse-zh_4.2.0.v20120721043402.zip">BabelLanguagePack-eclipse-zh_4.2.0.v20120721043402.zip</a>。</p>
+<p>下载后的语言包，解决后直接覆盖到Eclipse对应的目录，然后将eclipse.ini文件中加-Duser.language=zh，重启即可。</p>
+<p>你也可以这里选择更多的语言包：<a href="http://www.eclipse.org/babel/downloads.php">http://www.eclipse.org/babel/downloads.php</a></p>
+<h4 id="-android-adt-eclipse-adt-">二、安装Android开发工具 ADT（为 Eclipse 配置 ADT 插件）</h4>
+<p><a href="http://developer.android.com/sdk/installing/installing-adt.html#Download">官网安装文档，请点这里。</a></p>
+<ul>
+<li>1、点击“帮助”菜单 – “安装新软件”  </li>
+<li>2、点击“添加”（右上角）  </li>
+<li>3、输入名称：“ADT Plugin”、链接填：<a href="http://dl-ssl.google.com/android/eclipse/">http://dl-ssl.google.com/android/eclipse/</a></li>
+<li>4、选择开发工具，然后一步步向下即可</li>
+</ul>
+<h4 id="-android-sdk">三、下载并配置 Android SDK</h4>
+<p>在安装完 ADT 插件并重新启动 Eclipse 后，您需要将它配置为使用已下载至本地文件系统的 Android SDK。</p>
+<ul>
+<li>1、下载安装SDK管理工具：<a href="http://developer.android.com/sdk/index.html">http://developer.android.com/sdk/index.html</a>  </li>
+<li>2、重启Eclipse  </li>
+<li>3、Eclipse – 菜单栏 – 窗口 – Android SDK Manager  </li>
+<li>4、选择SDK版本下载。个人建议你下2.2或者2.3，版本太高的运行速度超慢，而且现在大多数android手机都是2.2或者2.3的，高版本的很少。</li>
+</ul>
+<h4 id="-phonegap">四、下载并安装 PhoneGap</h4>
+<p>解压即可，需要新建Android项目进行配置，配置方法请参阅：</p>
+<p>官网指南：<a href="http://www.phonegap.cn/?page_id=442#android">http://www.phonegap.cn/?page_id=442#android</a></p>
+<p>Adobe：<a href="http://www.adobe.com/cn/devnet/html5/articles/getting-started-with-phonegap-in-eclipse-for-android.html">Adobe指南</a></p>
+
+        <p><a href="/post/phonegap-eclipse-android" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+
+    <nav role="navigation" class="pagination">
+        
+    	<span class="page-number">Page 1 of 1</span>
+        
+	</nav>
+
+
+</div>
+
+<footer>
+	<p class="copyright">&copy; 2014 <a href="/">Jason’s Blog</a>. All rights reserved.</p>
+    <p>Proudly published with <a href="http://metalsmith.io/" target="_blank">Metalsmith</a></p>
+    <p><a href="http://www.miibeian.gov.cn/" target="_blank">闽ICP备09029032号-1</a> |
+        <script language="javascript" type="text/javascript" src="http://js.users.51.la/6883474.js"></script></p>
+</footer>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/uitotop/js/easing.js?version=20140909"></script>
+<script type="text/javascript" src="/assets/uitotop/js/jquery.ui.totop.min.js?version=20140909"></script>
+<script src="/assets/js/app.js?version=20140909"></script>
+<!--[if lt IE 8]><script src="/assets/js/noLtIE8.js?version=20140909"></script><![endif]-->
+
+</body>
+</html>

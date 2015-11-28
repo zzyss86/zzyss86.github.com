@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="keyword" content="二分之一,web前端,前端博客,树莓派,RaspberryPi,html5,css3,as3,javascript">
+  <meta name="description" content="二分之一博客是一个关注web前端及游戏前端的技术博客">
+  <title>浏览器本地存储兼容方案（html5、userData） - 二分之一 - Just Jason's Blog</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/highlight/pojoaque.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+  <!--[if lt IE 9]><script src="/assets/js/html5.js?version=20140909"></script><![endif]-->
+</head>
+
+<body>
+<div class="toolbar">
+    <div class="nav-wrapper clearfix">
+        <ul class="nav-list">
+            <li>
+                <a href="/tag/Unity3D">Unity3D</a>
+            </li>
+            <li>
+                <a href="/tag/javascript">Javascript</a>
+            </li>
+            <li>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </li>
+            <li>
+                <a href="/tag/html5">Html5</a>
+            </li>
+            <li>
+                <a href="/tag/RaspberryPi">Raspberry Pi</a>
+            </li>
+            <li>
+                <a href="/tag/metalsmith">Metalsmith</a>
+            </li>
+        </ul>
+
+        <ul class="nav-list menu">
+            <li>
+                <a href="/about.html">关于我</a>
+            </li>
+            <li>
+                <a href="/mobile/">
+                    <i class="mobile_icon"></i><span class="mobile_msg">手机访问</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<header class="top-header">
+	<section>
+    	<a href="/" class="logo"></a>
+        <h1 class="blog-name">二分之一</h1>
+        <h2 class="blog-description">Just Jason's Blog</h2>
+    </section>
+</header>
+
+
+<div class="wrapper">
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年2月20日">2012年2月20日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+                ,
+                <a href="/tag/html5">html5</a>
+            </span>
+            <h2>浏览器本地存储兼容方案（html5、userData）</h2>
+        </header>
+        <h4 id="-">一、本地存储概况</h4>
+<p>目前支持以下方法，实现浏览器端的本地存储：</p>
+<h5 id="1-cookie-">1、cookie ;</h5>
+<p>每个cookie的大小不能超过4K。</p>
+<p>Cookie数：</p>
+<ul>
+<li>IE7跟IE8限制为50个。</li>
+<li>Firefox限制为50个。</li>
+<li>Opera限制30个</li>
+<li>Safari/Chrome/WebKit没有限制</li>
+</ul>
+<p>每次的http请求，cookie都会包含在包头里发送给服务器，cookie在http请求中是明文传递的。</p>
+<h5 id="2-flash-lso-">2、flash LSO ;</h5>
+<p>local shared objects (LSOs).</p>
+<p>Flash的LSOs 就如同Web浏览器中的cookies，它们被一些开发者称为“超级cookies”，因为LSOs可以存储大量数据，且存储和读取的都是原生的ActionScript数据类型。LSOs 默认的空间大小100 KB， 用户可以通过Flash Player’s Settings Manager控制LSOs的使用空间大小，来严格限制被使用的空间。</p>
+<h5 id="3-userdata-">3、userData ；</h5>
+<p>是微软为IE专门在系统中开辟的一块存储空间，所以说只支持Windows+IE的组合，实际测试在2000（IE5.5）、XP（IE6、IE7），Vista（IE7）下都是可以正常使用的。</p>
+<p>单个文件的大小限制是128KB，一个域名下总共可以保存1024KB的文件，文件个数应该没有限制。在受限站点里这两个值分别是64KB和640KB，所以如果考虑到各种情况的话，单个文件最好能控制64KB以下。
+<!--more--></p>
+<h5 id="4-google-gears-sqlite-">4、Google Gears（SQlite）;</h5>
+<p>一个嵌入浏览器的小型数据库插件，使用类似SQL语句进行查询。</p>
+<p>以前做数字电视开发时，常常需要用到，有过较深入的使用，但种种不方便还是显而易见。</p>
+<h5 id="5-html5-localstorage-sessionstorage">5、Html5本地存储：localStorage和sessionStorage</h5>
+<p>大小支持5M，浏览器支持情况如下：</p>
+<p><img src="/assets/upload/2011052411384081.jpg" alt=""></p>
+<h4 id="-window-name">二、window.name</h4>
+<p>window.name 的美妙之处：name 值在不同的页面（甚至不同域名）加载后依旧存在，并且可以支持非常长的 name 值（2MB）。</p>
+<pre><code class="hljs javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">window</span>.name==<span class="hljs-string">""</span> || <span class="hljs-built_in">window</span>.name==<span class="hljs-literal">null</span>){
+        <span class="hljs-built_in">window</span>.name=<span class="hljs-number">1</span>;
+    }<span class="hljs-keyword">else</span>{
+        <span class="hljs-built_in">window</span>.name++;
+    }
+    <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"name"</span>).innerHTML=<span class="hljs-built_in">window</span>.name;
+})();
+</code></pre>
+<p>不关掉页面，不断刷新页面，可以发现window.name的值可以不断累加。</p>
+<h4 id="-">三、兼容方案</h4>
+<h5 id="1-">1、永久存储</h5>
+<p>使用window.localStorage和userData（IE5.5-8.0）</p>
+<h5 id="2-">2、会话临时存储</h5>
+<p>使用window.sessionStorage和userData</p>
+<p>userData的expires属性设置或者获取 userData behavior 保存数据的失效日期，不设置则为永久。</p>
+<p>本文使用window.name的会话（当前页不关闭窗口，存储值会一直有效）特性实现sessionStorage的功能。</p>
+<p>具体封装代码：<a href="/assets/upload/store.js">store.js</a></p>
+<p><strong>使用方法：</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> storeObj = store_constructor(); <span class="hljs-comment">//注意只需调用运行，不用new，该对象为单例对象</span>
+</code></pre>
+<p><strong>方法列表：</strong></p>
+<pre><code><span class="hljs-function">init</span>(); 初始化(必须在dom加载完后进行)。通过判断对HTML5的localStorage支持情况，设置相应变量
+<span class="hljs-function">setValue</span>(key, value); 设置键值对到本地存储，value可为对象，方法内部会调用JSON<span class="hljs-class">.stringify</span>转换字符串
+<span class="hljs-function">setSessionValue</span>(key, value); 临时保存，关闭浏览器后销毁
+<span class="hljs-function">getValue</span>(key); 获取值，对应<span class="hljs-function">setValue</span>();
+<span class="hljs-function">getSessionValue</span>(key); 获取临时值，对应<span class="hljs-function">setSessionValue</span>();
+<span class="hljs-function">deleteValue</span>(key); 删除值，对应<span class="hljs-function">setValue</span>();
+<span class="hljs-function">deleteSessionValue</span>(key); 删除临时值，对应<span class="hljs-function">setSessionValue</span>();
+<span class="hljs-function">clearLocalStorage</span>(); 清除所有存储，对应<span class="hljs-function">setValue</span>();
+<span class="hljs-function">clearSessionStorage</span>(); 清除所有临时存储，对应<span class="hljs-function">setSessionValue</span>();
+<span class="hljs-function">clearDOMStorage</span>(); 清除所有存储
+</code></pre><p>Chrome Session Storage存储值：</p>
+<p><img src="/assets/upload/20120220110832.jpg" alt=""></p>
+<p>IE下userData生成的HTML节点：</p>
+<p><img src="/assets/upload/20120220111320.jpg" alt=""></p>
+<h4 id="-userdata-userdata-">四、userData(有兴趣了解userData使用，可继续阅读)</h4>
+<h5 id="1-html-userdata-">1、首选需要创建一个HTML标签以寄存userData的存储数据</h5>
+<p>在<head>中加入：<code>&lt;meta propdescname=”save” content=”userdata”/&gt;</code></p>
+<p>在<body>中加入：<code>&lt;div id=”userid” style=”display: none; behavior: url(‘#default#userData’);”&gt;&lt;/div&gt;</code></p>
+<h5 id="2-">2、设置值</h5>
+<pre><code class="hljs javascript"><span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"userid"</span>).setAttribute(<span class="hljs-string">"key"</span>,<span class="hljs-string">"value"</span>);
+<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"userid"</span>).save(_objectName);
+<span class="hljs-comment">//其中参数为存储的对象名，这个名称在后面的取值是需要保持一致，将对象数据存储到一个 userData 存储区。</span>
+</code></pre>
+<h5 id="3-">3、取值</h5>
+<pre><code class="hljs javascript"><span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"userid"</span>).load(_objectName);<span class="hljs-comment">//从userData存储区载入存储的对象数据。</span>
+<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"userid"</span>).getAttribute(<span class="hljs-string">"key"</span>);
+</code></pre>
+<h5 id="4-">4、清除存储值</h5>
+<pre><code class="hljs javascript"><span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"userid"</span>).removeAttribute(<span class="hljs-string">"key"</span>);<span class="hljs-comment">//移除对象的指定属性。</span>
+<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"userid"</span>).save(_objectName);
+</code></pre>
+<h5 id="5-">5、销毁</h5>
+<p>略。</p>
+
+        <p class="last-edit-time">最后修改时间：2014年9月11日星期四晚上10点27</p>
+        <div class="share_wrapper">
+            <div class="jiathis_style_32x32">
+                <a class="jiathis_button_qzone"></a>
+                <a class="jiathis_button_tsina"></a>
+                <a class="jiathis_button_tqq"></a>
+                <a class="jiathis_button_renren"></a>
+                <a class="jiathis_button_kaixin001"></a>
+                <a class="jiathis_button_weixin"></a>
+                <a href="http://www.jiathis.com/share?uid=1879675" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+            </div>
+        </div>
+    </article>
+
+<a name="comment"></a>
+<div class="comment-widget">
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1879675"></script>
+<!-- UY END -->
+</div>
+
+</div>
+
+<footer>
+	<p class="copyright">&copy; 2014 <a href="/">Jason’s Blog</a>. All rights reserved.</p>
+    <p>Proudly published with <a href="http://metalsmith.io/" target="_blank">Metalsmith</a></p>
+    <p><a href="http://www.miibeian.gov.cn/" target="_blank">闽ICP备09029032号-1</a> |
+        <script language="javascript" type="text/javascript" src="http://js.users.51.la/6883474.js"></script></p>
+</footer>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/uitotop/js/easing.js?version=20140909"></script>
+<script type="text/javascript" src="/assets/uitotop/js/jquery.ui.totop.min.js?version=20140909"></script>
+<script src="/assets/js/app.js?version=20140909"></script>
+<!--[if lt IE 8]><script src="/assets/js/noLtIE8.js?version=20140909"></script><![endif]-->
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" >
+    var jiathis_config={
+        data_track_clickback:true,
+        shortUrl:false,
+        hideMore:false
+    }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1879675" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+</body>
+</html>

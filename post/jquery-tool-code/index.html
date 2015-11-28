@@ -1,0 +1,279 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="keyword" content="二分之一,web前端,前端博客,树莓派,RaspberryPi,html5,css3,as3,javascript">
+  <meta name="description" content="二分之一博客是一个关注web前端及游戏前端的技术博客">
+  <title>jQuery源码解读一：部份jQuery工具方法实现 - 二分之一 - Just Jason's Blog</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/highlight/pojoaque.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+  <!--[if lt IE 9]><script src="/assets/js/html5.js?version=20140909"></script><![endif]-->
+</head>
+
+<body>
+<div class="toolbar">
+    <div class="nav-wrapper clearfix">
+        <ul class="nav-list">
+            <li>
+                <a href="/tag/Unity3D">Unity3D</a>
+            </li>
+            <li>
+                <a href="/tag/javascript">Javascript</a>
+            </li>
+            <li>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </li>
+            <li>
+                <a href="/tag/html5">Html5</a>
+            </li>
+            <li>
+                <a href="/tag/RaspberryPi">Raspberry Pi</a>
+            </li>
+            <li>
+                <a href="/tag/metalsmith">Metalsmith</a>
+            </li>
+        </ul>
+
+        <ul class="nav-list menu">
+            <li>
+                <a href="/about.html">关于我</a>
+            </li>
+            <li>
+                <a href="/mobile/">
+                    <i class="mobile_icon"></i><span class="mobile_msg">手机访问</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<header class="top-header">
+	<section>
+    	<a href="/" class="logo"></a>
+        <h1 class="blog-name">二分之一</h1>
+        <h2 class="blog-description">Just Jason's Blog</h2>
+    </section>
+</header>
+
+
+<div class="wrapper">
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年5月4日">2013年5月4日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+            </span>
+            <h2>jQuery源码解读一：部份jQuery工具方法实现</h2>
+        </header>
+        <p>jQuery作为前端最流行的类库，没有之一，源码必须得读一读。本博将不定期更新源码解读内容，如果解读不正确的地方，还请同学们在评论中指正。</p>
+<p>本系列文章基于最新的jquery-1.9.1.js。</p>
+<h4 id="-type-js-">一、$.type() 判断js数据类型</h4>
+<p>用法：$.type(new Array()); //array</p>
+<p>部份源码(截取关键部份，请忽略源码语法)：</p>
+<pre><code class="hljs javascript"><span class="hljs-comment">//生成typelist的map</span>
+class2type = {}
+jQuery.each(<span class="hljs-string">"Boolean Number String Function Array Date RegExp Object Error"</span>.split(<span class="hljs-string">" "</span>), <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(i, name)</span> </span>{
+    class2type[ <span class="hljs-string">"[object "</span> + name + <span class="hljs-string">"]"</span> ] = name.toLowerCase();
+});
+
+<span class="hljs-comment">//每个对象实例都有toString方法</span>
+core_toString = class2type.toString
+
+<span class="hljs-comment">//主方法</span>
+type: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( obj )</span> </span>{
+    <span class="hljs-keyword">if</span> ( obj == <span class="hljs-literal">null</span> ) {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">String</span>( obj );
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> obj === <span class="hljs-string">"object"</span> || <span class="hljs-keyword">typeof</span> obj === <span class="hljs-string">"function"</span> ?
+        class2type[ core_toString.call(obj) ] || <span class="hljs-string">"object"</span> :
+        <span class="hljs-keyword">typeof</span> obj;
+}
+</code></pre>
+<p><strong>解读：</strong></p>
+<p>1、class2type生成后的内容为</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> <span class="hljs-class">class2<span class="hljs-title">type</span> = </span>{
+    <span class="hljs-string">"[object Boolean]"</span>:<span class="hljs-string">"boolean"</span>,
+    <span class="hljs-string">"[object Number]"</span>:<span class="hljs-string">"number"</span>,
+    <span class="hljs-string">"[object String]"</span>:<span class="hljs-string">"string"</span>,
+    <span class="hljs-string">"[object Function]"</span>:<span class="hljs-string">"function"</span>,
+    <span class="hljs-string">"[object Array]"</span>:<span class="hljs-string">"array"</span>,
+    <span class="hljs-string">"[object Date]"</span>:<span class="hljs-string">"date"</span>,
+    <span class="hljs-string">"[object RegExp]"</span>:<span class="hljs-string">"regexp"</span>,
+    <span class="hljs-string">"[object Object]"</span>:<span class="hljs-string">"object"</span>,
+    <span class="hljs-string">"[object Error]"</span>:<span class="hljs-string">"error"</span>
+}
+</code></pre>
+<p>2、core_toString使用的是对象实例的toString</p>
+<p>所有继随自Object的对象都有toString方法，为什么一定要使用object.toString，因为array,function虽然有toString方法，但该方法进行了重写，array调用toString打印的数组成员用逗号隔开的字符串。这里使用的是{}.toString.call(obj);改变toString的this指向为object实例。jquery为什么使用的是class2type.toString.call，这样就可以少声明一个object。</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> func = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{};
+<span class="hljs-keyword">var</span> arr = [];
+<span class="hljs-built_in">console</span>.log({}.toString.call(func)); <span class="hljs-comment">//[object Function]</span>
+<span class="hljs-built_in">console</span>.log({}.toString.call(arr)); <span class="hljs-comment">//[object Array]</span>
+</code></pre>
+<p>这样就得到class2type的键名，以此判断数据类型。</p>
+<!--more-->
+
+<h4 id="-each-">二、$.each() 遍历一个数组或对象。</h4>
+<p>each()其实还是使用的for来进行循环的，除了方便外，因其做了一下简单的封装，所以效率还是要比for差，对于大型循环，尽量使用for.</p>
+<h4 id="-trim-">三、$.trim() 去除字符串两端的空格。</h4>
+<pre><code class="hljs javascript">rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+<span class="hljs-variable">$/</span>g
+core_version = <span class="hljs-string">"1.9.1"</span>
+<span class="hljs-comment">//仅仅是使用字符串的trim方法</span>
+core_trim = core_version.<span class="hljs-keyword">trim</span>
+
+<span class="hljs-comment">//主方法，首先尝试使用字符串原生的trim方法（非IE支持）</span>
+<span class="hljs-comment">//不支持的话，使用String.prototype.trim.call("\uFEFF\xA0")</span>
+<span class="hljs-comment">//最后使用正则replace</span>
+<span class="hljs-keyword">trim</span>: core_trim &amp;&amp; !core_trim.call(<span class="hljs-string">"\uFEFF\xA0"</span>) ?
+    function( <span class="hljs-keyword">text</span> ) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">text</span> == null ?
+            <span class="hljs-string">""</span> :
+            core_trim.call( <span class="hljs-keyword">text</span> );
+    } :
+
+    <span class="hljs-comment">// 上述两个方法不支持，使用自定义的方法，清空两边的空格或特殊字符</span>
+    function( <span class="hljs-keyword">text</span> ) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">text</span> == null ?
+            <span class="hljs-string">""</span> :
+            ( <span class="hljs-keyword">text</span> + <span class="hljs-string">""</span> ).replace( rtrim, <span class="hljs-string">""</span> );
+    }
+</code></pre>
+<p>该方法需要解释的是，“\uFEFF”和“\xA0”。</p>
+<p>某些软件，在保存一个以UTF-8编码的文件时，会在文件开始的地方插入三个不可见的字符（0xEF 0xBB 0xBF，即BOM），转码后是“\uFEFF”，因此我们在读取时需要自己去掉这些字符。</p>
+<p>“\xA0”其实就是HTML中常见的“&amp;nbsp”</p>
+<h4 id="-isnumeric-">四、$.isNumeric() 判断是否是数字</h4>
+<pre><code class="hljs javascript">isNumeric: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( obj )</span> </span>{
+    <span class="hljs-keyword">return</span> !<span class="hljs-built_in">isNaN</span>( <span class="hljs-built_in">parseFloat</span>(obj) ) &amp;&amp; <span class="hljs-built_in">isFinite</span>( obj );
+}
+</code></pre>
+<p>isFinite() 函数用于检查其参数是否是无穷大。如果 number 是有限数字（或可转换为有限数字），那么返回 true。否则，如果 number 是 NaN（非数字），或者是正、负无穷大的数，则返回 false。</p>
+<h4 id="-isemptyobject-">五、$.isEmptyObject() 判断对象是否为空</h4>
+<pre><code class="hljs javascript">isEmptyObject: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( obj )</span> </span>{
+    <span class="hljs-keyword">var</span> name;
+    <span class="hljs-keyword">for</span> ( name <span class="hljs-keyword">in</span> obj ) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+}
+</code></pre>
+<p>这个方法很好懂，就不多解释</p>
+<h4 id="-parsejson-json-json-">六、$.parseJSON() 将JSON字符串转换为JSON对象</h4>
+<pre><code class="hljs javascript"><span class="hljs-comment">// JSON RegExp</span>
+rvalidchars = <span class="hljs-regexp">/^[\],:{}\s]*$/</span>,
+rvalidbraces = <span class="hljs-regexp">/(?:^|:|,)(?:\s*\[)+/g</span>,
+rvalidescape = <span class="hljs-regexp">/\\(?:["\\\/bfnrt]|u[\da-fA-F]{4})/g</span>,
+rvalidtokens = <span class="hljs-regexp">/"[^"\\\r\n]*"|true|false|null|-?(?:\d+\.|)\d+(?:[eE][+-]?\d+|)/g</span>
+
+parseJSON: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( data )</span> </span>{
+    <span class="hljs-comment">// 如果有原生的JSON对象支持，使用原生对象</span>
+    <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">window</span>.JSON &amp;&amp; <span class="hljs-built_in">window</span>.JSON.parse ) {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">window</span>.JSON.parse( data );
+    }
+
+    <span class="hljs-keyword">if</span> ( data === <span class="hljs-literal">null</span> ) {
+        <span class="hljs-keyword">return</span> data;
+    }
+
+    <span class="hljs-keyword">if</span> ( <span class="hljs-keyword">typeof</span> data === <span class="hljs-string">"string"</span> ) {
+
+        <span class="hljs-comment">// 去掉两端空格,制表符,bom</span>
+        data = jQuery.trim( data );
+
+        <span class="hljs-keyword">if</span> ( data ) {
+            <span class="hljs-comment">// 保证输入的字符串是可用的JSON字符串</span>
+            <span class="hljs-keyword">if</span> ( rvalidchars.test( data.replace( rvalidescape, <span class="hljs-string">"@"</span> )
+                .replace( rvalidtokens, <span class="hljs-string">"]"</span> )
+                .replace( rvalidbraces, <span class="hljs-string">""</span>)) ) {
+                <span class="hljs-built_in">console</span>.log(data);
+                <span class="hljs-keyword">return</span> ( <span class="hljs-keyword">new</span> <span class="hljs-built_in">Function</span>( <span class="hljs-string">"return "</span> + data ) )();
+            }
+        }
+    }
+
+    jQuery.error( <span class="hljs-string">"Invalid JSON: "</span> + data );
+}
+</code></pre>
+<p>这个方法主要是看上面几个正则表达式，从字符串转JSON对象，仅仅是使用return ( new Function( “return ” + data ) )();</p>
+<h4 id="-globaleval-js-">七、$.globalEval() 在全局作用域执行一段JS脚本</h4>
+<pre><code class="hljs javascript"><span class="hljs-comment">// 在全局作用域执行JS脚本</span>
+globalEval: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( data )</span> </span>{
+    <span class="hljs-keyword">if</span> ( data &amp;&amp; jQuery.trim( data ) ) {
+        <span class="hljs-comment">// 在IE中使用execScript</span>
+        <span class="hljs-comment">// 因为使用匿名函数，所以作用域使用的是window</span>
+        ( <span class="hljs-built_in">window</span>.execScript || <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( data )</span> </span>{
+            <span class="hljs-built_in">window</span>[ <span class="hljs-string">"eval"</span> ].call( <span class="hljs-built_in">window</span>, data );
+        } )( data );
+    }
+}
+</code></pre>
+<p>jQuery该方法源于：Jim Driscoll</p>
+<p>方法原理：eval作用域问题</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> a = <span class="hljs-string">"window"</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">b</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">eval</span>(<span class="hljs-string">'var a = "b"'</span>);
+}
+b();
+alert(a); <span class="hljs-comment">//a的结果为window；IE、chrome、FF结果一致</span>
+</code></pre>
+<p>window.eval和eval不一样的地方：</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> a = <span class="hljs-string">"window"</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">b</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">window</span>.eval(<span class="hljs-string">'var a = "b"'</span>);
+}
+b();
+alert(a); <span class="hljs-comment">//IE下还是a的结果还是window,chrome、FF的a的结果b</span>
+</code></pre>
+
+        <p class="last-edit-time">最后修改时间：2014年9月10日星期三晚上8点03</p>
+        <div class="share_wrapper">
+            <div class="jiathis_style_32x32">
+                <a class="jiathis_button_qzone"></a>
+                <a class="jiathis_button_tsina"></a>
+                <a class="jiathis_button_tqq"></a>
+                <a class="jiathis_button_renren"></a>
+                <a class="jiathis_button_kaixin001"></a>
+                <a class="jiathis_button_weixin"></a>
+                <a href="http://www.jiathis.com/share?uid=1879675" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+            </div>
+        </div>
+    </article>
+
+<a name="comment"></a>
+<div class="comment-widget">
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1879675"></script>
+<!-- UY END -->
+</div>
+
+</div>
+
+<footer>
+	<p class="copyright">&copy; 2014 <a href="/">Jason’s Blog</a>. All rights reserved.</p>
+    <p>Proudly published with <a href="http://metalsmith.io/" target="_blank">Metalsmith</a></p>
+    <p><a href="http://www.miibeian.gov.cn/" target="_blank">闽ICP备09029032号-1</a> |
+        <script language="javascript" type="text/javascript" src="http://js.users.51.la/6883474.js"></script></p>
+</footer>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/uitotop/js/easing.js?version=20140909"></script>
+<script type="text/javascript" src="/assets/uitotop/js/jquery.ui.totop.min.js?version=20140909"></script>
+<script src="/assets/js/app.js?version=20140909"></script>
+<!--[if lt IE 8]><script src="/assets/js/noLtIE8.js?version=20140909"></script><![endif]-->
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" >
+    var jiathis_config={
+        data_track_clickback:true,
+        shortUrl:false,
+        hideMore:false
+    }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1879675" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+</body>
+</html>

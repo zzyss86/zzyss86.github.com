@@ -1,0 +1,257 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="keyword" content="二分之一,web前端,前端博客,树莓派,RaspberryPi,html5,css3,as3,javascript">
+  <meta name="description" content="二分之一博客是一个关注web前端及游戏前端的技术博客">
+  <title>jQuery deferred对象API详解及DEMO - 二分之一 - Just Jason's Blog</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/highlight/pojoaque.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+  <!--[if lt IE 9]><script src="/assets/js/html5.js?version=20140909"></script><![endif]-->
+</head>
+
+<body>
+<div class="toolbar">
+    <div class="nav-wrapper clearfix">
+        <ul class="nav-list">
+            <li>
+                <a href="/tag/Unity3D">Unity3D</a>
+            </li>
+            <li>
+                <a href="/tag/javascript">Javascript</a>
+            </li>
+            <li>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </li>
+            <li>
+                <a href="/tag/html5">Html5</a>
+            </li>
+            <li>
+                <a href="/tag/RaspberryPi">Raspberry Pi</a>
+            </li>
+            <li>
+                <a href="/tag/metalsmith">Metalsmith</a>
+            </li>
+        </ul>
+
+        <ul class="nav-list menu">
+            <li>
+                <a href="/about.html">关于我</a>
+            </li>
+            <li>
+                <a href="/mobile/">
+                    <i class="mobile_icon"></i><span class="mobile_msg">手机访问</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<header class="top-header">
+	<section>
+    	<a href="/" class="logo"></a>
+        <h1 class="blog-name">二分之一</h1>
+        <h2 class="blog-description">Just Jason's Blog</h2>
+    </section>
+</header>
+
+
+<div class="wrapper">
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年4月16日">2013年4月16日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+            </span>
+            <h2>jQuery deferred对象API详解及DEMO</h2>
+        </header>
+        <p>jQuery在1.5开始引入deferred(延迟)，简单说，deferred对象就是jQuery的回调函数解决方案。</p>
+<p>jQuery1.5中，Deferred对象提供一种方式来注册多个回调,添加到自已管理的回调队列中，调用适当的回调队列，并转达同步或异步函数的成功或失败状态。</p>
+<p>deferred对象有三种执行状态：未完成（pending），已完成（resolved）和已失败（rejected）</p>
+<p><strong>API概览:</strong></p>
+<pre><code class="hljs javascript">deferred <span class="hljs-class"><span class="hljs-keyword">object</span> =</span> {
+    always(alwaysCallbacks [, alwaysCallbacks])
+    <span class="hljs-comment">//延迟对象不管成功或失败都最终会执行该方法</span>
+
+    done(doneCallbacks)
+    <span class="hljs-comment">//延迟对象成功完成后调用</span>
+
+    fail(failCallbacks)
+    <span class="hljs-comment">//延迟对象失败后调用</span>
+
+    isRejected()
+    <span class="hljs-comment">//确定延迟对象是否已失败</span>
+
+    isResolved()
+    <span class="hljs-comment">//确定延迟对象是否已成功</span>
+
+    notify( args )
+    <span class="hljs-comment">//用来触发一个自定义事件fireEvent</span>
+
+    notifyWith(context, [args])
+    <span class="hljs-comment">//跟notify一样，但可以指定上下文</span>
+
+    pipe([doneFilter] [, failFilter] [, progressFilter] )
+    <span class="hljs-comment">//jQuery的1.8，deferred.pipe（）方法已经被淘汰。</span>
+    <span class="hljs-comment">//用deferred.then()替代</span>
+
+    progress( progressCallbacks )
+    <span class="hljs-comment">//用来监控函数执行过程，进度处理程序，见：notify 方法</span>
+
+    reject([args])
+    <span class="hljs-comment">//使延迟对象的状态变为失败，对应的回调函数绑定方法为fail。</span>
+
+    rejectWith(context, [args])
+    <span class="hljs-comment">//使用方法与reject一样，但是可以指定上下文，使用可以参考 resolveWidth</span>
+
+    resolve([args])
+    <span class="hljs-comment">//使延迟对象的状态变为成功，对应的回调函数绑定方法为done。</span>
+
+    resolveWith(context, [args])
+    <span class="hljs-comment">//使用方法与resolve一样，但是可以指定上下文</span>
+
+    state()
+    <span class="hljs-comment">//查询延迟对象的状态，有三种：pending resolved rejected</span>
+
+    then(doneCallbacks, failCallbacks [, progressCallbacks])
+    <span class="hljs-comment">//一种缩写，用法与done,fail一样</span>
+
+    promise([target])
+    <span class="hljs-comment">//在原来的deferred对象上返回另一个deferred对象，</span>
+    <span class="hljs-comment">//这个新的deferred对象屏蔽了改变状态的方法。</span>
+}
+</code></pre>
+<!--more-->
+
+<h4 id="-">入门应用：</h4>
+<pre><code class="hljs javascript">$.ajax(<span class="hljs-string">"test.php"</span>)
+.done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{ alert(<span class="hljs-string">"成功了！"</span>); })
+.fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{ alert(<span class="hljs-string">"出错啦！"</span>); });
+</code></pre>
+<p>从1.5开始，ajax对象不再返回xhr对象，而是deferred对象。通过.done执行成功回调，通过.fail执行失败回调。</p>
+<p><strong>1、$.when</strong></p>
+<p>返回一个Deferred对象，允许你为多个事件指定一个回调函数。</p>
+<pre><code class="hljs javascript">$.when($.ajax(<span class="hljs-string">"test.php"</span>),$.ajax(<span class="hljs-string">"test2.php"</span>))
+.done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{ alert(<span class="hljs-string">"成功了！"</span>); })
+.fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{ alert(<span class="hljs-string">"出错啦！"</span>); });
+</code></pre>
+<p>这是一个与操作，只有test.php和test2.php都成功时才会执行done，否则执行fail;</p>
+<p><strong>2、resolve和reject的用法</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> def = $.Deferred(); <span class="hljs-comment">//创建deferred对象</span>
+<span class="hljs-keyword">var</span> readConf = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    fs.readFile(<span class="hljs-string">'test.txt'</span>,<span class="hljs-string">'utf-8'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err, data)</span> </span>{
+        <span class="hljs-keyword">if</span> (err) {
+           def.reject(); <span class="hljs-comment">//改变deferred对象状态成失败</span>
+        } <span class="hljs-keyword">else</span> {
+           def.resolve(); <span class="hljs-comment">//改变deferred对象状态成成功</span>
+        }
+    });
+    <span class="hljs-keyword">return</span> def;  <span class="hljs-comment">//返回</span>
+}
+
+$.when(readConf())
+.done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{ alert(<span class="hljs-string">"成功了！"</span>); })
+.fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{ alert(<span class="hljs-string">"出错啦！"</span>); });
+</code></pre>
+<p><strong>3、promise用法</strong></p>
+<p>例2中，定义的def为全局变量，在作用域范围内，可以通过def.reject()或def.resolve()来改变其本身的状态，这样影响def的安全性，promise在原来的deferred对象上返回另一个deferred对象，这个新的deferred对象屏蔽了改变状态的方法。</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> def = $.Deferred(); <span class="hljs-comment">//创建deferred对象</span>
+<span class="hljs-keyword">var</span> readConf = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    fs.readFile(<span class="hljs-string">'test.txt'</span>,<span class="hljs-string">'utf-8'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err, data)</span> </span>{
+        <span class="hljs-keyword">if</span> (err) {
+           def.reject(); <span class="hljs-comment">//改变deferred对象状态成失败</span>
+        } <span class="hljs-keyword">else</span> {
+           def.resolve(); <span class="hljs-comment">//改变deferred对象状态成成功</span>
+        }
+    });
+    <span class="hljs-keyword">return</span> def.promise();  <span class="hljs-comment">//通过promise返回deferred对象，起到状态保护作用</span>
+}
+
+$.when(readConf())
+.done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{ alert(<span class="hljs-string">"成功了！"</span>); })
+.fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{ alert(<span class="hljs-string">"出错啦！"</span>); });
+
+def.reject(); <span class="hljs-comment">//更改无效</span>
+</code></pre>
+<p><strong>4、notify和progress用法</strong></p>
+<p>两者一般结合使用，有点自定义事件的意思。</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> <span class="hljs-function"><span class="hljs-keyword">def</span> =</span> $.<span class="hljs-type">Deferred</span>(); <span class="hljs-comment">//创建deferred对象</span>
+<span class="hljs-keyword">var</span> readConf = function(){
+    <span class="hljs-function"><span class="hljs-keyword">def</span>.<span class="hljs-title">notify</span>(</span><span class="hljs-symbol">'star</span>t');
+    fs.readFile(<span class="hljs-symbol">'test</span>.txt',<span class="hljs-symbol">'utf</span>-<span class="hljs-number">8</span>', function(err, data) {
+        <span class="hljs-keyword">if</span> (err) {
+            <span class="hljs-function"><span class="hljs-keyword">def</span>.<span class="hljs-title">reject</span>(</span>); <span class="hljs-comment">//改变deferred对象状态成失败</span>
+            <span class="hljs-function"><span class="hljs-keyword">def</span>.<span class="hljs-title">notify</span>(</span><span class="hljs-symbol">'fai</span>l');
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-function"><span class="hljs-keyword">def</span>.<span class="hljs-title">resolve</span>(</span>); <span class="hljs-comment">//改变deferred对象状态成成功</span>
+            <span class="hljs-function"><span class="hljs-keyword">def</span>.<span class="hljs-title">notify</span>(</span><span class="hljs-symbol">'succes</span>s');
+        }
+    });
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">def</span>;</span>
+}
+
+$.when(readConf())
+.progress(function(_event){
+    console.log(_event); <span class="hljs-comment">//打印start,fail 或 start,success</span>
+    <span class="hljs-comment">//_event是def.notify参数中指定的自定义事件名，是一个字符串</span>
+    <span class="hljs-comment">//此处可以跟据不同事件进行相应的逻辑处理</span>
+});
+</code></pre>
+<p><strong>5、then用法</strong></p>
+<pre><code class="hljs javascript">$.when(readConf())
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{ alert(<span class="hljs-string">"成功了！"</span>); },<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{ alert(<span class="hljs-string">"出错啦！"</span>); });
+</code></pre>
+
+        <p class="last-edit-time">最后修改时间：2014年9月10日星期三晚上7点47</p>
+        <div class="share_wrapper">
+            <div class="jiathis_style_32x32">
+                <a class="jiathis_button_qzone"></a>
+                <a class="jiathis_button_tsina"></a>
+                <a class="jiathis_button_tqq"></a>
+                <a class="jiathis_button_renren"></a>
+                <a class="jiathis_button_kaixin001"></a>
+                <a class="jiathis_button_weixin"></a>
+                <a href="http://www.jiathis.com/share?uid=1879675" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+            </div>
+        </div>
+    </article>
+
+<a name="comment"></a>
+<div class="comment-widget">
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1879675"></script>
+<!-- UY END -->
+</div>
+
+</div>
+
+<footer>
+	<p class="copyright">&copy; 2014 <a href="/">Jason’s Blog</a>. All rights reserved.</p>
+    <p>Proudly published with <a href="http://metalsmith.io/" target="_blank">Metalsmith</a></p>
+    <p><a href="http://www.miibeian.gov.cn/" target="_blank">闽ICP备09029032号-1</a> |
+        <script language="javascript" type="text/javascript" src="http://js.users.51.la/6883474.js"></script></p>
+</footer>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/uitotop/js/easing.js?version=20140909"></script>
+<script type="text/javascript" src="/assets/uitotop/js/jquery.ui.totop.min.js?version=20140909"></script>
+<script src="/assets/js/app.js?version=20140909"></script>
+<!--[if lt IE 8]><script src="/assets/js/noLtIE8.js?version=20140909"></script><![endif]-->
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" >
+    var jiathis_config={
+        data_track_clickback:true,
+        shortUrl:false,
+        hideMore:false
+    }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1879675" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+</body>
+</html>

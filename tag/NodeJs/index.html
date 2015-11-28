@@ -1,0 +1,521 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="keyword" content="二分之一,web前端,前端博客,树莓派,RaspberryPi,html5,css3,as3,javascript">
+  <meta name="description" content="二分之一博客是一个关注web前端及游戏前端的技术博客">
+  <title>NodeJs - 二分之一 - Just Jason's Blog</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/highlight/pojoaque.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+  <!--[if lt IE 9]><script src="/assets/js/html5.js?version=20140909"></script><![endif]-->
+</head>
+
+<body>
+<div class="toolbar">
+    <div class="nav-wrapper clearfix">
+        <ul class="nav-list">
+            <li>
+                <a href="/tag/Unity3D">Unity3D</a>
+            </li>
+            <li>
+                <a href="/tag/javascript">Javascript</a>
+            </li>
+            <li>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </li>
+            <li>
+                <a href="/tag/html5">Html5</a>
+            </li>
+            <li>
+                <a href="/tag/RaspberryPi">Raspberry Pi</a>
+            </li>
+            <li>
+                <a href="/tag/metalsmith">Metalsmith</a>
+            </li>
+        </ul>
+
+        <ul class="nav-list menu">
+            <li>
+                <a href="/about.html">关于我</a>
+            </li>
+            <li>
+                <a href="/mobile/">
+                    <i class="mobile_icon"></i><span class="mobile_msg">手机访问</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<header class="top-header">
+	<section>
+    	<a href="/" class="logo"></a>
+        <h1 class="blog-name">二分之一</h1>
+        <h2 class="blog-description">Just Jason's Blog</h2>
+    </section>
+</header>
+
+
+<div class="wrapper">
+
+<header class="tag-archive-header">
+    <h1>NodeJs</h1>
+</header>
+
+    <nav role="navigation" class="pagination">
+        
+    	<span class="page-number">Page 1 of 2</span>
+        
+        <a href="/tag/NodeJs/2/" class="older-posts">Older Posts →</a>
+	</nav>
+
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2014年3月9日">2014年3月9日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+                ,
+                <a href="/tag/NodeJs">NodeJs</a>
+            </span>
+            <h2><a href="/post/node-js-es6-harmony">Node.js ES6（harmony模式）支持情况一览</a></h2>
+        </header>
+        <p>本文地址：<a href="http://www.2fz1.com，转载请注明来源。">http://www.2fz1.com，转载请注明来源。</a></p>
+<p>ES6指：ECMAScript 6草案 (2012.4) 规定。</p>
+<p>Node.js需要0.11.*版本来开启ES6实验阶段的支持，官网最新版本下载链接。</p>
+<p>安装 0.11.* 以后的版本后，通过node --harmony来启动应用程序。本文只例出Node.js支持的新特性，暂未支持的特性，不在本文介绍范围。以下特性均通过Node.js v0.11.9测试！</p>
+<h4 id="const">const</h4>
+<p>声明一个只读的命名常量，一个常量不可以被重新赋值，并且不能被重复声明。</p>
+<p><strong>const例子</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">const</span> a = <span class="hljs-string">'a'</span>;
+<span class="hljs-built_in">console</span>.log(a); <span class="hljs-comment">//a</span>
+a = <span class="hljs-string">'b'</span>;
+<span class="hljs-built_in">console</span>.log(a); <span class="hljs-comment">//a</span>
+
+<span class="hljs-comment">//以下重复定义，会报错</span>
+<span class="hljs-comment">//Error:Variable 'a' has already been declared</span>
+<span class="hljs-keyword">var</span> a = <span class="hljs-string">'c'</span>;
+<span class="hljs-keyword">const</span> a = <span class="hljs-string">'d'</span>;
+<span class="hljs-built_in">console</span>.log(a);
+</code></pre>
+
+        <p><a href="/post/node-js-es6-harmony" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2014年2月18日">2014年2月18日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+                ,
+                <a href="/tag/NodeJs">NodeJs</a>
+            </span>
+            <h2><a href="/post/javascript-nodejs-lunarcalendar">支持Node.js和浏览器端使用的全功能农历和公历日历类库：LunarCalendar</a></h2>
+        </header>
+        <p>过年长假期间，写了一个农历类库：LunarCalendar</p>
+<p>开源在github：<a href="https://github.com/zzyss86/LunarCalendar">https://github.com/zzyss86/LunarCalendar</a>
+文档地址：<a href="http://www.tuijs.com/lib/52fcc5f51fc3c6de6a9e4552">http://www.tuijs.com/lib/52fcc5f51fc3c6de6a9e4552</a></p>
+<p>农历（阴历）万年历，是一款支持Node.js和浏览器端使用的全功能农历和公历日历类库。支持农历与公历之间相互转换，含有二十四节气，天干地支纪年纪月纪日，生肖属相，公历节假日及农历传统节假日信息等功能。自带2013-2014节假日安排数据，并可自行配置。带有黄历数据，可自行选择配置。支持1891-2100年。使用LunarCalendar可快速开发一款属于自己的万年历产品，行动起来吧！</p>
+<p><a href="/assets/upload/banner200.png">/assets/upload/banner200.png</a></p>
+
+        <p><a href="/post/javascript-nodejs-lunarcalendar" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2014年2月18日">2014年2月18日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+                ,
+                <a href="/tag/NodeJs">NodeJs</a>
+            </span>
+            <h2><a href="/post/javascript-nodejs-tuijs">用Node.js写了一个小站：推JS</a></h2>
+        </header>
+        <p>好久没更新博客了，说说最近除了工作之外的业余时间在忙什么吧，年前用Node.js写了一个小站：推JS；
+托管在BAE3.0上，不是很稳定，各种问题，但是百度总是这样，有好产品但没有好的用户服务，忍了，因为国内就此一家。</p>
+<p>推JS，传送门：<a href="http://www.tuijs.com/">http://www.tuijs.com/</a></p>
+<p>推JS（又名“推即时”），是一个优质开源WEB前端类库及框架推荐的网站，接受用户推荐，收藏自己喜爱的类库等。</p>
+<p>推JS所有类库框架尽量做到精挑细选，如有质量低的类库框架，请大家举报，站长会审核下架。</p>
+<p>推JS采用：Node.js + MongoDB架构，前端仅支持IE8+及标准浏览器。推JS是Jason利用工作之余，学习研究Nodejs开发之作，前后台开发时长总共约4个周末。没有经过严格测试，如有问题请邮件给站长，万分感谢！</p>
+<p><img src="/assets/upload/tuijs_logo.png" alt=""></p>
+
+        <p><a href="/post/javascript-nodejs-tuijs" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年3月13日">2013年3月13日</time>
+                <em>on</em>
+                <a href="/tag/html5">html5</a>
+                ,
+                <a href="/tag/webapp">webapp</a>
+                ,
+                <a href="/tag/NodeJs">NodeJs</a>
+            </span>
+            <h2><a href="/post/weinre-nodejs-phonegap-webapp">使用weinre远程调试手机网页（nodejs、phoneGap）</a></h2>
+        </header>
+        <p>本调试方式需要wifi环境和webkit浏览器。</p>
+<p>weiner主页：<a href="http://people.apache.org/~pmuellr/weinre/docs/latest/Home.html">http://people.apache.org/~pmuellr/weinre/docs/latest/Home.html</a></p>
+<h4 id="-">一、配置调试服务器</h4>
+<h5 id="-nodejs-windows-">（一）、nodejs搭建调试服务器（以windows为例）</h5>
+<p><strong>1、安装node.js</strong><br>安装程序下载：<a href="http://nodejs.org/#download">http://nodejs.org/#download</a><br>本文安装在“F:/nodejs/”目录。  </p>
+<p><strong>2、测试安装是否成功</strong>  </p>
+<p>打开CMD，切换到nodejs所在的安装目录。输入如下命令测试node.js和npm是否安装成功。默认windows最新安装包，会包含npm，如果npm没有安装，请手动安装。</p>
+<pre><code class="hljs shell"><span class="hljs-prompt">C:\Users\jason&gt;</span><span class="hljs-symbol">f:</span>
+<span class="hljs-prompt">F:\&gt;</span>cd nodejs
+<span class="hljs-prompt">F:\nodejs&gt;</span>node -v
+v<span class="hljs-number">0</span>.<span class="hljs-number">10.0</span>
+<span class="hljs-prompt">F:\nodejs&gt;</span>npm -v
+<span class="hljs-number">1.2</span>.<span class="hljs-number">14</span>
+</code></pre>
+<p><strong>3、使用npm安装weinre,在node.js安装目录输入以下命令</strong></p>
+<pre><code class="hljs shell"><span class="hljs-built_in">npm</span> install weinre
+</code></pre>
+<p><strong>4、启动weinre服务器</strong></p>
+<pre><code class="hljs shell">node.<span class="hljs-keyword">exe</span> node_modules\weinre\weinre --boundHost -<span class="hljs-keyword">all</span>-
+</code></pre>
+<p>在windows下，系统防火墙可能会弹出是否允许其访问网络的提示，点击充许即可。</p>
+<p><strong>5、浏览器打开</strong></p>
+<p><a href="http://localhost:8080">http://localhost:8080</a></p>
+<p>如果访问正常，说明服务器已配置成功。</p>
+<h5 id="-phonegap-">（二）、直接使用phoneGap的调试服务器</h5>
+<p>如果觉得服务器配置麻烦，也可以使用phoneGap现成的调试服务器。<br>phoneGap调试服务器地址：<a href="http://debug.phonegap.com/（相当于本机安装的http://localhost:8080）">http://debug.phonegap.com/（相当于本机安装的http://localhost:8080）</a>  </p>
+<h4 id="-weinre-">二、weinre使用方法</h4>
+<p>1、需调试的页面加入JS脚本</p>
+<p>如：</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"http://你的调试服务器地址/target/target-script-min.js#anonymous"</span>&gt;</span><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+</code></pre>
+<p>1.1使用收获夹快速添加调试脚本到需要调试的页面。</p>
+<p>将以下代码添加到书签，访问需要调试的页面时，访问一下书签，即可以通过JS将调试脚本添加到当前页面，但部份浏览器不支持！</p>
+<pre><code class="hljs javascript">javascript:(function(e){e.setAttribute("src","<span class="hljs-link_url">http://你的调试服务器地址/target/target-script-min.js#anonymous");document.getElementsByTagName("body")</span>[<span class="hljs-link_label">0</span>].appendChild(e);})(document.createElement("script"));void(0);
+</code></pre>
+<p>2、在PC端使用webkit浏览器打开控制台</p>
+<p><a href="http://10.18.252.111:8080/client/#anonymous">http://10.18.252.111:8080/client/#anonymous</a></p>
+<h1 id="-">后面为识别码</h1>
+<p>tips：识别码仅仅是为了识别多个需调试的项目时使用，可供多用户操作。</p>
+<p>在控制台，你就可以轻松的调试手机网页了！</p>
+
+        <p><a href="/post/weinre-nodejs-phonegap-webapp" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月20日">2013年1月20日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+                ,
+                <a href="/tag/NodeJs">NodeJs</a>
+            </span>
+            <h2><a href="/post/node-js-pi-gpio">nodejs（pi-gpio）控制树莓派GPIO引脚</a></h2>
+        </header>
+        <h4 id="-">一、基础概念</h4>
+<p>树莓派（Raspberry Pi）是啥？树莓派有啥用？请参考<a href="http://zh.wikipedia.org/zh-cn/%E6%A0%91%E8%8E%93%E6%B4%BE">wikipedia上树莓派条目</a>。</p>
+<p>GPIO，通用型的输入输出（General Purpose I/O）的简称。</p>
+<p>nodejs真是无处不在，可玩性越来越高了，连硬件控制都能胜任了。</p>
+<p>pi-gpio，是帮助树莓派控制GPIO的nodejs基础库，代码托管地址：<a href="https://github.com/rakeshpai/pi-gpio">https://github.com/rakeshpai/pi-gpio</a></p>
+<h4 id="-gpio-">二、关于树莓派GPIO引脚配置</h4>
+<p>树莓派GPIO引脚，较为混乱，各引脚之间没有逻辑关系，使用的是Broadcom芯片的命名。pi-gpio使GPIO的管理更加简单，参考以下图来进行管理。
+P1在左上角。</p>
+<p>图一：（来自pi-gpio）</p>
+<p><img src="/assets/upload/gpio_1.png" alt=""></p>
+<p>图二：（更详细的GPIO引脚分布图）</p>
+<p><a href="/assets/upload/gpio_2.jpg">/assets/upload/gpio_2.jpg</a></p>
+<p>图三：（GPIO物理分布图）</p>
+<p><img src="/assets/upload/gpio_3.jpg" alt=""></p>
+<h4 id="-pi-gpio">三、安装pi-gpio</h4>
+<p>1、如果你还没有安装nodejs的npm，你可以通过以下方式简易安装</p>
+<pre><code class="hljs shell">sudo apt-get install nodejs <span class="hljs-built_in">npm</span>
+</code></pre>
+<p>2、在树莓派下做以下操作（安装pi-gpio所有操作，请使用root账户登陆）</p>
+<pre><code class="hljs shell">git clone gi<span class="hljs-variable">t:</span>//github.<span class="hljs-keyword">com</span>/quick2wire/quick2wire-gpio-admin.git
+<span class="hljs-keyword">cd</span> quick2wire-gpio-admin
+<span class="hljs-keyword">make</span>
+sudo <span class="hljs-keyword">make</span> install
+sudo adduser $USER gpio
+</code></pre>
+<p>3、接下来，在打开工程目录，用nodejs的npm安装 pi-gpio</p>
+<pre><code class="hljs shell">npm <span class="hljs-operator"><span class="hljs-keyword">install</span> <span class="hljs-keyword">pi</span>-gpio</span>
+</code></pre>
+<h4 id="-pi-gpio-">四、pi-gpio的使用</h4>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> gpio = <span class="hljs-built_in">require</span>(<span class="hljs-string">"pi-gpio"</span>);
+
+gpio.open(<span class="hljs-number">16</span>, <span class="hljs-string">"output"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err)</span> </span>{     <span class="hljs-comment">// Open pin 16 for output</span>
+    gpio.write(<span class="hljs-number">16</span>, <span class="hljs-number">1</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{          <span class="hljs-comment">// Set pin 16 high (1)</span>
+        gpio.close(<span class="hljs-number">16</span>);                     <span class="hljs-comment">// Close pin 16</span>
+    });
+});
+</code></pre>
+<p><strong>方法列表：</strong></p>
+<p>每个方法都有一个回调函数，因为引脚操作是异步的。</p>
+<p>1、.open(pinNumber, [direction = &quot;output&quot;], [callback])<br>打开引脚，别名：.export<br>pinNumber：引脚号码，记住，引脚号码树莓派上的物理引脚号码<br>direction：[可选]，方向可以是“input”(简写：in)或“output”(简写：out),这取绝于你要做什么引脚。默认是“output”<br>callback：[可选]，引脚可用时的回调函数，当出错时，第一个错误即是error对象  </p>
+<p>2、.close(pinNumber, [callback])<br>关闭引脚<br>参数解释类似.open  </p>
+<p>3、.setDirection(pinNumber, direction, [callback])<br>改变方向<br>参数解释类似.open  </p>
+<p>4、.read(pinNumber, [callback])<br>读取引脚当前的值，当方向为“输入input”时，用途更大；<br>参数解释类似.open<br>callback，有两个参数，第一个参数为可能出错的参数error，第二个参数为引脚的当前值可能是数字“0”或“1”  </p>
+<p>5、.write(pinNumber, value, [callback])<br>写入一个引脚的值；第二个参数必须数字“0”或“1”；  </p>
+<p>运行和测试：  </p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">npm</span> install &amp;&amp; <span class="hljs-built_in">npm</span> test
+</code></pre>
+
+        <p><a href="/post/node-js-pi-gpio" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月20日">2013年1月20日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+                ,
+                <a href="/tag/NodeJs">NodeJs</a>
+            </span>
+            <h2><a href="/post/node-js-pi-gpio-l298n">通过nodejs（pi-gpio）+树莓派的GPIO接口控制L298N芯片驱动电机模块</a></h2>
+        </header>
+        <p>接上一篇文章：nodejs（pi-gpio）控制树莓派GPIO引脚，本文也可称之为《nodejs（pi-gpio）控制树莓派GPIO引脚（二）》。</p>
+<h4 id="-l298n-">一、L298N驱动版概要</h4>
+<p>原理图如下：</p>
+<p><img src="/assets/upload/l298n.jpg" alt=""></p>
+<p>可见，驱动板上有4个输入口：IN1~IN4，并且我们还要关心电源接口（VCC、GND）接口（5V）以及两个电机的接口。</p>
+<p>根据查阅L298N的相关文档，它的模块接口定义如下：</p>
+<p><strong>IN1-IN4：</strong></p>
+<p>逻辑输入端，其中IN1、IN2控制电机M1；IN3、IN4控制电机M2。例如IN1输入高电平1,IN2输入低电平0，对应电机M1正转；IN1输入低电平0,IN2输入高电平1，对应电机M1反转，调速就是改变高电平的占空比。</p>
+<p><strong>ENA、B：</strong></p>
+<p>L298N使能端（高电平有效，常态下用跳线帽接于VCC），可通过这两个端口实现PWM调速（使用PWM调速时取下跳线帽），具体参考L298N芯片手册。</p>
+<p><strong>VCC/GND：</strong></p>
+<p>L298N自身芯片供电，需要从外部接进5V电源（最好取逻辑部分的电压供电）.</p>
+<p><strong>VIN/GND：</strong></p>
+<p>电机供电电源接口，如果电机采用9V供电，那么电源正极接VIN，负极接GND即可。</p>
+<p><strong>M1：</strong></p>
+<p>电机1接口，没有正负之分，如果发现电机转向不对将电机两线调换即可。</p>
+<p><strong>M2：</strong></p>
+<p>电机2接口，没有正负之分，如果发现电机转向不对将电机两线调换即可。</p>
+<h4 id="-">二、连线，将各模块组装起来</h4>
+<p>1、根据上一篇文章中的GPIO引脚分布图，将树莓派的GPIO 11,12,15,16 口分别分配给L298N的IN1-IN4。</p>
+<p>2、将树莓派的GPIO 2 口5V电源分配给L298N的VCC。</p>
+<h4 id="-">三、初始化</h4>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> gpio = <span class="hljs-keyword">require</span>(<span class="hljs-string">'pi-gpio'</span>); <span class="hljs-comment">//引用pi-gpio库</span>
+<span class="hljs-keyword">var</span> pins = [<span class="hljs-number">11</span>, <span class="hljs-number">12</span>, <span class="hljs-number">15</span>, <span class="hljs-number">16</span>]; <span class="hljs-comment">//引脚号列表</span>
+<span class="hljs-keyword">var</span> flag = <span class="hljs-number">0</span>;
+<span class="hljs-comment">//依次打开GPIO引脚</span>
+pins.<span class="hljs-keyword">forEach</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(pin)</span></span>{
+    gpio.open(pin, <span class="hljs-string">'out'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+        flag += <span class="hljs-number">1</span>;
+    });
+});
+<span class="hljs-comment">//轮询来确定四个引脚有没有全部打开</span>
+<span class="hljs-keyword">var</span> t = setInterval(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-keyword">if</span>(flag == <span class="hljs-number">4</span>){ <span class="hljs-comment">//全部打开完了</span>
+        <span class="hljs-comment">//初始化完毕</span>
+        clearInterval(t);
+    }
+}, <span class="hljs-number">10</span>);
+</code></pre>
+<h4 id="-">四、启动电机（暂没有给完代码）</h4>
+<p>假设用0代表低电平，1代表高电平的话，M1电机代表左车轮，M2电机代表右车轮；</p>
+<pre><code class="hljs javascript"><span class="hljs-comment">//GPIO 11,12,15,16 口各方向电平列表</span>
+<span class="hljs-keyword">var</span> direction = {
+    <span class="hljs-string">"up"</span>:[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>],
+    <span class="hljs-string">"down"</span>:[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>],
+    <span class="hljs-string">"left"</span>:[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>],
+    <span class="hljs-string">"right"</span>:[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]
+}
+<span class="hljs-comment">//用以下方法给各引脚写入以上direction中各方向指定的电平值</span>
+gpio.write(pins[<span class="hljs-number">0</span>], <span class="hljs-number">1</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+
+});
+</code></pre>
+<h4 id="-">五、停止电机</h4>
+<pre><code class="hljs javascript">gpio.<span class="hljs-built_in">close</span>(pins<span class="hljs-number">[0</span>]);
+gpio.<span class="hljs-built_in">close</span>(pins<span class="hljs-number">[1</span>]);
+gpio.<span class="hljs-built_in">close</span>(pins<span class="hljs-number">[2</span>]);
+gpio.<span class="hljs-built_in">close</span>(pins<span class="hljs-number">[3</span>]);
+</code></pre>
+<p>等测试OK，再放出完整代码！</p>
+
+        <p><a href="/post/node-js-pi-gpio-l298n" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年4月25日">2012年4月25日</time>
+                <em>on</em>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </span>
+            <h2><a href="/post/suse10-node-js-openssl-not-found">suse10下nodejs安装时提示openssl not found的问题解决办法</a></h2>
+        </header>
+        <h5 id="1-openssl-">1、首先确认openssl有没有安装，使用命令</h5>
+<pre><code class="hljs shell"><span class="hljs-title">openssl</span> version
+</code></pre>
+<h5 id="2-openssl-nodejs-openssl-not-found">2、明明已经安装了openssl，在安装nodejs时还提示openssl not found</h5>
+<p>以ubuntu为例，只要使用在线安装命令安装libssl-dev就可发解决问题，但是对于不能连外网且使用suse的系统怎么办，这个头痛的问题困扰了我一天，终于得以解决。</p>
+<p>ubuntu下解决办法:</p>
+<pre><code class="hljs shell">sudo apt-<span class="hljs-built_in">get</span> install libssl-<span class="hljs-built_in">dev</span>
+</code></pre>
+<p><strong>suse10下且不能联网的解决办法:</strong></p>
+<p>在解决这个问题的过程中，我重装了一遍openssl，发现安装完成时，程序进行了.pc文件的拷贝，过程如下：</p>
+<pre><code class="hljs shell">cp libcrypto.pc <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/ssl/</span>lib/pkgconfig
+chmod <span class="hljs-number">644</span> <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/ssl/</span>lib<span class="hljs-regexp">/pkgconfig/</span>libcrypto.pc
+cp libssl.pc <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/ssl/</span>lib/pkgconfig
+chmod <span class="hljs-number">644</span> <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/ssl/</span>lib<span class="hljs-regexp">/pkgconfig/</span>libssl.pc
+cp openssl.pc <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/ssl/</span>lib/pkgconfig
+chmod <span class="hljs-number">644</span> <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/ssl/</span>lib<span class="hljs-regexp">/pkgconfig/</span>openssl.pc
+</code></pre>
+<p>再打开nodejs的安装文件中的wscript，发现里面对openssl path有一些这样的描述<code>/usr/local/lib</code>，对此我做了一个猜想，至所以通过openssl检测，是因为nodejs默认是在这个目录找的openssl。大概就是只要找到openssl package 或者 找到function SSL_library_init 即可通过 openssl的检查。</p>
+<p>结合以上两点，给出解决方法：
+将<code>libcrypto.pc</code>、<code>libssl.pc</code>、<code>openssl.pc</code>拷贝到<code>/usr/local/lib/pkgconfig</code>目录下</p>
+<pre><code class="hljs shell">cp <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/ssl/</span>lib<span class="hljs-regexp">/pkgconfig/</span>libcrypto.pc <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/lib/</span>pkgconfig/libcrypto.pc
+cp <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/ssl/</span>lib<span class="hljs-regexp">/pkgconfig/</span>libssl.pc <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/lib/</span>pkgconfig/libssl.pc
+cp <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/ssl/</span>lib<span class="hljs-regexp">/pkgconfig/</span>openssl.pc <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/lib/</span>pkgconfig/openssl.pc
+</code></pre>
+<p>再次安装node，不再报错，成功安装。</p>
+<p>如果没有取得openssl支持的时候，官方提示通过./configure –without-ssl来跳过openssl的检测，虽然安装node可以成功，但是在高级的应用开发中，将变的举步维坚，一般的connect和express模块都用到了Crypto加密模块，而Crypto加密模块又是基于openssl底层支持的，所以没有openssl只能玩一些简单nodejs case。</p>
+
+        <p><a href="/post/suse10-node-js-openssl-not-found" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年4月22日">2012年4月22日</time>
+                <em>on</em>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </span>
+            <h2><a href="/post/node-js-canvas-base64">使用nodejs将html5 canvas base64编码图片保存为文件</a></h2>
+        </header>
+        <p>目前流行的“你画我猜”应用，你有没有想过使用HTML5来实现过？那么不可避免的需要解决canvas保存图片到硬盘或mongodb之类的数据库。本文主要介绍使用nodejs将html5 canvas base64编码图片保存为文件，同时提供两种解决方案。</p>
+<p>html5 canvas属于客户端API，没有权限去保存图片到硬盘，只有canvas . toDataURL()这一个接口可导出画布的base64编码，以提供给服务端进行处理保存，据我所知.net和php都有方法或类来进行简单的处理保存。nodejs呢？是的，没错！nodejs同样有能力来保存base64编码的图片。</p>
+<h4 id="-">解决方案一：</h4>
+<p>使用new Buffer来创建对应编码的缓冲，通过fs模块将Buffer写成一个文件。</p>
+<p><strong>优点：</strong>简单易用，无需其它模块的支持。</p>
+<p><strong>缺点：</strong>不能对图片的尺寸，水印，压缩，格式等进行处理。</p>
+<p><strong>注意点：</strong></p>
+<p>1、new Buffer接收到base64编码，不能带data:URL，而使用canvas . toDataURL()导出的base64编码会带data:URL，所以需要先过滤掉</p>
+<p>类似这样的一段“data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0”</p>
+<p>需过滤成：“iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0”</p>
+<p>2、’binary’ – 一种只使用每个字符前8个字节将原始的二进制数据编码进字符串的方式。这个方式已经废弃，应当尽量使用buffer 对象。这个编码将会在未来的node 中删除。</p>
+<p>看到有人把base64声明的Buffer再转换成binary，这个是完全没必要的。</p>
+<p>3、生成的图片有size变化，但是打开后是一个无效的图像，这个看本文的第三点。</p>
+<p>使用express搭建的/upload (POST)上传保存接口，完成代码如下：</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> express = <span class="hljs-keyword">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">var</span> fs = <span class="hljs-keyword">require</span>(<span class="hljs-string">"fs"</span>);
+<span class="hljs-keyword">var</span> app = module.exports = express();
+<span class="hljs-comment">//配置</span>
+app.configure(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+  app.<span class="hljs-keyword">use</span>(express.bodyParser());
+  app.<span class="hljs-keyword">use</span>(express.methodOverride());
+  app.<span class="hljs-keyword">use</span>(express.cookieParser(<span class="hljs-string">'keyboard cat'</span>));
+  app.<span class="hljs-keyword">use</span>(express.session());
+  app.<span class="hljs-keyword">use</span>(app.router);
+  app.<span class="hljs-keyword">use</span>(express.<span class="hljs-keyword">static</span>(__dirname + <span class="hljs-string">'/up'</span>)); <span class="hljs-comment">//静态文件目录</span>
+  app.<span class="hljs-keyword">use</span>(express.errorHandler({ dumpExceptions: <span class="hljs-keyword">true</span>, showStack: <span class="hljs-keyword">true</span> }));
+});
+<span class="hljs-comment">//保存base64图片POST方法</span>
+app.post(<span class="hljs-string">'/upload'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span></span>{
+    <span class="hljs-comment">//接收前台POST过来的base64</span>
+    <span class="hljs-keyword">var</span> imgData = req.body.imgData;
+    <span class="hljs-comment">//过滤data:URL</span>
+    <span class="hljs-keyword">var</span> base64Data = imgData.replace(/^data:image\/\w+;base64,/, <span class="hljs-string">""</span>);
+    <span class="hljs-keyword">var</span> dataBuffer = <span class="hljs-keyword">new</span> Buffer(base64Data, <span class="hljs-string">'base64'</span>);
+    fs.writeFile(<span class="hljs-string">"out.png"</span>, dataBuffer, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err)</span> </span>{
+        <span class="hljs-keyword">if</span>(err){
+          res.send(err);
+        }<span class="hljs-keyword">else</span>{
+          res.send(<span class="hljs-string">"保存成功！"</span>);
+        }
+    });
+});
+<span class="hljs-keyword">if</span> (!module.<span class="hljs-keyword">parent</span>) {
+  app.listen(<span class="hljs-number">8000</span>);
+  console.log(<span class="hljs-string">'Express started on port 8000'</span>);
+}
+</code></pre>
+
+        <p><a href="/post/node-js-canvas-base64" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年4月19日">2012年4月19日</time>
+                <em>on</em>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </span>
+            <h2><a href="/post/ubuntu-node-canvas">ubuntu下安装node-canvas实现nodejs服务器图片处理</a></h2>
+        </header>
+        <p>node-canvas是基于cairo移植过来的，所以需要cairo支持。因为要处理png和jpg，gif等图像，所以同时需要这几个库的支持。
+node-canvas代码仓库：<a href="https://github.com/LearnBoost/node-canvas">https://github.com/LearnBoost/node-canvas</a></p>
+<p><strong>1、安装cairo</strong></p>
+<pre><code class="hljs shell">sudo apt-<span class="hljs-built_in">get</span> install libcairo2-<span class="hljs-built_in">dev</span>
+</code></pre>
+<p><strong>2、安装png、jpg、gif支持库</strong></p>
+<pre><code class="hljs shell">sudo apt-<span class="hljs-built_in">get</span> install libpng-<span class="hljs-built_in">dev</span>
+sudo apt-<span class="hljs-built_in">get</span> install libjpeg-<span class="hljs-built_in">dev</span>
+sudo apt-<span class="hljs-built_in">get</span> install libgif-<span class="hljs-built_in">dev</span>
+</code></pre>
+<p><strong>3、安装node-canvas</strong></p>
+<pre><code class="hljs shell">sudo apt-get install <span class="hljs-keyword">canvas</span>
+</code></pre>
+<p>一般情况下，安装完上面三部，node-canvas就正常运行了，但一般人会跳过第二步，虽然node-canvas可以安装成功，
+但是canvas.createJPEGStream方法或报系统错误，遇到这种情况，安装完第二步之后，要重新安装node-canvas，以便获得最新的jpeg等库的支持。</p>
+
+        <p><a href="/post/ubuntu-node-canvas" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年4月8日">2012年4月8日</time>
+                <em>on</em>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </span>
+            <h2><a href="/post/mongodb-windows-install">下载安装和配置MongoDB(windows)</a></h2>
+        </header>
+        <p><strong>安装Mongo数据库：</strong></p>
+<p>第一步：下载安装包：官方下载地址←单击此处,如果是win系统，注意是64位还是32位版本的，请选择正确的版本。</p>
+<p>第二步：新建目录“F:\MongoDB”(目录可自定义)。解压下载的安装包，找到bin目录下面全部文件，拷贝到刚创建的目录下。</p>
+<p>第三步：在“F:\MongoDB”目录下新建“data”文件夹，它将会作为数据存放的根文件夹。</p>
+<p><strong>配置Mongo服务端：</strong></p>
+<p>windows下打开CMD窗口，按照如下方式输入命令：</p>
+<p>1、配置数据存放的根文件夹</p>
+<pre><code class="hljs shell">F:
+cd /MongoDB
+mongod --dbpath F:<span class="hljs-command">\MongoDB</span><span class="hljs-command">\data</span>
+</code></pre>
+<p>2、配置日志文件存放目录</p>
+<pre><code class="hljs shell">mongod --logpath F:<span class="hljs-command">\MongoDB</span><span class="hljs-command">\logs</span><span class="hljs-command">\mongodb</span>.log
+</code></pre>
+<p>3、将MongoDB 作为 Windows 服务随机启动</p>
+<pre><code class="hljs shell">mongod <span class="hljs-comment">--install</span>
+</code></pre>
+<p>在浏览器输入：<a href="http://localhost:27017/，可以看到如下提示：">http://localhost:27017/，可以看到如下提示：</a></p>
+<blockquote>
+<p>You are trying to access MongoDB on the native driver port. For http diagnostic access, add 1000 to the port number</p>
+</blockquote>
+<p>如此，MongoDB数据库服务已经成功启动了。</p>
+
+        <p><a href="/post/mongodb-windows-install" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+
+    <nav role="navigation" class="pagination">
+        
+    	<span class="page-number">Page 1 of 2</span>
+        
+        <a href="/tag/NodeJs/2/" class="older-posts">Older Posts →</a>
+	</nav>
+
+
+</div>
+
+<footer>
+	<p class="copyright">&copy; 2014 <a href="/">Jason’s Blog</a>. All rights reserved.</p>
+    <p>Proudly published with <a href="http://metalsmith.io/" target="_blank">Metalsmith</a></p>
+    <p><a href="http://www.miibeian.gov.cn/" target="_blank">闽ICP备09029032号-1</a> |
+        <script language="javascript" type="text/javascript" src="http://js.users.51.la/6883474.js"></script></p>
+</footer>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/uitotop/js/easing.js?version=20140909"></script>
+<script type="text/javascript" src="/assets/uitotop/js/jquery.ui.totop.min.js?version=20140909"></script>
+<script src="/assets/js/app.js?version=20140909"></script>
+<!--[if lt IE 8]><script src="/assets/js/noLtIE8.js?version=20140909"></script><![endif]-->
+
+</body>
+</html>

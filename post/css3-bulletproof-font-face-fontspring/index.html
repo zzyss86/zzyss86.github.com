@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="keyword" content="二分之一,web前端,前端博客,树莓派,RaspberryPi,html5,css3,as3,javascript">
+  <meta name="description" content="二分之一博客是一个关注web前端及游戏前端的技术博客">
+  <title>CSS3 bulletproof @font-face语法 和 Fontspring @font-face语法简介 - 二分之一 - Just Jason's Blog</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/highlight/pojoaque.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+  <!--[if lt IE 9]><script src="/assets/js/html5.js?version=20140909"></script><![endif]-->
+</head>
+
+<body>
+<div class="toolbar">
+    <div class="nav-wrapper clearfix">
+        <ul class="nav-list">
+            <li>
+                <a href="/tag/Unity3D">Unity3D</a>
+            </li>
+            <li>
+                <a href="/tag/javascript">Javascript</a>
+            </li>
+            <li>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </li>
+            <li>
+                <a href="/tag/html5">Html5</a>
+            </li>
+            <li>
+                <a href="/tag/RaspberryPi">Raspberry Pi</a>
+            </li>
+            <li>
+                <a href="/tag/metalsmith">Metalsmith</a>
+            </li>
+        </ul>
+
+        <ul class="nav-list menu">
+            <li>
+                <a href="/about.html">关于我</a>
+            </li>
+            <li>
+                <a href="/mobile/">
+                    <i class="mobile_icon"></i><span class="mobile_msg">手机访问</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<header class="top-header">
+	<section>
+    	<a href="/" class="logo"></a>
+        <h1 class="blog-name">二分之一</h1>
+        <h2 class="blog-description">Just Jason's Blog</h2>
+    </section>
+</header>
+
+
+<div class="wrapper">
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年3月21日">2013年3月21日</time>
+                <em>on</em>
+                <a href="/tag/html5">html5</a>
+                ,
+                <a href="/tag/css">css</a>
+            </span>
+            <h2>CSS3 bulletproof @font-face语法 和 Fontspring @font-face语法简介</h2>
+        </header>
+        <h4 id="-font-face-">一、@font-face基本语法</h4>
+<pre><code class="hljs css"><span class="hljs-at_rule">@<span class="hljs-keyword">font-face</span></span>
+<span class="hljs-rules">{
+<span class="hljs-rule"><span class="hljs-attribute">font-family</span>:<span class="hljs-value"> myFirstFont</span></span>;
+<span class="hljs-rule"><span class="hljs-attribute">src</span>:<span class="hljs-value"> <span class="hljs-function">url</span>(<span class="hljs-string">'Sansation_Bold.ttf'</span>) <span class="hljs-function">format</span>(<span class="hljs-string">'truetype'</span>)</span></span>;
+<span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value">bold</span></span>;
+<span class="hljs-rule">}</span></span>
+</code></pre>
+<h4 id="-font-face-">二、@font-face各字体格式的支持情况</h4>
+<p><img src="/assets/upload/font_face.jpg" alt=""></p>
+<p>三、@font-face中字体格式format的取值说明</p>
+<p>1、TureTpe(.ttf)格式：<br>.ttf字体是Windows和Mac的最常见的字体，是一种RAW格式，因此他不为网站优化,支持这种字体的浏览器有【IE9+,Firefox3.5+,Chrome4+,Safari3+,Opera10+,iOS Mobile Safari4.2+】；</p>
+<p>2、OpenType(.otf)格式：<br>.otf字体被认为是一种原始的字体格式，其内置在TureType的基础上，所以也提供了更多的功能,支持这种字体的浏览器有【Firefox3.5+,Chrome4.0+,Safari3.1+,Opera10.0+,iOS Mobile Safari4.2+】；</p>
+<p>3、Web Open Font Format(.woff)格式：<br>.woff字体是Web字体中最佳格式，他是一个开放的TrueType/OpenType的压缩版本，同时也支持元数据包的分离,支持这种字体的浏览器有【IE9+,Firefox3.5+,Chrome6+,Safari3.6+,Opera11.1+】；</p>
+<!--more-->
+
+<p>4、Embedded Open Type(.eot)格式：<br>.eot字体是IE专用字体，可以从TrueType创建此格式字体,支持这种字体的浏览器有【IE5+】；</p>
+<p>5、SVG(.svg)格式：<br>.svg字体是基于SVG字体渲染的一种格式,支持这种字体的浏览器有【Chrome4+,Safari3.1+,Opera10.0+,iOS Mobile Safari3.2+】。</p>
+<h4 id="-ie9-font-face-src-bug">四、IE9以下的浏览器@font-face，src存在的BUG</h4>
+<p>IE9以下的浏览器，@font-face中src中的值，会被认为是一个链接，如</p>
+<pre><code class="hljs css"><span class="hljs-at_rule">@<span class="hljs-keyword">font-face</span></span>
+<span class="hljs-rules">{
+<span class="hljs-rule"><span class="hljs-attribute">font-family</span>:<span class="hljs-value"> myFirstFont</span></span>;
+<span class="hljs-rule"><span class="hljs-attribute">src</span>:<span class="hljs-value"> <span class="hljs-function">url</span>(<span class="hljs-string">'/AtlantisFonts.eot'</span>) <span class="hljs-function">format</span>(<span class="hljs-string">'embedded-opentype'</span>)</span></span>;
+<span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value">bold</span></span>;
+<span class="hljs-rule">}</span></span>
+</code></pre>
+<p>抓包看，链接会变成：AtlantisFonts.eot)%20format(%22embedded-opentype%22，这种处理方式是不正确的，但是如果在AtlantisFonts.eot资源链接后面加上一个“?”，浏览器会认为后面是查询字符串，反而可以避免这个BUG。</p>
+<h4 id="-bulletproof-font-face-">五、bulletproof @font-face语法</h4>
+<p>原文链接：<a href="http://paulirish.com/2009/bulletproof-font-face-implementation-syntax/">http://paulirish.com/2009/bulletproof-font-face-implementation-syntax/</a></p>
+<p>大体的思路是根据本文第四点的hack方法来实现的，但在各种新终端的全面测试下，事实证明bulletproof不能完全兼容，所以有了Fontspring @font-face语法。</p>
+<h4 id="-fontspring-font-face-">六、Fontspring @font-face语法</h4>
+<p>原文链接：<a href="http://www.fontspring.com/blog/the-new-bulletproof-font-face-syntax">http://www.fontspring.com/blog/the-new-bulletproof-font-face-syntax</a></p>
+<p>Fontspring @font-face语法是在bulletproof @font-face语法的基础上做优化和改进，兼容性更加强大！</p>
+<p>语法如下：</p>
+<pre><code class="hljs css"><span class="hljs-at_rule">@<span class="hljs-keyword">font-face</span></span> <span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">font-family</span>:<span class="hljs-value"> <span class="hljs-string">'Awesome Font'</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">src</span>:<span class="hljs-value"> <span class="hljs-function">url</span>(<span class="hljs-string">'awesome-font.eot'</span>)</span></span>; <span class="hljs-comment">/* IE9 Compat Modes */</span>
+    <span class="hljs-rule"><span class="hljs-attribute">src</span>:<span class="hljs-value"> <span class="hljs-function">url</span>(<span class="hljs-string">'awesome-font.eot?#iefix'</span>) <span class="hljs-function">format</span>(<span class="hljs-string">'embedded-opentype'</span>), <span class="hljs-comment">/* IE6-IE8 */</span>
+        <span class="hljs-function">url</span>(<span class="hljs-string">'awesome-font.woff'</span>) <span class="hljs-function">format</span>(<span class="hljs-string">'woff'</span>), <span class="hljs-comment">/* Modern Browsers */</span>
+        <span class="hljs-function">url</span>(<span class="hljs-string">'awesome-font.ttf'</span>) <span class="hljs-function">format</span>(<span class="hljs-string">'truetype'</span>), <span class="hljs-comment">/* Safari, Android, iOS */</span>
+        <span class="hljs-function">url</span>(<span class="hljs-string">'awesome-font.svg#svgFontName'</span>) <span class="hljs-function">format</span>(<span class="hljs-string">'svg'</span>)</span></span>; <span class="hljs-comment">/* Legacy iOS */</span>
+<span class="hljs-rule">}</span></span>
+</code></pre>
+<h4 id="-">七、在线生成多种字体格式工具</h4>
+<p>使用获得fontsquirrel @font-face所需的.eot,.woff,.ttf,.svg字体格式。<br>fontsquirrel：<a href="http://www.fontsquirrel.com/tools/webfont-generator">http://www.fontsquirrel.com/tools/webfont-generator</a></p>
+
+        <p class="last-edit-time">最后修改时间：2014年9月10日星期三晚上7点37</p>
+        <div class="share_wrapper">
+            <div class="jiathis_style_32x32">
+                <a class="jiathis_button_qzone"></a>
+                <a class="jiathis_button_tsina"></a>
+                <a class="jiathis_button_tqq"></a>
+                <a class="jiathis_button_renren"></a>
+                <a class="jiathis_button_kaixin001"></a>
+                <a class="jiathis_button_weixin"></a>
+                <a href="http://www.jiathis.com/share?uid=1879675" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+            </div>
+        </div>
+    </article>
+
+<a name="comment"></a>
+<div class="comment-widget">
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1879675"></script>
+<!-- UY END -->
+</div>
+
+</div>
+
+<footer>
+	<p class="copyright">&copy; 2014 <a href="/">Jason’s Blog</a>. All rights reserved.</p>
+    <p>Proudly published with <a href="http://metalsmith.io/" target="_blank">Metalsmith</a></p>
+    <p><a href="http://www.miibeian.gov.cn/" target="_blank">闽ICP备09029032号-1</a> |
+        <script language="javascript" type="text/javascript" src="http://js.users.51.la/6883474.js"></script></p>
+</footer>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/uitotop/js/easing.js?version=20140909"></script>
+<script type="text/javascript" src="/assets/uitotop/js/jquery.ui.totop.min.js?version=20140909"></script>
+<script src="/assets/js/app.js?version=20140909"></script>
+<!--[if lt IE 8]><script src="/assets/js/noLtIE8.js?version=20140909"></script><![endif]-->
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" >
+    var jiathis_config={
+        data_track_clickback:true,
+        shortUrl:false,
+        hideMore:false
+    }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1879675" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="keyword" content="二分之一,web前端,前端博客,树莓派,RaspberryPi,html5,css3,as3,javascript">
+  <meta name="description" content="二分之一博客是一个关注web前端及游戏前端的技术博客">
+  <title>nodejs（pi-gpio）控制树莓派GPIO引脚 - 二分之一 - Just Jason's Blog</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/highlight/pojoaque.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+  <!--[if lt IE 9]><script src="/assets/js/html5.js?version=20140909"></script><![endif]-->
+</head>
+
+<body>
+<div class="toolbar">
+    <div class="nav-wrapper clearfix">
+        <ul class="nav-list">
+            <li>
+                <a href="/tag/Unity3D">Unity3D</a>
+            </li>
+            <li>
+                <a href="/tag/javascript">Javascript</a>
+            </li>
+            <li>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </li>
+            <li>
+                <a href="/tag/html5">Html5</a>
+            </li>
+            <li>
+                <a href="/tag/RaspberryPi">Raspberry Pi</a>
+            </li>
+            <li>
+                <a href="/tag/metalsmith">Metalsmith</a>
+            </li>
+        </ul>
+
+        <ul class="nav-list menu">
+            <li>
+                <a href="/about.html">关于我</a>
+            </li>
+            <li>
+                <a href="/mobile/">
+                    <i class="mobile_icon"></i><span class="mobile_msg">手机访问</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<header class="top-header">
+	<section>
+    	<a href="/" class="logo"></a>
+        <h1 class="blog-name">二分之一</h1>
+        <h2 class="blog-description">Just Jason's Blog</h2>
+    </section>
+</header>
+
+
+<div class="wrapper">
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月20日">2013年1月20日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+                ,
+                <a href="/tag/NodeJs">NodeJs</a>
+            </span>
+            <h2>nodejs（pi-gpio）控制树莓派GPIO引脚</h2>
+        </header>
+        <h4 id="-">一、基础概念</h4>
+<p>树莓派（Raspberry Pi）是啥？树莓派有啥用？请参考<a href="http://zh.wikipedia.org/zh-cn/%E6%A0%91%E8%8E%93%E6%B4%BE">wikipedia上树莓派条目</a>。</p>
+<p>GPIO，通用型的输入输出（General Purpose I/O）的简称。</p>
+<p>nodejs真是无处不在，可玩性越来越高了，连硬件控制都能胜任了。</p>
+<p>pi-gpio，是帮助树莓派控制GPIO的nodejs基础库，代码托管地址：<a href="https://github.com/rakeshpai/pi-gpio">https://github.com/rakeshpai/pi-gpio</a></p>
+<h4 id="-gpio-">二、关于树莓派GPIO引脚配置</h4>
+<p>树莓派GPIO引脚，较为混乱，各引脚之间没有逻辑关系，使用的是Broadcom芯片的命名。pi-gpio使GPIO的管理更加简单，参考以下图来进行管理。
+P1在左上角。</p>
+<p>图一：（来自pi-gpio）</p>
+<p><img src="/assets/upload/gpio_1.png" alt=""></p>
+<p>图二：（更详细的GPIO引脚分布图）</p>
+<p><a href="/assets/upload/gpio_2.jpg">/assets/upload/gpio_2.jpg</a></p>
+<p>图三：（GPIO物理分布图）</p>
+<p><img src="/assets/upload/gpio_3.jpg" alt=""></p>
+<h4 id="-pi-gpio">三、安装pi-gpio</h4>
+<p>1、如果你还没有安装nodejs的npm，你可以通过以下方式简易安装</p>
+<pre><code class="hljs shell">sudo apt-get install nodejs <span class="hljs-built_in">npm</span>
+</code></pre>
+<p>2、在树莓派下做以下操作（安装pi-gpio所有操作，请使用root账户登陆）</p>
+<pre><code class="hljs shell">git clone gi<span class="hljs-variable">t:</span>//github.<span class="hljs-keyword">com</span>/quick2wire/quick2wire-gpio-admin.git
+<span class="hljs-keyword">cd</span> quick2wire-gpio-admin
+<span class="hljs-keyword">make</span>
+sudo <span class="hljs-keyword">make</span> install
+sudo adduser $USER gpio
+</code></pre>
+<p>3、接下来，在打开工程目录，用nodejs的npm安装 pi-gpio</p>
+<pre><code class="hljs shell">npm <span class="hljs-operator"><span class="hljs-keyword">install</span> <span class="hljs-keyword">pi</span>-gpio</span>
+</code></pre>
+<h4 id="-pi-gpio-">四、pi-gpio的使用</h4>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> gpio = <span class="hljs-built_in">require</span>(<span class="hljs-string">"pi-gpio"</span>);
+
+gpio.open(<span class="hljs-number">16</span>, <span class="hljs-string">"output"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err)</span> </span>{     <span class="hljs-comment">// Open pin 16 for output</span>
+    gpio.write(<span class="hljs-number">16</span>, <span class="hljs-number">1</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{          <span class="hljs-comment">// Set pin 16 high (1)</span>
+        gpio.close(<span class="hljs-number">16</span>);                     <span class="hljs-comment">// Close pin 16</span>
+    });
+});
+</code></pre>
+<p><strong>方法列表：</strong></p>
+<p>每个方法都有一个回调函数，因为引脚操作是异步的。</p>
+<p>1、.open(pinNumber, [direction = &quot;output&quot;], [callback])<br>打开引脚，别名：.export<br>pinNumber：引脚号码，记住，引脚号码树莓派上的物理引脚号码<br>direction：[可选]，方向可以是“input”(简写：in)或“output”(简写：out),这取绝于你要做什么引脚。默认是“output”<br>callback：[可选]，引脚可用时的回调函数，当出错时，第一个错误即是error对象  </p>
+<p>2、.close(pinNumber, [callback])<br>关闭引脚<br>参数解释类似.open  </p>
+<p>3、.setDirection(pinNumber, direction, [callback])<br>改变方向<br>参数解释类似.open  </p>
+<p>4、.read(pinNumber, [callback])<br>读取引脚当前的值，当方向为“输入input”时，用途更大；<br>参数解释类似.open<br>callback，有两个参数，第一个参数为可能出错的参数error，第二个参数为引脚的当前值可能是数字“0”或“1”  </p>
+<p>5、.write(pinNumber, value, [callback])<br>写入一个引脚的值；第二个参数必须数字“0”或“1”；  </p>
+<p>运行和测试：  </p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">npm</span> install &amp;&amp; <span class="hljs-built_in">npm</span> test
+</code></pre>
+
+        <p class="last-edit-time">最后修改时间：2014年9月9日星期二晚上7点49</p>
+        <div class="share_wrapper">
+            <div class="jiathis_style_32x32">
+                <a class="jiathis_button_qzone"></a>
+                <a class="jiathis_button_tsina"></a>
+                <a class="jiathis_button_tqq"></a>
+                <a class="jiathis_button_renren"></a>
+                <a class="jiathis_button_kaixin001"></a>
+                <a class="jiathis_button_weixin"></a>
+                <a href="http://www.jiathis.com/share?uid=1879675" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+            </div>
+        </div>
+    </article>
+
+<a name="comment"></a>
+<div class="comment-widget">
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1879675"></script>
+<!-- UY END -->
+</div>
+
+</div>
+
+<footer>
+	<p class="copyright">&copy; 2014 <a href="/">Jason’s Blog</a>. All rights reserved.</p>
+    <p>Proudly published with <a href="http://metalsmith.io/" target="_blank">Metalsmith</a></p>
+    <p><a href="http://www.miibeian.gov.cn/" target="_blank">闽ICP备09029032号-1</a> |
+        <script language="javascript" type="text/javascript" src="http://js.users.51.la/6883474.js"></script></p>
+</footer>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/uitotop/js/easing.js?version=20140909"></script>
+<script type="text/javascript" src="/assets/uitotop/js/jquery.ui.totop.min.js?version=20140909"></script>
+<script src="/assets/js/app.js?version=20140909"></script>
+<!--[if lt IE 8]><script src="/assets/js/noLtIE8.js?version=20140909"></script><![endif]-->
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" >
+    var jiathis_config={
+        data_track_clickback:true,
+        shortUrl:false,
+        hideMore:false
+    }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1879675" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+</body>
+</html>

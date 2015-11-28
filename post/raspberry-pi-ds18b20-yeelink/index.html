@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="keyword" content="二分之一,web前端,前端博客,树莓派,RaspberryPi,html5,css3,as3,javascript">
+  <meta name="description" content="二分之一博客是一个关注web前端及游戏前端的技术博客">
+  <title>【智能家居】树莓派+DS18B20温度传感器+Yeelink实现家庭室内温度监控（python） - 二分之一 - Just Jason's Blog</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/highlight/pojoaque.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+  <!--[if lt IE 9]><script src="/assets/js/html5.js?version=20140909"></script><![endif]-->
+</head>
+
+<body>
+<div class="toolbar">
+    <div class="nav-wrapper clearfix">
+        <ul class="nav-list">
+            <li>
+                <a href="/tag/Unity3D">Unity3D</a>
+            </li>
+            <li>
+                <a href="/tag/javascript">Javascript</a>
+            </li>
+            <li>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </li>
+            <li>
+                <a href="/tag/html5">Html5</a>
+            </li>
+            <li>
+                <a href="/tag/RaspberryPi">Raspberry Pi</a>
+            </li>
+            <li>
+                <a href="/tag/metalsmith">Metalsmith</a>
+            </li>
+        </ul>
+
+        <ul class="nav-list menu">
+            <li>
+                <a href="/about.html">关于我</a>
+            </li>
+            <li>
+                <a href="/mobile/">
+                    <i class="mobile_icon"></i><span class="mobile_msg">手机访问</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<header class="top-header">
+	<section>
+    	<a href="/" class="logo"></a>
+        <h1 class="blog-name">二分之一</h1>
+        <h2 class="blog-description">Just Jason's Blog</h2>
+    </section>
+</header>
+
+
+<div class="wrapper">
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月30日">2013年1月30日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2>【智能家居】树莓派+DS18B20温度传感器+Yeelink实现家庭室内温度监控（python）</h2>
+        </header>
+        <p>实现家庭室内温度远程监控只是“智能家居”的初步，目的是下班前如果发现家里温度过高，可提前用手机发送指令提前5-10分钟打开空调降温。</p>
+<h4 id="-">一、硬件准备</h4>
+<p>1、树莓派（Raspberry Pi）一个</p>
+<p>2、DS18B20温度传感器一个（淘宝大概5元左右）</p>
+<p>3、4.7kΩ电阻一个 或 DS18B20模块一个（笔者用，淘宝1.5元一个，其实就是店家帮忙把电阻焊好了，接线稍好看些）。</p>
+<p>4、杜邦线三根（双头母）</p>
+<h4 id="-">二、接线方式（如图所示）</h4>
+<p><img src="/assets/upload/RPI_DS1820.png" alt=""></p>
+<!--more-->
+
+<h4 id="-">三、确认硬件接线是否正确并生效，并读取温度</h4>
+<p>1、首先升级内核(可忽略，但如果版本较老，可能影响设备读取)</p>
+<pre><code class="hljs shell">apt-get <span class="hljs-operator"><span class="hljs-keyword">update</span>
+apt-<span class="hljs-keyword">get</span> <span class="hljs-keyword">upgrade</span></span>
+</code></pre>
+<p>2、确认设备是否生效</p>
+<pre><code class="hljs shell"><span class="hljs-built_in">sudo</span> modprobe w1-gpio
+<span class="hljs-built_in">sudo</span> modprobe w1-therm
+<span class="hljs-built_in">cd</span> /sys/bus/w1/devices/
+ls
+</code></pre>
+<p>显示结果：</p>
+<pre><code class="hljs shell">pi<span class="hljs-variable">@raspberrypi</span><span class="hljs-symbol">:~</span><span class="hljs-variable">$ </span>cd /sys/bus/w1/devices/
+pi<span class="hljs-variable">@raspberrypi</span><span class="hljs-symbol">:/sys/bus/w1/devices</span><span class="hljs-variable">$ </span>ls
+<span class="hljs-number">28</span>-<span class="hljs-number">000004</span>94cb79 w1_bus_master1
+</code></pre>
+<p><code>28-00000494cb79</code>就是笔者外接的温度传感器设备，但并不是每个客户端都显示一样的，这个是传感器的序列号。</p>
+<p>3、查看当前温度</p>
+<pre><code class="hljs shell"><span class="hljs-keyword">cd</span> <span class="hljs-number">28</span>-<span class="hljs-number">00000494</span>cb79
+<span class="hljs-keyword">cat</span> w1_slave
+</code></pre>
+<p>显示结果：</p>
+<pre><code class="hljs shell"><span class="hljs-number">70</span> <span class="hljs-number">01</span> <span class="hljs-number">4</span>b <span class="hljs-number">46</span> <span class="hljs-number">7f</span> ff <span class="hljs-number">10</span> <span class="hljs-number">10</span> e1 : crc=e1 YES
+<span class="hljs-number">70</span> <span class="hljs-number">01</span> <span class="hljs-number">4</span>b <span class="hljs-number">46</span> <span class="hljs-number">7f</span> ff <span class="hljs-number">10</span> <span class="hljs-number">10</span> e1 t=<span class="hljs-number">23000</span>
+</code></pre>
+<p>第二行的<code>t=23000</code>就是当前的温度值，要换算成摄氏度，除以1000，即当前温度为23000/1000=23摄氏度。</p>
+<h4 id="-python-">四、用python读取温度值</h4>
+<p>文件存放:<code>/home/pi/temperature.py</code></p>
+<p>内容如下：</p>
+<pre><code class="hljs shell"><span class="hljs-preprocessor">#/home/pi/temperature.py</span>
+<span class="hljs-preprocessor">#打开温度传感器文件</span>
+tfile = open(<span class="hljs-string">"/sys/bus/w1/devices/28-00000494cb79/w1_slave"</span>)
+<span class="hljs-preprocessor">#读取文件所有内容</span>
+text = tfile.read()
+<span class="hljs-preprocessor">#关闭文件</span>
+tfile.close()
+<span class="hljs-preprocessor">#用换行符分割字符串成数组，并取第二行</span>
+secondline = text.split(<span class="hljs-string">"\n"</span>)[<span class="hljs-number">1</span>]
+<span class="hljs-preprocessor">#用空格分割字符串成数组，并取最后一个，即t=23000</span>
+temperaturedata = secondline.split(<span class="hljs-string">" "</span>)[<span class="hljs-number">9</span>]
+<span class="hljs-preprocessor">#取t=后面的数值，并转换为浮点型</span>
+temperature = <span class="hljs-keyword">float</span>(temperaturedata[<span class="hljs-number">2</span>:])
+<span class="hljs-preprocessor">#转换单位为摄氏度</span>
+temperature = temperature / <span class="hljs-number">1000</span>
+<span class="hljs-preprocessor">#打印值</span>
+print temperature
+
+在命令行运行，即可得出结果数值:
+python /home/pi/temperature.py
+</code></pre>
+<h4 id="-yeelink">五、上报到yeelink</h4>
+<p>yeelink是国内比较知名的免费物联网数据平台，国外有COSM（<a href="https://cosm.com）。">https://cosm.com）。</a><br>申请yeelink账号及添加设备和传感器，以及API的学习，本文跳过，请大家自行去学习一下。</p>
+<p>根据yeelink API的规则，我们需要提供一个文本文件，内容为一段JSON，如下：</p>
+<pre><code class="hljs json">{
+“timestamp”:”<span class="hljs-number">2012</span>-<span class="hljs-number">03</span>-<span class="hljs-number">15</span>T16:<span class="hljs-number">13</span>:<span class="hljs-number">14</span>″,
+“<span class="hljs-built_in">value</span>”:<span class="hljs-number">294.34</span>
+}
+</code></pre>
+<p>若未指定timestamp, 服务器会自动加上当前时间，所以本文的操作不添加该字段</p>
+<p>1、修改python，将温度值用JSON格式保存到一个文本文件，全部如下：</p>
+<pre><code class="hljs shell"><span class="hljs-comment">#/home/pi/temperature.py</span>
+tfile = <span class="hljs-built_in">open</span>(<span class="hljs-string">"/sys/bus/w1/devices/28-00000494cb79/w1_slave"</span>)
+<span class="hljs-keyword">text</span> = tfile.<span class="hljs-built_in">read</span>()
+tfile.<span class="hljs-built_in">close</span>()
+secondline = <span class="hljs-keyword">text</span>.<span class="hljs-built_in">split</span>(<span class="hljs-string">"\n"</span>)[<span class="hljs-number">1</span>]
+temperaturedata = secondline.<span class="hljs-built_in">split</span>(<span class="hljs-string">" "</span>)[<span class="hljs-number">9</span>]
+temperature = float(temperaturedata[<span class="hljs-number">2</span>:])
+temperature = temperature / <span class="hljs-number">1000</span>
+res = <span class="hljs-string">'{"value":%f}'</span> %temperature
+output = <span class="hljs-built_in">open</span>(<span class="hljs-string">'/home/pi/datafile.txt'</span>, <span class="hljs-string">'w'</span>)
+output.<span class="hljs-built_in">write</span>(res)
+output.<span class="hljs-built_in">close</span>
+</code></pre>
+<p>python将温度值写入：/home/pi/datafile.txt</p>
+<p>2、新增yeelink.sh脚本</p>
+<p>文件位置：<code>/home/pi/yeelink.sh</code></p>
+<p>内容如下：</p>
+<pre><code class="hljs shell">sudo python /home/pi/temperature<span class="hljs-built_in">.</span>py
+curl <span class="hljs-subst">--</span>request POST <span class="hljs-subst">--</span><span class="hljs-built_in">data</span><span class="hljs-attribute">-binary</span> @<span class="hljs-string">"/home/pi/datafile.txt"</span> <span class="hljs-subst">--</span><span class="hljs-keyword">header</span> <span class="hljs-string">"U-ApiKey:XXXXXXXXXXXXXXXX"</span> http:<span class="hljs-comment">//api.yeelink.net/v1.0/device/1969/sensor/2533/datapoints</span>
+</code></pre>
+<p>将U-ApiKey:XXXXXXXXXXXXXXXX替换为自已账户的API Key。<br>后面的URL也需要替换为自己申请的传感器URL。</p>
+<p>3、添加到计划任务</p>
+<pre><code class="hljs shell"><span class="hljs-comment">#为脚本增加可执行权限</span>
+sudo chmod +x yeelink.sh
+<span class="hljs-comment">#将脚本加入cronjob（计划任务）</span>
+sudo crontab -e
+<span class="hljs-comment">#在cornjob文件中添加下面一行，并保存(表示10分钟执行一下脚本，时间可自行修改)</span>
+<span class="hljs-keyword">*</span>/10 <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> <span class="hljs-keyword">*</span> /home/pi/yeelink.sh
+</code></pre>
+<p>完了！</p>
+<p>我的温度传感器数据展示页面：<a href="http://www.yeelink.net/devices/1969">http://www.yeelink.net/devices/1969</a></p>
+<p><strong>参考文档：</strong></p>
+<p><a href="http://www.cl.cam.ac.uk/freshers/raspberrypi/tutorials/temperature/">http://www.cl.cam.ac.uk/freshers/raspberrypi/tutorials/temperature/</a></p>
+<p><a href="http://blog.turningdigital.com/2012/09/raspberry-pi-ds18b20-temperature-sensor-rrdtool/">http://blog.turningdigital.com/2012/09/raspberry-pi-ds18b20-temperature-sensor-rrdtool/</a></p>
+<p><a href="http://webshed.org/wiki/RaspberryPI_DS1820">http://webshed.org/wiki/RaspberryPI_DS1820</a></p>
+
+        <p class="last-edit-time">最后修改时间：2014年9月10日星期三下午2点08</p>
+        <div class="share_wrapper">
+            <div class="jiathis_style_32x32">
+                <a class="jiathis_button_qzone"></a>
+                <a class="jiathis_button_tsina"></a>
+                <a class="jiathis_button_tqq"></a>
+                <a class="jiathis_button_renren"></a>
+                <a class="jiathis_button_kaixin001"></a>
+                <a class="jiathis_button_weixin"></a>
+                <a href="http://www.jiathis.com/share?uid=1879675" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+            </div>
+        </div>
+    </article>
+
+<a name="comment"></a>
+<div class="comment-widget">
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1879675"></script>
+<!-- UY END -->
+</div>
+
+</div>
+
+<footer>
+	<p class="copyright">&copy; 2014 <a href="/">Jason’s Blog</a>. All rights reserved.</p>
+    <p>Proudly published with <a href="http://metalsmith.io/" target="_blank">Metalsmith</a></p>
+    <p><a href="http://www.miibeian.gov.cn/" target="_blank">闽ICP备09029032号-1</a> |
+        <script language="javascript" type="text/javascript" src="http://js.users.51.la/6883474.js"></script></p>
+</footer>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/uitotop/js/easing.js?version=20140909"></script>
+<script type="text/javascript" src="/assets/uitotop/js/jquery.ui.totop.min.js?version=20140909"></script>
+<script src="/assets/js/app.js?version=20140909"></script>
+<!--[if lt IE 8]><script src="/assets/js/noLtIE8.js?version=20140909"></script><![endif]-->
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" >
+    var jiathis_config={
+        data_track_clickback:true,
+        shortUrl:false,
+        hideMore:false
+    }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1879675" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+</body>
+</html>

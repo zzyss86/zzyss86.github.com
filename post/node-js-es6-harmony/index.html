@@ -1,0 +1,340 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="keyword" content="二分之一,web前端,前端博客,树莓派,RaspberryPi,html5,css3,as3,javascript">
+  <meta name="description" content="二分之一博客是一个关注web前端及游戏前端的技术博客">
+  <title>Node.js ES6（harmony模式）支持情况一览 - 二分之一 - Just Jason's Blog</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/highlight/pojoaque.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+  <!--[if lt IE 9]><script src="/assets/js/html5.js?version=20140909"></script><![endif]-->
+</head>
+
+<body>
+<div class="toolbar">
+    <div class="nav-wrapper clearfix">
+        <ul class="nav-list">
+            <li>
+                <a href="/tag/Unity3D">Unity3D</a>
+            </li>
+            <li>
+                <a href="/tag/javascript">Javascript</a>
+            </li>
+            <li>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </li>
+            <li>
+                <a href="/tag/html5">Html5</a>
+            </li>
+            <li>
+                <a href="/tag/RaspberryPi">Raspberry Pi</a>
+            </li>
+            <li>
+                <a href="/tag/metalsmith">Metalsmith</a>
+            </li>
+        </ul>
+
+        <ul class="nav-list menu">
+            <li>
+                <a href="/about.html">关于我</a>
+            </li>
+            <li>
+                <a href="/mobile/">
+                    <i class="mobile_icon"></i><span class="mobile_msg">手机访问</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<header class="top-header">
+	<section>
+    	<a href="/" class="logo"></a>
+        <h1 class="blog-name">二分之一</h1>
+        <h2 class="blog-description">Just Jason's Blog</h2>
+    </section>
+</header>
+
+
+<div class="wrapper">
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2014年3月9日">2014年3月9日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+                ,
+                <a href="/tag/NodeJs">NodeJs</a>
+            </span>
+            <h2>Node.js ES6（harmony模式）支持情况一览</h2>
+        </header>
+        <p>本文地址：<a href="http://www.2fz1.com，转载请注明来源。">http://www.2fz1.com，转载请注明来源。</a></p>
+<p>ES6指：ECMAScript 6草案 (2012.4) 规定。</p>
+<p>Node.js需要0.11.*版本来开启ES6实验阶段的支持，官网最新版本下载链接。</p>
+<p>安装 0.11.* 以后的版本后，通过node --harmony来启动应用程序。本文只例出Node.js支持的新特性，暂未支持的特性，不在本文介绍范围。以下特性均通过Node.js v0.11.9测试！</p>
+<h4 id="const">const</h4>
+<p>声明一个只读的命名常量，一个常量不可以被重新赋值，并且不能被重复声明。</p>
+<p><strong>const例子</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">const</span> a = <span class="hljs-string">'a'</span>;
+<span class="hljs-built_in">console</span>.log(a); <span class="hljs-comment">//a</span>
+a = <span class="hljs-string">'b'</span>;
+<span class="hljs-built_in">console</span>.log(a); <span class="hljs-comment">//a</span>
+
+<span class="hljs-comment">//以下重复定义，会报错</span>
+<span class="hljs-comment">//Error:Variable 'a' has already been declared</span>
+<span class="hljs-keyword">var</span> a = <span class="hljs-string">'c'</span>;
+<span class="hljs-keyword">const</span> a = <span class="hljs-string">'d'</span>;
+<span class="hljs-built_in">console</span>.log(a);
+</code></pre>
+<p><!--more--></p>
+<h4 id="generators">generators</h4>
+<p>生成器函数。JS的异步编程新利器，生成器函数通常和 yield 关键字同时使用。函数执行到每个 yield 时都会中断并返回 yield 的右值（通过 next 方法返回对象中的 value 字段）。下次调用 next，函数会从 yield 的下一个语句继续执行。等到整个函数执行完，next 方法返回的 done 字段会变成 true。</p>
+<p>该新特性涉及的知识较多，请大家自行搜索查阅。</p>
+<p><strong>generators例子</strong></p>
+<p>创建一个生成器函数，在function与字面量之间，添加一个“ * ”号，可以左右留有空格。</p>
+<pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> * <span class="hljs-title">foo</span><span class="hljs-params">()</span></span>{};
+<span class="hljs-built_in">console</span>.log ( foo.toString() ); <span class="hljs-comment">//function* foo(){}</span>
+<span class="hljs-built_in">console</span>.log ( foo.constructor ); <span class="hljs-comment">//[Function: GeneratorFunction]</span>
+
+<span class="hljs-comment">//函数是否是generatorFunction的判断方法</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isGeneratorFunction</span><span class="hljs-params">(obj)</span> </span>{
+  <span class="hljs-keyword">return</span> obj &amp;amp;&amp;amp; obj.constructor &amp;amp;&amp;amp; <span class="hljs-string">'GeneratorFunction'</span> === obj.constructor.name
+}
+
+<span class="hljs-built_in">console</span>.log( isGeneratorFunction(foo) ); <span class="hljs-comment">//true</span>
+</code></pre>
+<p><strong>使用生成器函数</strong></p>
+<pre><code class="hljs javascript">function <span class="hljs-subst">*</span> <span class="hljs-built_in">list</span>(a,b,c){
+    <span class="hljs-built_in">var</span> y1 <span class="hljs-subst">=</span> <span class="hljs-keyword">yield</span> a;
+    console<span class="hljs-built_in">.</span><span class="hljs-keyword">log</span>(y1); <span class="hljs-comment">//next2</span>
+    <span class="hljs-built_in">var</span> y2 <span class="hljs-subst">=</span> <span class="hljs-keyword">yield</span> b;
+    console<span class="hljs-built_in">.</span><span class="hljs-keyword">log</span>(y2); <span class="hljs-comment">//next3</span>
+    <span class="hljs-built_in">var</span> y3 <span class="hljs-subst">=</span> <span class="hljs-keyword">yield</span> c;
+    console<span class="hljs-built_in">.</span><span class="hljs-keyword">log</span>(y3); <span class="hljs-comment">//next4</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'done'</span>;
+};
+
+<span class="hljs-built_in">var</span> <span class="hljs-built_in">List</span> <span class="hljs-subst">=</span> <span class="hljs-built_in">list</span>(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>); <span class="hljs-comment">//注意这边是看起来是调用，实际上foo只是做生成器的编译处理，并没有运行函数内程序，需要调用next()才会运行。</span>
+console<span class="hljs-built_in">.</span><span class="hljs-keyword">log</span>( <span class="hljs-built_in">List</span><span class="hljs-built_in">.</span>next(<span class="hljs-string">'next1'</span>) ); <span class="hljs-comment">//{ value: 1, done: false }</span>
+console<span class="hljs-built_in">.</span><span class="hljs-keyword">log</span>( <span class="hljs-built_in">List</span><span class="hljs-built_in">.</span>next(<span class="hljs-string">'next2'</span>) ); <span class="hljs-comment">//{ value: 2, done: false }</span>
+console<span class="hljs-built_in">.</span><span class="hljs-keyword">log</span>( <span class="hljs-built_in">List</span><span class="hljs-built_in">.</span>next(<span class="hljs-string">'next3'</span>) ); <span class="hljs-comment">//{ value: 3, done: false }</span>
+console<span class="hljs-built_in">.</span><span class="hljs-keyword">log</span>( <span class="hljs-built_in">List</span><span class="hljs-built_in">.</span>next(<span class="hljs-string">'next4'</span>) ); <span class="hljs-comment">//{ value: 'done', done: true }</span>
+</code></pre>
+<p>上述代码有两点要注意：</p>
+<ul>
+<li>next()的返回值value是yield的在值。 </li>
+<li>yield的返回值与其右值无关，其值为下一个next()函数调用时传入的第一个参数。 </li>
+</ul>
+<h4 id="map">Map</h4>
+<p>Map对象就是简单的键/值映射.其中键和值可以是任意值(原始值或对象值).</p>
+<p>在判断两个值是否为同一个键的时候,使用的并不是===运算符,而是使用了一种称之为”same-value”的内部算法, 该算法很特殊, 对于Map对象来说, +0 (按照以往的经验与 -0 是严格相等的)和-0 是两个不同的键. 而NaN在作为Map对象的键时和另外一个NaN是一个相同的键(尽管NaN !== NaN).（关于NaN及+0和-0请参阅本文的Object.is）</p>
+<p><strong>Map例子</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> myMap = <span class="hljs-keyword">new</span> Map();
+
+<span class="hljs-comment">//Map继承了Obejct</span>
+myMap[-<span class="hljs-number">0</span>] = -<span class="hljs-number">0</span>;
+myMap[+<span class="hljs-number">0</span>] = +<span class="hljs-number">0</span>;
+myMap[<span class="hljs-string">'+0'</span>] = <span class="hljs-string">'+0'</span>;
+myMap[<span class="hljs-literal">NaN</span>] = <span class="hljs-literal">NaN</span>;
+myMap[<span class="hljs-literal">NaN</span>] = <span class="hljs-literal">NaN</span>;
+myMap[{}] = {};
+myMap[<span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>()] = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>();
+<span class="hljs-built_in">console</span>.log(myMap); <span class="hljs-comment">//{ '0': 0, '+0': '+0', NaN: NaN, '[object Object]': {} }</span>
+
+<span class="hljs-comment">//真正的Map实例</span>
+<span class="hljs-keyword">var</span> keyObj = {},keyObj2 = {},keyFunc = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{};
+myMap.set(<span class="hljs-string">'a'</span>,<span class="hljs-string">'a'</span>);
+myMap.set(-<span class="hljs-number">0</span>,<span class="hljs-string">'-0'</span>);
+myMap.set(+<span class="hljs-number">0</span>,<span class="hljs-string">'+0'</span>);
+myMap.set(keyObj,<span class="hljs-string">'{}'</span>);
+myMap.set(keyObj2,<span class="hljs-string">'{}2'</span>);
+myMap.set(keyFunc,<span class="hljs-string">'function() {}'</span>);
+<span class="hljs-built_in">console</span>.log( myMap.get(<span class="hljs-string">'a'</span>) ); <span class="hljs-comment">//a</span>
+<span class="hljs-built_in">console</span>.log( myMap.get(-<span class="hljs-number">0</span>) ); <span class="hljs-comment">//-0</span>
+<span class="hljs-built_in">console</span>.log( myMap.get(+<span class="hljs-number">0</span>) ); <span class="hljs-comment">//-0</span>
+<span class="hljs-built_in">console</span>.log( myMap.get(keyObj) ); <span class="hljs-comment">//{}</span>
+<span class="hljs-built_in">console</span>.log( myMap.get(keyObj2) ); <span class="hljs-comment">//{}2</span>
+<span class="hljs-built_in">console</span>.log( myMap.get(keyFunc) ); <span class="hljs-comment">//function() {}</span>
+</code></pre>
+<h4 id="set">Set</h4>
+<p>一个Set对象允许你向里面存储任意类型的唯一值(不能重复), 不管是原始值还是对象值. 在Set中,判断两个值是否相等的算法与 ===运算符不同,该算法很特殊, 对于Set来说,+0 (按照以往的经验与-0是严格相等的) 和-0 是两个不同的值,还有NaN和另一个NaN是相同的值,不能同时存进一个Set中.</p>
+<p><strong>Set例子</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> mySet = <span class="hljs-keyword">new</span> <span class="hljs-keyword">Set</span>();
+mySet.<span class="hljs-keyword">add</span>(<span class="hljs-number">1</span>);
+mySet.<span class="hljs-keyword">add</span>(<span class="hljs-string">'a'</span>);
+mySet.<span class="hljs-keyword">add</span>(<span class="hljs-comment">{}</span>);
+mySet.<span class="hljs-keyword">add</span>(<span class="hljs-comment">{}</span>);
+mySet.<span class="hljs-keyword">add</span>(-<span class="hljs-number">0</span>);
+mySet.<span class="hljs-keyword">add</span>(+<span class="hljs-number">0</span>);
+console.log(mySet.size); <span class="hljs-comment">//6</span>
+console.log ( mySet.<span class="hljs-keyword">has</span>(+<span class="hljs-number">0</span>) ); <span class="hljs-comment">//true</span>
+
+mySet.delete(<span class="hljs-number">1</span>);
+console.log(mySet.size); <span class="hljs-comment">//5</span>
+</code></pre>
+<h4 id="weakmap">WeakMap</h4>
+<p>WeakMap对象就是简单的键/值映射.但键只能是对象值,不可以是原始值。WeakMap 相对于普通的 Map，也是键值对集合，只不过 WeakMap 的 key 只能是非空对象（non-null object）。</p>
+<p><strong>WeakMap例子</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> wm1 = <span class="hljs-keyword">new</span> WeakMap(),
+    wm2 = <span class="hljs-keyword">new</span> WeakMap();
+<span class="hljs-keyword">var</span> o1 = {},
+    o2 = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{};
+
+wm1.<span class="hljs-keyword">set</span>(o1,wm2); <span class="hljs-comment">//值可以为任意值，包括另一个WeakMap</span>
+console.log(wm1.<span class="hljs-keyword">get</span>(o1)); <span class="hljs-comment">//{}</span>
+wm1.<span class="hljs-keyword">set</span>(wm2,o2); <span class="hljs-comment">//键只能是对象引用，不能是基本类型，但可以是另一个WeakMap</span>
+console.log(wm1.<span class="hljs-keyword">get</span>(wm2)); <span class="hljs-comment">//[Function]</span>
+</code></pre>
+<p>为什么要使用WeakMap?</p>
+<p>WeakMap 对它的 key 仅保持弱引用，也就是说它不阻止垃圾回收器回收它所引用的 key。WeakMap 最大的好处是可以避免内存泄漏。一个仅被 WeakMap 作为 key 而引用的对象，会被垃圾回收器回收掉。正因为是弱类型引用，WeakMap不能迭代，也没有size方法，这一点一定要分清楚。</p>
+<h4 id="object-is">Object.is</h4>
+<p>判断两个值是否真正是同一个值。类似于===运算符，不过有两个特例，NaN和Nan，-0和+0;</p>
+<p><strong>Object.is例子</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">0</span> === -<span class="hljs-number">0</span>); <span class="hljs-comment">//true</span>
+<span class="hljs-built_in">console</span>.log( <span class="hljs-built_in">Object</span>.is(<span class="hljs-number">0</span>,-<span class="hljs-number">0</span>) ); <span class="hljs-comment">//false</span>
+<span class="hljs-built_in">console</span>.log( <span class="hljs-built_in">Object</span>.is(+<span class="hljs-number">0</span>,-<span class="hljs-number">0</span>) ); <span class="hljs-comment">//false</span>
+<span class="hljs-built_in">console</span>.log( <span class="hljs-built_in">Object</span>.is(<span class="hljs-string">'a'</span>,<span class="hljs-string">'a'</span>) ); <span class="hljs-comment">//true</span>
+<span class="hljs-built_in">console</span>.log( <span class="hljs-built_in">Object</span>.is({},{}) ); <span class="hljs-comment">//false</span>
+<span class="hljs-built_in">console</span>.log( <span class="hljs-literal">NaN</span> === <span class="hljs-literal">NaN</span> ); <span class="hljs-comment">//false;</span>
+<span class="hljs-built_in">console</span>.log( <span class="hljs-built_in">Object</span>.is(<span class="hljs-literal">NaN</span>,<span class="hljs-literal">NaN</span>) ); <span class="hljs-comment">//true</span>
+<span class="hljs-keyword">var</span> obj = {};
+<span class="hljs-keyword">var</span> obj2 = obj;
+<span class="hljs-built_in">console</span>.log( <span class="hljs-built_in">Object</span>.is(obj,obj2) ); <span class="hljs-comment">//true</span>
+</code></pre>
+<h4 id="string-prototype-repeat">String.prototype.repeat</h4>
+<p>返回一个重复当前字符串若干次数的新字符串。参数必须大于等于0。</p>
+<p><strong>String.prototype.repeat例子</strong></p>
+<pre><code class="hljs javascript">var str = <span class="hljs-string">'abc'</span>;
+console.<span class="hljs-built_in">log</span>( str.<span class="hljs-built_in">repeat</span>(<span class="hljs-number">0</span>) ); //<span class="hljs-string">''</span>
+console.<span class="hljs-built_in">log</span>( str.<span class="hljs-built_in">repeat</span>(<span class="hljs-number">1</span>) ); //<span class="hljs-string">'abc'</span>
+console.<span class="hljs-built_in">log</span>( str.<span class="hljs-built_in">repeat</span>(<span class="hljs-number">2</span>) ); //<span class="hljs-string">'abcabc'</span>
+console.<span class="hljs-built_in">log</span>( str.<span class="hljs-built_in">repeat</span>(-<span class="hljs-number">1</span>) ); //Error,Invalid <span class="hljs-built_in">count</span> value
+</code></pre>
+<h4 id="string-prototype-startswith">String.prototype.startsWith</h4>
+<p>判断当前字符串是否是以另一个字符串”开头”的，返回布尔值，第一个参数为要查找的字符串，第二次参数为开始查找的位置，默认为0。</p>
+<p><strong>String.prototype.startsWith例子</strong></p>
+<pre><code class="hljs javascript">var str = <span class="hljs-string">'abc def'</span>;
+console.<span class="hljs-keyword">log</span>( str.<span class="hljs-keyword">startsWith</span>(<span class="hljs-string">'a'</span>) ); <span class="hljs-comment">//true</span>
+console.<span class="hljs-keyword">log</span>( str.<span class="hljs-keyword">startsWith</span>(<span class="hljs-string">'d'</span>,<span class="hljs-number">4</span>) ); <span class="hljs-comment">//true</span>
+</code></pre>
+<h4 id="string-prototype-endswith">String.prototype.endsWith</h4>
+<p>判断当前字符串是否是以另一个字符串”结尾”的，返回布尔值，第一个参数为要查找的字符串，第二次参数为结束查找的位置，默认为字符串的结尾处。</p>
+<p><strong>String.prototype.endsWith例子</strong></p>
+<pre><code class="hljs javascript">var str = <span class="hljs-string">'abc def'</span>;
+console.<span class="hljs-keyword">log</span>( str.<span class="hljs-keyword">endsWith</span>(<span class="hljs-string">'def'</span>) ); <span class="hljs-comment">//true</span>
+console.<span class="hljs-keyword">log</span>( str.<span class="hljs-keyword">endsWith</span>(<span class="hljs-string">'d'</span>,<span class="hljs-number">5</span>) ); <span class="hljs-comment">//true</span>
+</code></pre>
+<h4 id="string-prototype-contains">String.prototype.contains</h4>
+<p>判断一个字符串是否被包含在另一个字符串中，返回布尔值，第一个参数为要查找的字符串，第二次参数为开始查找的位置，默认为0。</p>
+<p><strong>String.prototype.contains例子</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-reserved">var</span> str = <span class="hljs-string">'abc def'</span>;
+<span class="hljs-built_in">console</span>.log( str.contains(<span class="hljs-string">'def'</span>) ); <span class="hljs-regexp">//</span><span class="hljs-literal">true</span>
+<span class="hljs-built_in">console</span>.log( str.contains(<span class="hljs-string">'d'</span>,<span class="hljs-number">4</span>) ); <span class="hljs-regexp">//</span><span class="hljs-literal">true</span>
+<span class="hljs-built_in">console</span>.log( str.contains(<span class="hljs-string">'a'</span>,<span class="hljs-number">1</span>) ); <span class="hljs-regexp">//</span><span class="hljs-literal">false</span>
+</code></pre>
+<h4 id="array-prototype-find">Array.prototype.find</h4>
+<p>在数组查找成员，找到后马上返回该成员，停止查找。接受一个function参数，并需要返回布尔值，该function有三个参数传入，依次是：当前数组成员值，当前数组成员索引，当前数组。</p>
+<p><strong>Array.prototype.find例子</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Array</span>.prototype.find); <span class="hljs-comment">//[Function: find]</span>
+<span class="hljs-keyword">var</span> arr = [<span class="hljs-string">'a'</span>,<span class="hljs-string">'b'</span>,<span class="hljs-string">'c'</span>,<span class="hljs-string">'d'</span>,<span class="hljs-string">'e'</span>,<span class="hljs-string">'f'</span>,<span class="hljs-string">'g'</span>,<span class="hljs-string">'a'</span>];
+<span class="hljs-keyword">var</span> pos = arr.find(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(thisVal,thisIndex,thisArr)</span></span>{
+    <span class="hljs-keyword">if</span>(thisVal==<span class="hljs-string">'a'</span> || thisVal==<span class="hljs-string">'c'</span>){
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+});
+<span class="hljs-built_in">console</span>.log(pos); <span class="hljs-comment">//a</span>
+</code></pre>
+<h4 id="array-prototype-findindex">Array.prototype.findIndex</h4>
+<p>和 Array.prototype.find 类似，不过返回的是找到成员的索引值。</p>
+<p><strong>Array.prototype.findIndex例子</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Array</span>.prototype.findIndex); <span class="hljs-comment">//[Function: findIndex]</span>
+<span class="hljs-keyword">var</span> arr = [<span class="hljs-string">'a'</span>,<span class="hljs-string">'b'</span>,<span class="hljs-string">'c'</span>,<span class="hljs-string">'d'</span>,<span class="hljs-string">'e'</span>,<span class="hljs-string">'f'</span>,<span class="hljs-string">'g'</span>,<span class="hljs-string">'c'</span>];
+<span class="hljs-keyword">var</span> pos = arr.findIndex(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(thisVal,thisIndex,thisArr)</span></span>{
+    <span class="hljs-keyword">if</span>(thisVal==<span class="hljs-string">'c'</span>){
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+});
+<span class="hljs-built_in">console</span>.log(pos); <span class="hljs-comment">//2</span>
+</code></pre>
+<h4 id="number-isfinite">Number.isFinite</h4>
+<p>判定指定的参数是否是有限的。和全局的 isFinite 方法相比，这个方法不会强制把参数转换为数值。这意味着只有数值类型的值，并且是有限的，则返回true</p>
+<p><strong>Number.isFinite例子</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">console</span>.log( <span class="hljs-built_in">Number</span>.isFinite(<span class="hljs-literal">Infinity</span>) ); <span class="hljs-comment">//false</span>
+<span class="hljs-built_in">console</span>.log( <span class="hljs-built_in">Number</span>.isFinite(-<span class="hljs-literal">Infinity</span>) ); <span class="hljs-comment">//false</span>
+<span class="hljs-built_in">console</span>.log( <span class="hljs-built_in">Number</span>.isFinite(<span class="hljs-literal">NaN</span>) ); <span class="hljs-comment">//false</span>
+
+<span class="hljs-built_in">console</span>.log( <span class="hljs-built_in">Number</span>.isFinite(<span class="hljs-string">'0'</span>) ); <span class="hljs-comment">//false</span>
+<span class="hljs-built_in">console</span>.log( <span class="hljs-built_in">isFinite</span>(<span class="hljs-string">'0'</span>) ); <span class="hljs-comment">//true</span>
+
+<span class="hljs-built_in">console</span>.log( <span class="hljs-built_in">Number</span>.isFinite(<span class="hljs-number">0</span>) ); <span class="hljs-comment">//true</span>
+</code></pre>
+<h4 id="number-isnan">Number.isNaN</h4>
+<p>判断一个值是否是NaN.和全局函数isNaN不同的是,该函数没有自动类型转换的问题.</p>
+<p><strong>Number.isNaN例子</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">console</span>.log( <span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-literal">NaN</span>) ); <span class="hljs-comment">//true</span>
+<span class="hljs-built_in">console</span>.log( <span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-number">0</span> / <span class="hljs-number">0</span>) ); <span class="hljs-comment">//true</span>
+<span class="hljs-built_in">console</span>.log( <span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-string">'NaN'</span>) ); <span class="hljs-comment">//false</span>
+<span class="hljs-built_in">console</span>.log( <span class="hljs-built_in">isNaN</span>(<span class="hljs-string">'NaN'</span>) ); <span class="hljs-comment">//true</span>
+</code></pre>
+<h4 id="math-imul">Math.imul</h4>
+<p>该函数返回两个参数的类C的32位整数乘法运算的运算结果.</p>
+<p><strong>Math.imul例子</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">Math</span>.imul(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>) <span class="hljs-comment">// 8</span>
+<span class="hljs-built_in">Math</span>.imul(-<span class="hljs-number">1</span>, <span class="hljs-number">8</span>) <span class="hljs-comment">// -8</span>
+<span class="hljs-built_in">Math</span>.imul(-<span class="hljs-number">2</span>, -<span class="hljs-number">2</span>) <span class="hljs-comment">// 4</span>
+<span class="hljs-built_in">Math</span>.imul(<span class="hljs-number">0xffffffff</span>, <span class="hljs-number">5</span>) <span class="hljs-comment">//-5</span>
+<span class="hljs-built_in">Math</span>.imul(<span class="hljs-number">0xfffffffe</span>, <span class="hljs-number">5</span>) <span class="hljs-comment">//-10</span>
+</code></pre>
+
+        <p class="last-edit-time">最后修改时间：2014年9月10日星期三晚上8点52</p>
+        <div class="share_wrapper">
+            <div class="jiathis_style_32x32">
+                <a class="jiathis_button_qzone"></a>
+                <a class="jiathis_button_tsina"></a>
+                <a class="jiathis_button_tqq"></a>
+                <a class="jiathis_button_renren"></a>
+                <a class="jiathis_button_kaixin001"></a>
+                <a class="jiathis_button_weixin"></a>
+                <a href="http://www.jiathis.com/share?uid=1879675" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+            </div>
+        </div>
+    </article>
+
+<a name="comment"></a>
+<div class="comment-widget">
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1879675"></script>
+<!-- UY END -->
+</div>
+
+</div>
+
+<footer>
+	<p class="copyright">&copy; 2014 <a href="/">Jason’s Blog</a>. All rights reserved.</p>
+    <p>Proudly published with <a href="http://metalsmith.io/" target="_blank">Metalsmith</a></p>
+    <p><a href="http://www.miibeian.gov.cn/" target="_blank">闽ICP备09029032号-1</a> |
+        <script language="javascript" type="text/javascript" src="http://js.users.51.la/6883474.js"></script></p>
+</footer>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/uitotop/js/easing.js?version=20140909"></script>
+<script type="text/javascript" src="/assets/uitotop/js/jquery.ui.totop.min.js?version=20140909"></script>
+<script src="/assets/js/app.js?version=20140909"></script>
+<!--[if lt IE 8]><script src="/assets/js/noLtIE8.js?version=20140909"></script><![endif]-->
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" >
+    var jiathis_config={
+        data_track_clickback:true,
+        shortUrl:false,
+        hideMore:false
+    }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1879675" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+</body>
+</html>

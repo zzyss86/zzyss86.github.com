@@ -1,0 +1,522 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="keyword" content="二分之一,web前端,前端博客,树莓派,RaspberryPi,html5,css3,as3,javascript">
+  <meta name="description" content="二分之一博客是一个关注web前端及游戏前端的技术博客">
+  <title>javascript - 二分之一 - Just Jason's Blog</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/highlight/pojoaque.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+  <!--[if lt IE 9]><script src="/assets/js/html5.js?version=20140909"></script><![endif]-->
+</head>
+
+<body>
+<div class="toolbar">
+    <div class="nav-wrapper clearfix">
+        <ul class="nav-list">
+            <li>
+                <a href="/tag/Unity3D">Unity3D</a>
+            </li>
+            <li>
+                <a href="/tag/javascript">Javascript</a>
+            </li>
+            <li>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </li>
+            <li>
+                <a href="/tag/html5">Html5</a>
+            </li>
+            <li>
+                <a href="/tag/RaspberryPi">Raspberry Pi</a>
+            </li>
+            <li>
+                <a href="/tag/metalsmith">Metalsmith</a>
+            </li>
+        </ul>
+
+        <ul class="nav-list menu">
+            <li>
+                <a href="/about.html">关于我</a>
+            </li>
+            <li>
+                <a href="/mobile/">
+                    <i class="mobile_icon"></i><span class="mobile_msg">手机访问</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<header class="top-header">
+	<section>
+    	<a href="/" class="logo"></a>
+        <h1 class="blog-name">二分之一</h1>
+        <h2 class="blog-description">Just Jason's Blog</h2>
+    </section>
+</header>
+
+
+<div class="wrapper">
+
+<header class="tag-archive-header">
+    <h1>javascript</h1>
+</header>
+
+    <nav role="navigation" class="pagination">
+        <a href="/tag/javascript/" class="newer-posts">← Newer Posts</a>
+        
+    	<span class="page-number">Page 2 of 3</span>
+        
+        <a href="/tag/javascript/3/" class="older-posts">Older Posts →</a>
+	</nav>
+
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年4月16日">2013年4月16日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+            </span>
+            <h2><a href="/post/jquery-deferred-api">jQuery deferred对象API详解及DEMO</a></h2>
+        </header>
+        <p>jQuery在1.5开始引入deferred(延迟)，简单说，deferred对象就是jQuery的回调函数解决方案。</p>
+<p>jQuery1.5中，Deferred对象提供一种方式来注册多个回调,添加到自已管理的回调队列中，调用适当的回调队列，并转达同步或异步函数的成功或失败状态。</p>
+<p>deferred对象有三种执行状态：未完成（pending），已完成（resolved）和已失败（rejected）</p>
+<p><strong>API概览:</strong></p>
+<pre><code class="hljs javascript">deferred <span class="hljs-class"><span class="hljs-keyword">object</span> =</span> {
+    always(alwaysCallbacks [, alwaysCallbacks])
+    <span class="hljs-comment">//延迟对象不管成功或失败都最终会执行该方法</span>
+
+    done(doneCallbacks)
+    <span class="hljs-comment">//延迟对象成功完成后调用</span>
+
+    fail(failCallbacks)
+    <span class="hljs-comment">//延迟对象失败后调用</span>
+
+    isRejected()
+    <span class="hljs-comment">//确定延迟对象是否已失败</span>
+
+    isResolved()
+    <span class="hljs-comment">//确定延迟对象是否已成功</span>
+
+    notify( args )
+    <span class="hljs-comment">//用来触发一个自定义事件fireEvent</span>
+
+    notifyWith(context, [args])
+    <span class="hljs-comment">//跟notify一样，但可以指定上下文</span>
+
+    pipe([doneFilter] [, failFilter] [, progressFilter] )
+    <span class="hljs-comment">//jQuery的1.8，deferred.pipe（）方法已经被淘汰。</span>
+    <span class="hljs-comment">//用deferred.then()替代</span>
+
+    progress( progressCallbacks )
+    <span class="hljs-comment">//用来监控函数执行过程，进度处理程序，见：notify 方法</span>
+
+    reject([args])
+    <span class="hljs-comment">//使延迟对象的状态变为失败，对应的回调函数绑定方法为fail。</span>
+
+    rejectWith(context, [args])
+    <span class="hljs-comment">//使用方法与reject一样，但是可以指定上下文，使用可以参考 resolveWidth</span>
+
+    resolve([args])
+    <span class="hljs-comment">//使延迟对象的状态变为成功，对应的回调函数绑定方法为done。</span>
+
+    resolveWith(context, [args])
+    <span class="hljs-comment">//使用方法与resolve一样，但是可以指定上下文</span>
+
+    state()
+    <span class="hljs-comment">//查询延迟对象的状态，有三种：pending resolved rejected</span>
+
+    then(doneCallbacks, failCallbacks [, progressCallbacks])
+    <span class="hljs-comment">//一种缩写，用法与done,fail一样</span>
+
+    promise([target])
+    <span class="hljs-comment">//在原来的deferred对象上返回另一个deferred对象，</span>
+    <span class="hljs-comment">//这个新的deferred对象屏蔽了改变状态的方法。</span>
+}
+</code></pre>
+
+        <p><a href="/post/jquery-deferred-api" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年11月23日">2012年11月23日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+                ,
+                <a href="/tag/html5">html5</a>
+            </span>
+            <h2><a href="/post/crossmessageevent">实现跨域通信（跨文档消息传输）的几种方法（crossMessageEvent.js）</a></h2>
+        </header>
+        <p>最近两天为实现一个跨域通信的问题，对这个问题进行了相关的学习，心得一二，在此分享。</p>
+<p><code>window.postMessage()</code>方法</p>
+<p>HTML5给我们带来了安全的跨域通信接口，即window.postMessage()方法。它方法原型是：</p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">window</span>.postMessage(msg, domain);
+</code></pre>
+<p>该方法的浏览器支持情况：E8+, FF3+, Chrome, Safari，且在IE下，msg参数必须是string，不能是object.由此可见，我们只要考虑IE6，IE7下的跨域实现。</p>
+<h4 id="-">一、方案一</h4>
+<p>使用window.postMessage + window.opener实现，该方式是利用IE6,7 opener hack的方式实现跨域，可以算一个安全漏洞。</p>
+<p><strong>实现方式：</strong></p>
+<ul>
+<li>1、www.a.com/a.html 和 www.b.com/b.html，b.html被a.html嵌套在iframe里面。</li>
+<li>2、首先两个页面各设置目标通信页面的opener = {}；opener对象可包含一个方法，这样当前页面可以直接调用目标页面的opener内的方法，并传递参数。  </li>
+</ul>
+<p><code>www.a.com/a.html</code></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> otherWindow = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"ifr_a"</span>).contentWindow; <span class="hljs-comment">//ifr_a为嵌套b.html的iframe ID</span>
+otherWindow.opener={
+    postMessage:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(str)</span></span>{
+        alert(str);
+    }
+}
+</code></pre>
+<p><code>www.b.com/b.html</code></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">parent</span>.opener={
+    postMessage:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(str)</span></span>{
+        alert(str);
+    }
+}
+</code></pre>
+<p><strong>发送消息：</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">window</span>.opener.postMessage(message);
+</code></pre>
+<p>这样目标页面就能收到消息了。</p>
+<p>我做了一下JS的封装，大家可以直接下载使用：crossMessageEvent_opener.js</p>
+<p><a href="/assets/upload/crossMessageEvent_opener.js">下载：crossMessageEvent_opener.js</a></p>
+<ul>
+<li>1、a.html和b.html分别引用该JS  </li>
+<li>2、分别进行初始化CrossMessageEvent.init(otherWindow); //otherWindow 为目标窗口的window对象  </li>
+<li>3、发送消息CrossMessageEvent.postMessage(otherWindow, message, targetOrigin);</li>
+</ul>
+<blockquote>
+<p>otherWindow:为目标窗口的window对象<br>message:消息内容，可以是object<br>targetOrigin：目标窗口的域 [可选]  </p>
+</blockquote>
+<ul>
+<li>4、添加消息接收的监听  </li>
+</ul>
+<pre><code class="hljs javascript">CrossMessageEvent.receiveMessage(funciton(<span class="hljs-keyword">event</span>){
+alert(<span class="hljs-keyword">event</span>.data); <span class="hljs-comment">//event.data为message的内容</span>
+});
+</code></pre>
+<p><strong>该方法的优点：</strong></p>
+<p>不需要使用代理页面，简单直接。</p>
+<p><strong>该方法的缺点：</strong></p>
+<p>只要打过微软的安全补丁.kb2497640就不能用了。</p>
+
+        <p><a href="/post/crossmessageevent" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年6月11日">2012年6月11日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+            </span>
+            <h2><a href="/post/js-pan-duan-shu-zu">JS判断数组类型的两种方法</a></h2>
+        </header>
+        <h4 id="-">一、构造函数法</h4>
+<p>在JS中，虽然没有严格的面向对象编程，但程序的设计还是有面向对象的味道。所有引用类型的数据，都是基于object；Array类型的数据，typeof时也会显示object；这给我们判断array类型，带来了不便。</p>
+<p>细想一下array的创建过程，<code>var arr = new Array(1,2,3);</code>或<code>var arr = [1,2,3];</code>实际上是创建了一个Array对象的实例，也就是说实例所对应的构造函数应该是Array；根据此原理，判断方法如下：</p>
+<pre><code class="hljs javascript"><span class="hljs-function">function <span class="hljs-title">isArray</span><span class="hljs-params">(<span class="hljs-keyword">object</span>)</span></span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">object</span> &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>===<span class="hljs-string">'object'</span> &amp;&amp;
+            Array == <span class="hljs-keyword">object</span>.constructor;
+}
+</code></pre>
+<p><strong>注意：</strong></p>
+<p>该种判断方法，被判断的array必须是在当前页面声明的！比如，一个页面（父页面）有一个框架，框架中引用了一个页面（子页面），在子页面中声明了一个array，并将其赋值给父页面的一个变量，这时判断该变量，<code>Array == object.constructor;</code>会返回false；</p>
+<p><strong>原因：</strong></p>
+<ul>
+<li><p>1、array属于引用型数据，在传递过程中，仅仅是引用地址的传递。</p>
+</li>
+<li><p>2、每个页面的Array原生对象所引用的地址是不一样的，在子页面声明的array，所对应的构造函数，是子页面的Array对象；父页面来进行判断，使用的Array并不等于子页面的Array；切记，不然很难跟踪问题！</p>
+</li>
+</ul>
+<h4 id="-">二、特性判断方法</h4>
+<p>即然上述方法，存在一定的缺陷，我们可根据数组的一些特性来判断其类型，代码如下：</p>
+<pre><code class="hljs javascript"><span class="hljs-function">function <span class="hljs-title">isArray</span><span class="hljs-params">(<span class="hljs-keyword">object</span>)</span></span>{
+    <span class="hljs-keyword">return</span>  <span class="hljs-keyword">object</span> &amp;&amp; <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>===<span class="hljs-string">'object'</span> &amp;&amp;   
+            <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>.length===<span class="hljs-string">'number'</span> &amp;&amp; 
+            <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">object</span>.splice===<span class="hljs-string">'function'</span> &amp;&amp;   
+             <span class="hljs-comment">//判断length属性是否是可枚举的 对于数组 将得到false </span>
+            !(<span class="hljs-keyword">object</span>.propertyIsEnumerable(<span class="hljs-string">'length'</span>));
+}
+</code></pre>
+<p>有length和splice并不一定是数组，因为可以为对象添加属性，而不能枚举length属性，才是最重要的判断因子。</p>
+
+        <p><a href="/post/js-pan-duan-shu-zu" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年6月11日">2012年6月11日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+                ,
+                <a href="/tag/as3">as3</a>
+            </span>
+            <h2><a href="/post/js-as3-function-qu-bie">js容易被忽略的基础：函数语句和函数表达式的区别及与AS3的区别</a></h2>
+        </header>
+        <p>在JS中，定义函数有两种方式，函数语句和函数表达式；</p>
+<p>函数语句定义：</p>
+<pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">testB</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"B"</span>);
+}
+</code></pre>
+<p>函数表达式定义：</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> testA = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"A"</span>);
+}
+</code></pre>
+<p><strong>1、作用域提升</strong></p>
+<p>在定义位置上，函数语句的方式定义，会将其作用域名提升至顶端，而函数表达式定义不会，必须先定义后执行。看下面的例子：</p>
+<pre><code class="hljs javascript">testB();
+testA();
+<span class="hljs-keyword">var</span> testA = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"A"</span>);
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">testB</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"B"</span>);
+}
+</code></pre>
+<p>testA无法执行，因为找不到定义的函数，要想testA执行，必须将它的函数表达式定义放到执行时的前面。</p>
+<p><strong>2、this关键词的指向</strong></p>
+<p>在JS中，函数语句定义和函数表达式定义，<code>this</code>关键词都会指向其运行时的引用，两者没有区别。
+而在AS3中，函数语句定义中的this始终指向当前函数定义的域，而函数表达式定义中的<code>this</code>会随着附加对象的变化而变化，且可以使用<code>call()</code>和<code>apply()</code>改变其this的指向。</p>
+<p>这一点区别非常重要，特别对于js和as同时使用的前端开发来讲，掌握两者的其础知识，能避免你犯错！</p>
+
+        <p><a href="/post/js-as3-function-qu-bie" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年5月30日">2012年5月30日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+            </span>
+            <h2><a href="/post/jlinq-jquery-filedrop">推荐两个JS框架：jLinq、jquery.filedrop</a></h2>
+        </header>
+        <h5 id="-jlinq">一、jLinq</h5>
+<p>jLinq 是一个用来编写JavaScript对象数组查询的JavaScript库,可以对数组对象执行类似于LINQ风格的查询。</p>
+<p>项目主页：<a href="http://www.hugoware.net/Projects/jLinq">http://www.hugoware.net/Projects/jLinq</a></p>
+<p><img src="/assets/upload/16-33-32a.jpg" alt=""></p>
+<h4 id="-jquery-filedrop">二、jquery-filedrop</h4>
+<p>filedrop是一个html5图片拖拽上传的JS框架，能批量将电脑上的图片拖拽至浏览器，读取图片的二进制，并组装成post包，配合后台程序完成图片上传。</p>
+<p>使用HTML5上传文件其实综合使用了3种技术，新的File Reader API，还有新的Drag&amp;Drop API，以及AJAX技术（包含2进制的数据传输），filedrop对这三个功能进行的了整合封装。</p>
+<p>项目地址：<a href="https://github.com/weixiyen/jquery-filedrop">https://github.com/weixiyen/jquery-filedrop</a></p>
+
+        <p><a href="/post/jlinq-jquery-filedrop" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年4月19日">2012年4月19日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+            </span>
+            <h2><a href="/post/easyui-datagrid-js">Easyui实现datagrid绑定JS本地对象（可不请求URL，不生成JSON）</a></h2>
+        </header>
+        <p>初次接触easyui，使用datagrid时绑定数据时，大多人骂他的设计很烂，一定要在URL中指定一个json文件，或者请求一个服务器端动态生成的json程序，而在实际的开发中，后台程序很少愿意给到完全符合前台开发理想中的数据结构。</p>
+<p>其实不然，我们接触一个新的东西时，遇到问题，总是习惯于到搜索引擎去寻求答案，而不愿意从API中找到答案，当然大家没这么多时间耗在这么长的英文API中。</p>
+<p>easyui，datagrid使用，其实可以读取JS本地拼接组合的JSON对象的。</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-title">table</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"tt"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">table</span>&gt;</span>
+</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-comment">//仅做一些基本的设置，不设置URL属性</span>
+$(<span class="hljs-string">'#tt'</span>).datagrid({
+<span class="hljs-label">    width:</span><span class="hljs-number">300</span>,
+<span class="hljs-label">    heigth:</span><span class="hljs-string">"auto"</span>,
+<span class="hljs-label">    fitColumns:</span><span class="hljs-literal">true</span>
+});
+<span class="hljs-comment">//绑定本地的JS对象</span>
+var jsdata = {<span class="hljs-string">total:</span><span class="hljs-number">1</span>,<span class="hljs-string">rows:</span>[{<span class="hljs-string">name:</span><span class="hljs-string">""</span>,<span class="hljs-string">value:</span><span class="hljs-string">""</span>}]}
+$(<span class="hljs-string">'#tt'</span>).datagrid(<span class="hljs-string">"loadData"</span>,jsdata);
+</code></pre>
+<p>jQuery EasyUI中文帮助手册（API）：<a href="http://www.phptogether.com/juidoc/">http://www.phptogether.com/juidoc/</a>
+jQuery EasyUI英文官方手册（API）：<a href="http://www.jeasyui.com/documentation/index.php">http://www.jeasyui.com/documentation/index.php</a></p>
+
+        <p><a href="/post/easyui-datagrid-js" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年3月19日">2012年3月19日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+            </span>
+            <h2><a href="/post/deng-fen-dian">JS计算圆周上N个等分点的坐标</a></h2>
+        </header>
+        <p>用canvas做一个loading icon，需要用到圆周上等分点坐标的计算，算法如下：</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> loadPoint = []; <span class="hljs-comment">//结果</span>
+<span class="hljs-comment">/*
+*求圆周上等分点的坐标
+*ox,oy为圆心坐标
+*r为半径
+*count为等分个数
+*/</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getLoadPoint</span><span class="hljs-params">(r,ox,oy,count)</span></span>{
+    <span class="hljs-keyword">var</span> radians = (<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">180</span>) * <span class="hljs-built_in">Math</span>.round(<span class="hljs-number">360</span> / count); <span class="hljs-comment">//弧度</span>
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; count; i++){
+        <span class="hljs-keyword">var</span> x = ox + r * <span class="hljs-built_in">Math</span>.sin(radians * i);
+        <span class="hljs-keyword">var</span> y = oy + r * <span class="hljs-built_in">Math</span>.cos(radians * i);
+        loadPoint.unshift({x:x,y:y}); <span class="hljs-comment">//为保持数据顺时针</span>
+    }
+}
+</code></pre>
+
+        <p><a href="/post/deng-fen-dian" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年3月5日">2012年3月5日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+            </span>
+            <h2><a href="/post/javascript-xiao-ji-qiao">javascript中的几个小技巧及原理</a></h2>
+        </header>
+        <p>以下的几个小技巧，其实考察的是对JS基础知识的掌握和理解。基础的东西一定要打牢固，才能向使你的编码能力有台阶性的上升。</p>
+<h5 id="1-">1、简短取当前时间戳。</h5>
+<p>普通青年的做法：</p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">var</span> time <span class="hljs-subst">=</span> <span class="hljs-literal">new</span> <span class="hljs-built_in">Date</span>()<span class="hljs-built_in">.</span>getTime();
+</code></pre>
+<p>文艺青年的做法：</p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">var</span> time <span class="hljs-subst">=</span> (<span class="hljs-subst">+</span>(<span class="hljs-literal">new</span> <span class="hljs-built_in">Date</span>));
+<span class="hljs-comment">//或</span>
+<span class="hljs-built_in">var</span> time <span class="hljs-subst">=</span> <span class="hljs-subst">+</span>(<span class="hljs-literal">new</span> <span class="hljs-built_in">Date</span>);
+</code></pre>
+<p>效果是一样的，但是文艺青年的做法，明显优雅一些，不过可读性视各位的基础而定。</p>
+<p><strong>原理：</strong></p>
+<p>大家知道小括号的作用吗？小括号能把我们的表达式组合分块，并且每一块，也就是每一对小括号，都有一个返回值。(new Date)其实就是返回当前的Date对象。</p>
+<p>一元加操作符（+），放在数字前面，对数值不会产生任何影响。但放在非数值类型的前面，相当于Number()转型函数。+(new Date)就返回了时间戳数字。但为什么外面还需要一对括号呢，如果用于赋值操作，可有可无，但用于字符串连接操作时，一定要加上。</p>
+<h5 id="2-">2、布尔操作符的妙用</h5>
+<p><strong>判断一个字符串为空</strong>
+var str = “”;</p>
+<p>普通青年的做法：</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">if</span>(<span class="hljs-keyword">str</span>==<span class="hljs-string">''</span>){
+    alert(<span class="hljs-string">"字会串是空的哦！"</span>);
+}
+</code></pre>
+<p>文艺青年的做法：</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">if</span><span class="hljs-comment">(!str)</span>{
+    alert<span class="hljs-comment">("字会串是空的哦！")</span>;
+}
+</code></pre>
+<p><strong>原理：</strong></p>
+<p>逻辑非（！）操作符，放在值前面，无论这个值是什么数据类型，这个操作符都会返回一个布尔型，然后再对其求反。
+两个”!!”，实际上就相当于应用Boolean()函数转型。</p>
+<h5 id="3-">3、逻辑与操作符（&amp;&amp;）的妙用</h5>
+<p>a(),和 b(); b的执行需a()返回值为true才能执行，否则不执行。</p>
+<p>普通青年的做法：</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">if</span><span class="hljs-comment">(a()</span>){
+    b<span class="hljs-comment">()</span>;
+}
+</code></pre>
+<p>文艺青年的做法：</p>
+<pre><code class="hljs javascript">a<span class="hljs-comment">()</span> &amp;&amp; b<span class="hljs-comment">()</span>;
+</code></pre>
+<p><strong>原理：</strong></p>
+<p>逻辑与属于短路操作，如果第一个操作数能够决定结果，那么不会对第二个操作数进行求值。
+当a();返回false时，就注定整个表达式为false，无需运行b();</p>
+
+        <p><a href="/post/javascript-xiao-ji-qiao" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年3月5日">2012年3月5日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+            </span>
+            <h2><a href="/post/javascript-get-reg">js获取GET参数(简易正则实现方式)</a></h2>
+        </header>
+        <p>js获取GET参数，比较常用到，一般的实现方式通过截取字符串，我用正则简单的实现了一下，在我目前的项目中基本通用，没有遇到问题。</p>
+<p>下接上代码，如果获取的参数不存在时，返回空。</p>
+<pre><code class="hljs javascript"><span class="hljs-comment">//window.location.href = test.html?uin=1000&amp;skey=523</span>
+<span class="hljs-comment">//window.location.href = test.html#uin=1000&amp;skey=523</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUrlArgs</span><span class="hljs-params">(_name)</span></span>{
+    <span class="hljs-keyword">var</span> url = <span class="hljs-built_in">window</span>.location.href;
+    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">".+"</span>+_name+<span class="hljs-string">"=([^&amp;]+).*"</span>,<span class="hljs-string">"gi"</span>).test(url)){
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">RegExp</span>.$<span class="hljs-number">1</span>;
+    }<span class="hljs-keyword">else</span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;
+    }
+}
+alert(getUrlArgs(<span class="hljs-string">"uin"</span>));
+alert(getUrlArgs(<span class="hljs-string">"skey"</span>));
+</code></pre>
+
+        <p><a href="/post/javascript-get-reg" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年3月5日">2012年3月5日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+            </span>
+            <h2><a href="/post/javascript-function-bind">Function中的扩展方法bind()</a></h2>
+        </header>
+        <p>js bind 函数 使用闭包保存执行上下文</p>
+<p>bind()主要具有两个重要作用:</p>
+<p>(1)一般地,方法中的this关键字总是指向调用此方法的对象,这就造成this显得很不稳定,而使用bind()方法能够保证无论什么时候调用此方法,this关键字总是指向你所要的对象.</p>
+<p>(2)提供两次添加参数的机会.第一次是在使用bind()方法的时候,第二次是调用bind()方法返回的句</p>
+<p><strong>prototypejs框架中的实现方式：</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">Function</span>.prototype.bind = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">var</span> __method = <span class="hljs-keyword">this</span>;
+    <span class="hljs-keyword">var</span> args = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>);<span class="hljs-comment">//将arguments转换为数组</span>
+    <span class="hljs-keyword">var</span> object=args.shift(); <span class="hljs-comment">//截取第一个</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> __method.apply(object,
+             args.concat(<span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>))
+    );
+    }
+}
+</code></pre>
+<p><strong>用法实例：</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> name = <span class="hljs-string">"window"</span>;
+<span class="hljs-keyword">var</span> obj = {
+    name: <span class="hljs-string">'JSON'</span>,
+    getName: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+        alert(<span class="hljs-keyword">this</span>.name);
+    }
+};
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">runFun</span><span class="hljs-params">(fun)</span> </span>{
+    fun();
+}
+<span class="hljs-keyword">var</span> getName2 = obj.getName.bind(obj);
+runFun(obj.getName); <span class="hljs-comment">//window</span>
+runFun(getName2); <span class="hljs-comment">//JSON</span>
+</code></pre>
+
+        <p><a href="/post/javascript-function-bind" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+
+    <nav role="navigation" class="pagination">
+        <a href="/tag/javascript/" class="newer-posts">← Newer Posts</a>
+        
+    	<span class="page-number">Page 2 of 3</span>
+        
+        <a href="/tag/javascript/3/" class="older-posts">Older Posts →</a>
+	</nav>
+
+
+</div>
+
+<footer>
+	<p class="copyright">&copy; 2014 <a href="/">Jason’s Blog</a>. All rights reserved.</p>
+    <p>Proudly published with <a href="http://metalsmith.io/" target="_blank">Metalsmith</a></p>
+    <p><a href="http://www.miibeian.gov.cn/" target="_blank">闽ICP备09029032号-1</a> |
+        <script language="javascript" type="text/javascript" src="http://js.users.51.la/6883474.js"></script></p>
+</footer>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/uitotop/js/easing.js?version=20140909"></script>
+<script type="text/javascript" src="/assets/uitotop/js/jquery.ui.totop.min.js?version=20140909"></script>
+<script src="/assets/js/app.js?version=20140909"></script>
+<!--[if lt IE 8]><script src="/assets/js/noLtIE8.js?version=20140909"></script><![endif]-->
+
+</body>
+</html>

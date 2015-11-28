@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="keyword" content="二分之一,web前端,前端博客,树莓派,RaspberryPi,html5,css3,as3,javascript">
+  <meta name="description" content="二分之一博客是一个关注web前端及游戏前端的技术博客">
+  <title>使用weinre远程调试手机网页（nodejs、phoneGap） - 二分之一 - Just Jason's Blog</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/highlight/pojoaque.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+  <!--[if lt IE 9]><script src="/assets/js/html5.js?version=20140909"></script><![endif]-->
+</head>
+
+<body>
+<div class="toolbar">
+    <div class="nav-wrapper clearfix">
+        <ul class="nav-list">
+            <li>
+                <a href="/tag/Unity3D">Unity3D</a>
+            </li>
+            <li>
+                <a href="/tag/javascript">Javascript</a>
+            </li>
+            <li>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </li>
+            <li>
+                <a href="/tag/html5">Html5</a>
+            </li>
+            <li>
+                <a href="/tag/RaspberryPi">Raspberry Pi</a>
+            </li>
+            <li>
+                <a href="/tag/metalsmith">Metalsmith</a>
+            </li>
+        </ul>
+
+        <ul class="nav-list menu">
+            <li>
+                <a href="/about.html">关于我</a>
+            </li>
+            <li>
+                <a href="/mobile/">
+                    <i class="mobile_icon"></i><span class="mobile_msg">手机访问</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<header class="top-header">
+	<section>
+    	<a href="/" class="logo"></a>
+        <h1 class="blog-name">二分之一</h1>
+        <h2 class="blog-description">Just Jason's Blog</h2>
+    </section>
+</header>
+
+
+<div class="wrapper">
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年3月13日">2013年3月13日</time>
+                <em>on</em>
+                <a href="/tag/html5">html5</a>
+                ,
+                <a href="/tag/webapp">webapp</a>
+                ,
+                <a href="/tag/NodeJs">NodeJs</a>
+            </span>
+            <h2>使用weinre远程调试手机网页（nodejs、phoneGap）</h2>
+        </header>
+        <p>本调试方式需要wifi环境和webkit浏览器。</p>
+<p>weiner主页：<a href="http://people.apache.org/~pmuellr/weinre/docs/latest/Home.html">http://people.apache.org/~pmuellr/weinre/docs/latest/Home.html</a></p>
+<h4 id="-">一、配置调试服务器</h4>
+<h5 id="-nodejs-windows-">（一）、nodejs搭建调试服务器（以windows为例）</h5>
+<p><strong>1、安装node.js</strong><br>安装程序下载：<a href="http://nodejs.org/#download">http://nodejs.org/#download</a><br>本文安装在“F:/nodejs/”目录。  </p>
+<p><strong>2、测试安装是否成功</strong>  </p>
+<p>打开CMD，切换到nodejs所在的安装目录。输入如下命令测试node.js和npm是否安装成功。默认windows最新安装包，会包含npm，如果npm没有安装，请手动安装。</p>
+<pre><code class="hljs shell"><span class="hljs-prompt">C:\Users\jason&gt;</span><span class="hljs-symbol">f:</span>
+<span class="hljs-prompt">F:\&gt;</span>cd nodejs
+<span class="hljs-prompt">F:\nodejs&gt;</span>node -v
+v<span class="hljs-number">0</span>.<span class="hljs-number">10.0</span>
+<span class="hljs-prompt">F:\nodejs&gt;</span>npm -v
+<span class="hljs-number">1.2</span>.<span class="hljs-number">14</span>
+</code></pre>
+<p><strong>3、使用npm安装weinre,在node.js安装目录输入以下命令</strong></p>
+<pre><code class="hljs shell"><span class="hljs-built_in">npm</span> install weinre
+</code></pre>
+<p><strong>4、启动weinre服务器</strong></p>
+<pre><code class="hljs shell">node.<span class="hljs-keyword">exe</span> node_modules\weinre\weinre --boundHost -<span class="hljs-keyword">all</span>-
+</code></pre>
+<p>在windows下，系统防火墙可能会弹出是否允许其访问网络的提示，点击充许即可。</p>
+<p><strong>5、浏览器打开</strong></p>
+<p><a href="http://localhost:8080">http://localhost:8080</a></p>
+<p>如果访问正常，说明服务器已配置成功。</p>
+<h5 id="-phonegap-">（二）、直接使用phoneGap的调试服务器</h5>
+<p>如果觉得服务器配置麻烦，也可以使用phoneGap现成的调试服务器。<br>phoneGap调试服务器地址：<a href="http://debug.phonegap.com/（相当于本机安装的http://localhost:8080）">http://debug.phonegap.com/（相当于本机安装的http://localhost:8080）</a>  </p>
+<h4 id="-weinre-">二、weinre使用方法</h4>
+<p>1、需调试的页面加入JS脚本</p>
+<p>如：</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"http://你的调试服务器地址/target/target-script-min.js#anonymous"</span>&gt;</span><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+</code></pre>
+<p>1.1使用收获夹快速添加调试脚本到需要调试的页面。</p>
+<p>将以下代码添加到书签，访问需要调试的页面时，访问一下书签，即可以通过JS将调试脚本添加到当前页面，但部份浏览器不支持！</p>
+<pre><code class="hljs javascript">javascript:(function(e){e.setAttribute("src","<span class="hljs-link_url">http://你的调试服务器地址/target/target-script-min.js#anonymous");document.getElementsByTagName("body")</span>[<span class="hljs-link_label">0</span>].appendChild(e);})(document.createElement("script"));void(0);
+</code></pre>
+<p>2、在PC端使用webkit浏览器打开控制台</p>
+<p><a href="http://10.18.252.111:8080/client/#anonymous">http://10.18.252.111:8080/client/#anonymous</a></p>
+<h1 id="-">后面为识别码</h1>
+<p>tips：识别码仅仅是为了识别多个需调试的项目时使用，可供多用户操作。</p>
+<p>在控制台，你就可以轻松的调试手机网页了！</p>
+
+        <p class="last-edit-time">最后修改时间：2014年9月10日星期三下午5点07</p>
+        <div class="share_wrapper">
+            <div class="jiathis_style_32x32">
+                <a class="jiathis_button_qzone"></a>
+                <a class="jiathis_button_tsina"></a>
+                <a class="jiathis_button_tqq"></a>
+                <a class="jiathis_button_renren"></a>
+                <a class="jiathis_button_kaixin001"></a>
+                <a class="jiathis_button_weixin"></a>
+                <a href="http://www.jiathis.com/share?uid=1879675" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+            </div>
+        </div>
+    </article>
+
+<a name="comment"></a>
+<div class="comment-widget">
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1879675"></script>
+<!-- UY END -->
+</div>
+
+</div>
+
+<footer>
+	<p class="copyright">&copy; 2014 <a href="/">Jason’s Blog</a>. All rights reserved.</p>
+    <p>Proudly published with <a href="http://metalsmith.io/" target="_blank">Metalsmith</a></p>
+    <p><a href="http://www.miibeian.gov.cn/" target="_blank">闽ICP备09029032号-1</a> |
+        <script language="javascript" type="text/javascript" src="http://js.users.51.la/6883474.js"></script></p>
+</footer>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/uitotop/js/easing.js?version=20140909"></script>
+<script type="text/javascript" src="/assets/uitotop/js/jquery.ui.totop.min.js?version=20140909"></script>
+<script src="/assets/js/app.js?version=20140909"></script>
+<!--[if lt IE 8]><script src="/assets/js/noLtIE8.js?version=20140909"></script><![endif]-->
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" >
+    var jiathis_config={
+        data_track_clickback:true,
+        shortUrl:false,
+        hideMore:false
+    }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1879675" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+</body>
+</html>

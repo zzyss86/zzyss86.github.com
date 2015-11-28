@@ -1,0 +1,241 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="keyword" content="二分之一,web前端,前端博客,树莓派,RaspberryPi,html5,css3,as3,javascript">
+  <meta name="description" content="二分之一博客是一个关注web前端及游戏前端的技术博客">
+  <title>实现跨域通信（跨文档消息传输）的几种方法（crossMessageEvent.js） - 二分之一 - Just Jason's Blog</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/highlight/pojoaque.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+  <!--[if lt IE 9]><script src="/assets/js/html5.js?version=20140909"></script><![endif]-->
+</head>
+
+<body>
+<div class="toolbar">
+    <div class="nav-wrapper clearfix">
+        <ul class="nav-list">
+            <li>
+                <a href="/tag/Unity3D">Unity3D</a>
+            </li>
+            <li>
+                <a href="/tag/javascript">Javascript</a>
+            </li>
+            <li>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </li>
+            <li>
+                <a href="/tag/html5">Html5</a>
+            </li>
+            <li>
+                <a href="/tag/RaspberryPi">Raspberry Pi</a>
+            </li>
+            <li>
+                <a href="/tag/metalsmith">Metalsmith</a>
+            </li>
+        </ul>
+
+        <ul class="nav-list menu">
+            <li>
+                <a href="/about.html">关于我</a>
+            </li>
+            <li>
+                <a href="/mobile/">
+                    <i class="mobile_icon"></i><span class="mobile_msg">手机访问</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<header class="top-header">
+	<section>
+    	<a href="/" class="logo"></a>
+        <h1 class="blog-name">二分之一</h1>
+        <h2 class="blog-description">Just Jason's Blog</h2>
+    </section>
+</header>
+
+
+<div class="wrapper">
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年11月23日">2012年11月23日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+                ,
+                <a href="/tag/html5">html5</a>
+            </span>
+            <h2>实现跨域通信（跨文档消息传输）的几种方法（crossMessageEvent.js）</h2>
+        </header>
+        <p>最近两天为实现一个跨域通信的问题，对这个问题进行了相关的学习，心得一二，在此分享。</p>
+<p><code>window.postMessage()</code>方法</p>
+<p>HTML5给我们带来了安全的跨域通信接口，即window.postMessage()方法。它方法原型是：</p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">window</span>.postMessage(msg, domain);
+</code></pre>
+<p>该方法的浏览器支持情况：E8+, FF3+, Chrome, Safari，且在IE下，msg参数必须是string，不能是object.由此可见，我们只要考虑IE6，IE7下的跨域实现。</p>
+<h4 id="-">一、方案一</h4>
+<p>使用window.postMessage + window.opener实现，该方式是利用IE6,7 opener hack的方式实现跨域，可以算一个安全漏洞。</p>
+<p><strong>实现方式：</strong></p>
+<ul>
+<li>1、www.a.com/a.html 和 www.b.com/b.html，b.html被a.html嵌套在iframe里面。</li>
+<li>2、首先两个页面各设置目标通信页面的opener = {}；opener对象可包含一个方法，这样当前页面可以直接调用目标页面的opener内的方法，并传递参数。  </li>
+</ul>
+<p><code>www.a.com/a.html</code></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> otherWindow = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"ifr_a"</span>).contentWindow; <span class="hljs-comment">//ifr_a为嵌套b.html的iframe ID</span>
+otherWindow.opener={
+    postMessage:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(str)</span></span>{
+        alert(str);
+    }
+}
+</code></pre>
+<p><code>www.b.com/b.html</code></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">parent</span>.opener={
+    postMessage:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(str)</span></span>{
+        alert(str);
+    }
+}
+</code></pre>
+<p><strong>发送消息：</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">window</span>.opener.postMessage(message);
+</code></pre>
+<p>这样目标页面就能收到消息了。</p>
+<p>我做了一下JS的封装，大家可以直接下载使用：crossMessageEvent_opener.js</p>
+<p><a href="/assets/upload/crossMessageEvent_opener.js">下载：crossMessageEvent_opener.js</a></p>
+<ul>
+<li>1、a.html和b.html分别引用该JS  </li>
+<li>2、分别进行初始化CrossMessageEvent.init(otherWindow); //otherWindow 为目标窗口的window对象  </li>
+<li>3、发送消息CrossMessageEvent.postMessage(otherWindow, message, targetOrigin);</li>
+</ul>
+<blockquote>
+<p>otherWindow:为目标窗口的window对象<br>message:消息内容，可以是object<br>targetOrigin：目标窗口的域 [可选]  </p>
+</blockquote>
+<ul>
+<li>4、添加消息接收的监听  </li>
+</ul>
+<pre><code class="hljs javascript">CrossMessageEvent.receiveMessage(funciton(<span class="hljs-keyword">event</span>){
+alert(<span class="hljs-keyword">event</span>.data); <span class="hljs-comment">//event.data为message的内容</span>
+});
+</code></pre>
+<p><strong>该方法的优点：</strong></p>
+<p>不需要使用代理页面，简单直接。</p>
+<p><strong>该方法的缺点：</strong></p>
+<p>只要打过微软的安全补丁.kb2497640就不能用了。
+<!--more--></p>
+<h4 id="-">二、方案二</h4>
+<p>使用Iframe来实现跨域。</p>
+<p>理论上使用Iframe的原则：</p>
+<ul>
+<li>1.当前层级中的任何Window都可以获取其他Window(iframe也是一个Window)  </li>
+<li>2.只有同域Window才可以互相操作  </li>
+<li>3.当前层级下的任何Window可以设置其他Window的location，即使是不同的域  </li>
+<li>4.当你改变url的hashtag(url #后面的字符串)时，页面不会刷新  </li>
+</ul>
+<p><strong>实现方式：</strong></p>
+<ul>
+<li>1、www.a.com/a.html 和 www.b.com/b.html 及www.a.com/a_proxy.html 和 www.b.com/b_proxy.html  </li>
+<li>2、如图所示  </li>
+</ul>
+<p><img src="/assets/upload/112301.png" alt=""></p>
+<p>图例中表明了各个页面的iframe嵌套关系。</p>
+<p><strong>b.html向a.html发送消息：</strong></p>
+<ul>
+<li>（图中的箭头1）b.html嵌套一个a_proxy.html代理页面，通过将消息值传递到hashtag或iframe的window.name中进行保存  </li>
+<li>（图中的箭头2）a_proxy.html接收到消息值后，向上找到自己同域的a.html（parent.parent.方法），调用a.html中的一个方法，将消息用参数传递过去。  </li>
+<li>理论上来说，由于a_proxy.html和a.html同域，所以a_proxy.html可以操作a.html。在IE6和IE7下测试通过。  </li>
+</ul>
+<p><strong>a.html向b.html发送消息：</strong></p>
+<ul>
+<li>（图中的箭头3）a.html嵌套一个b.html，并嵌套一个b_proxy.html，将消息能过window.name或hashtag的方法给到b_proxy.html。  </li>
+<li>（图中的箭头4）b_proxy.html接收到消息后，通过parent.frames[&#39;b_ifr&#39;].方法，并将消息通过参数传递过去。  </li>
+<li>parent.frames[&#39;b_ifr&#39;]为b.html的iframe的窗口句柄。  </li>
+<li>理论上parent.frames[&#39;b_ifr&#39;]和b_proxy.html是同域下的window互相操作。在IE7下测试通过，有的IE6下也能通过，但是大部份IE6下测试不通过，提示权限不足！</li>
+</ul>
+<p>PS：我同事糖饼就是用这个方法实现的：<a href="http://www.planeart.cn/?p=1620">http://www.planeart.cn/?p=1620</a></p>
+<h4 id="-crossmessageevent-js-">三、方案三：crossMessageEvent.js【推荐】</h4>
+<p>使用window.postMessage + hashtag轮询实现</p>
+<p><strong>实现方式：</strong></p>
+<p>通过改变目标窗口的location.hash值，目标页面进行轮询监听hash变化，来进行消息传递。</p>
+<p>该种方式，不需要使用代理页面，可以避免iframe跨域带来的不稳定因素，由于需要一个定时器，效率稍低，但对于不是频繁的消息传递还是够用的。</p>
+<p>crossMessageEvent.js就是采用这种方式来实现ie6,ie7的跨域消息传递。</p>
+<p><strong>crossMessageEvent.js使用：</strong></p>
+<p>crossMessageEvent.js下载：<a href="/assets/upload/crossMessageEvent.js">crossMessageEvent</a></p>
+<ul>
+<li>1、a.html和b.html分别引用该JS  </li>
+<li>2、发送消息  </li>
+</ul>
+<pre><code class="hljs javascript">CrossMessageEvent.postMessage(otherWindow, <span class="hljs-keyword">message</span>, targetOrigin);
+</code></pre>
+<blockquote>
+<p>otherWindow:为目标窗口的window对象
+message:消息内容，可以是object
+targetOrigin：目标窗口的域 [可选]</p>
+</blockquote>
+<ul>
+<li>3、添加消息接收的监听  </li>
+</ul>
+<pre><code class="hljs javascript">CrossMessageEvent.receiveMessage(funciton(<span class="hljs-keyword">event</span>){
+    alert(<span class="hljs-keyword">event</span>.data); <span class="hljs-comment">//event.data为message的内容</span>
+});
+</code></pre>
+<p>该方法的缺点是，会改变URL的hash，导致历史记录发生相应的变化，影响浏览器的前进和后退，且数据暴露在URL。</p>
+<h4 id="-">四、方案四</h4>
+<p>b页面给a页面发送消息采用方案二中的iframe代理方式。<br>a页面给b页面发送消息采用hash轮询的方式。<br>这样可以避免b页面将顶级页面的URL中的hash改变。  </p>
+<p>———————————————————</p>
+<p><strong>参考文献：</strong></p>
+<p><a href="http://www.cnblogs.com/xueduanyang/archive/2011/08/23/2150090.html">http://www.cnblogs.com/xueduanyang/archive/2011/08/23/2150090.html</a></p>
+<p><a href="http://www.alloyteam.com/2012/08/lightweight-solution-for-an-iframe-cross-domain-communication/">http://www.alloyteam.com/2012/08/lightweight-solution-for-an-iframe-cross-domain-communication/</a></p>
+<p><a href="http://www.planeart.cn/?p=1620">http://www.planeart.cn/?p=1620</a></p>
+
+        <p class="last-edit-time">最后修改时间：2014年9月9日星期二晚上7点41</p>
+        <div class="share_wrapper">
+            <div class="jiathis_style_32x32">
+                <a class="jiathis_button_qzone"></a>
+                <a class="jiathis_button_tsina"></a>
+                <a class="jiathis_button_tqq"></a>
+                <a class="jiathis_button_renren"></a>
+                <a class="jiathis_button_kaixin001"></a>
+                <a class="jiathis_button_weixin"></a>
+                <a href="http://www.jiathis.com/share?uid=1879675" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+            </div>
+        </div>
+    </article>
+
+<a name="comment"></a>
+<div class="comment-widget">
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1879675"></script>
+<!-- UY END -->
+</div>
+
+</div>
+
+<footer>
+	<p class="copyright">&copy; 2014 <a href="/">Jason’s Blog</a>. All rights reserved.</p>
+    <p>Proudly published with <a href="http://metalsmith.io/" target="_blank">Metalsmith</a></p>
+    <p><a href="http://www.miibeian.gov.cn/" target="_blank">闽ICP备09029032号-1</a> |
+        <script language="javascript" type="text/javascript" src="http://js.users.51.la/6883474.js"></script></p>
+</footer>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/uitotop/js/easing.js?version=20140909"></script>
+<script type="text/javascript" src="/assets/uitotop/js/jquery.ui.totop.min.js?version=20140909"></script>
+<script src="/assets/js/app.js?version=20140909"></script>
+<!--[if lt IE 8]><script src="/assets/js/noLtIE8.js?version=20140909"></script><![endif]-->
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" >
+    var jiathis_config={
+        data_track_clickback:true,
+        shortUrl:false,
+        hideMore:false
+    }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1879675" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+</body>
+</html>

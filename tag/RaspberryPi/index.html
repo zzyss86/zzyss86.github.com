@@ -1,0 +1,573 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="keyword" content="二分之一,web前端,前端博客,树莓派,RaspberryPi,html5,css3,as3,javascript">
+  <meta name="description" content="二分之一博客是一个关注web前端及游戏前端的技术博客">
+  <title>RaspberryPi - 二分之一 - Just Jason's Blog</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/highlight/pojoaque.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+  <!--[if lt IE 9]><script src="/assets/js/html5.js?version=20140909"></script><![endif]-->
+</head>
+
+<body>
+<div class="toolbar">
+    <div class="nav-wrapper clearfix">
+        <ul class="nav-list">
+            <li>
+                <a href="/tag/Unity3D">Unity3D</a>
+            </li>
+            <li>
+                <a href="/tag/javascript">Javascript</a>
+            </li>
+            <li>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </li>
+            <li>
+                <a href="/tag/html5">Html5</a>
+            </li>
+            <li>
+                <a href="/tag/RaspberryPi">Raspberry Pi</a>
+            </li>
+            <li>
+                <a href="/tag/metalsmith">Metalsmith</a>
+            </li>
+        </ul>
+
+        <ul class="nav-list menu">
+            <li>
+                <a href="/about.html">关于我</a>
+            </li>
+            <li>
+                <a href="/mobile/">
+                    <i class="mobile_icon"></i><span class="mobile_msg">手机访问</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<header class="top-header">
+	<section>
+    	<a href="/" class="logo"></a>
+        <h1 class="blog-name">二分之一</h1>
+        <h2 class="blog-description">Just Jason's Blog</h2>
+    </section>
+</header>
+
+
+<div class="wrapper">
+
+<header class="tag-archive-header">
+    <h1>RaspberryPi</h1>
+</header>
+
+    <nav role="navigation" class="pagination">
+        
+    	<span class="page-number">Page 1 of 2</span>
+        
+        <a href="/tag/RaspberryPi/2/" class="older-posts">Older Posts →</a>
+	</nav>
+
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年2月25日">2013年2月25日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-wai-ke-diy">DIY树莓派外壳，简单但实用</a></h2>
+        </header>
+        <p><code>树莓派</code>做手工没想象中简单，原来准备的设计图都没用上，雕一个图雕残了，最后整了个简单版树莓派外壳，ps：亚克力板味道好难闻。</p>
+<p><img src="/assets/upload/20130225225315.jpg" alt=""></p>
+
+        <p><a href="/post/raspberry-pi-wai-ke-diy" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年2月23日">2013年2月23日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-ying-pan-aria2">用树莓派+移动硬盘+aria2搭建低功耗下载机</a></h2>
+        </header>
+        <p>移动硬盘挂载及NAS相关请参阅上文《【智能家居】用树莓派+移动硬盘+MINIDLNA打造家用媒体服务器（电影服务器、NAS、ipad看片利器）》</p>
+<h4 id="-">一、安装</h4>
+<p>1、安装aria2</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> apt-get install aria2
+</code></pre>
+<p>2、安装aria2 web在线管理端YAAW</p>
+<p>YAAW项目地址：<a href="https://github.com/binux/yaaw">https://github.com/binux/yaaw</a><br>下载资源包，放置http服务器下，http服务器的相关配置，本文不做详细介绍<br>DEMO：<a href="http://binux.github.com/yaaw/demo/">http://binux.github.com/yaaw/demo/</a>  </p>
+<h4 id="-aria2">二、配置aria2</h4>
+<p>aria2在线手册：<a href="http://aria2.sourceforge.net/manual/en/html/">http://aria2.sourceforge.net/manual/en/html/</a></p>
+<p><strong>一些有用的aria2参数：</strong></p>
+<p>-i 导入从loli.lu导出的aria2文件<br>-j 同时下载数限制，由于路由和总带宽限制，建议设为3（默认5）<br>-x 同一个服务器的同时链接数，建议为5-10（默认1）<br>-k 文件最小分片，文件最多的线程数取决于能分出多少片，当文件小于最小分片大小时，只能开出一个线程，建议为2M（默认20M）<br>-s 一个文件最多用几个线程下载，建议为8-10（默认5）<br>–file-allocation 文件预分配，如果USB设备是U盘，SD卡，预分配浪费时间，建议为none（默认prealloc)  </p>
+<p>创建配置文件：</p>
+<pre><code class="hljs shell"><span class="hljs-comment">#创建空白session文件</span>
+sudo touch /home/<span class="hljs-constant">pi</span>/aria2.session
+<span class="hljs-comment">#创建配置文件</span>
+sudo nano /home/<span class="hljs-constant">pi</span>/aria2.conf
+</code></pre>
+<p>在配置文件中放入：（以下内容不解释，请查阅手册）</p>
+<pre><code class="hljs shell"><span class="hljs-comment">#下载目录，自行修改</span>
+<span class="hljs-variable">dir=</span>/mnt/myusbdrive/moive/download/
+<span class="hljs-variable">disable-ipv6=</span><span class="hljs-constant">true</span>
+<span class="hljs-comment">#打开rpc的目的是为了给web管理端用</span>
+<span class="hljs-variable">enable-rpc=</span><span class="hljs-constant">true</span>
+<span class="hljs-variable">rpc-allow-origin-all=</span><span class="hljs-constant">true</span>
+<span class="hljs-variable">rpc-listen-all=</span><span class="hljs-constant">true</span>
+<span class="hljs-comment">#rpc-listen-port=6800</span>
+<span class="hljs-variable">continue=</span><span class="hljs-constant">true</span>
+<span class="hljs-variable">input-file=</span>/home/pi/aria2.session
+<span class="hljs-variable">save-session=</span>/home/pi/aria2.session
+<span class="hljs-variable">max-concurrent-downloads=</span><span class="hljs-number">3</span>
+</code></pre>
+<h4 id="-">三、用配置文件启动</h4>
+<pre><code class="hljs shell">sudo aria2c --<span class="hljs-keyword">conf</span>-path=/home/pi/aria2.<span class="hljs-keyword">conf</span>
+</code></pre>
+<p>若以上执行正常，没有报错，可以再加一“-D”的参数，让aria2随机启动。</p>
+<pre><code class="hljs shell">sudo aria2c --<span class="hljs-keyword">conf</span>-path=/home/pi/aria2.<span class="hljs-keyword">conf</span> -D
+</code></pre>
+
+        <p><a href="/post/raspberry-pi-ying-pan-aria2" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年2月23日">2013年2月23日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-minidlna-nas-ipad">【智能家居】用树莓派+移动硬盘+MINIDLNA打造家用媒体服务器（电影服务器、NAS、ipad看片利器）</a></h2>
+        </header>
+        <p>关键词：树莓派、移动硬盘、MINIDLNA、电影服务器、NAS、ipad看片利器、DLNA、UPnP</p>
+<p>DLNA/UPnP概念，请自行搜索了解~~</p>
+<p>一直想实现用ipad观看移动硬盘中的电影，所以有了这个方案，再配合下载工具（aria2或Transmission）将树莓派打造成下载机，就能低成本，低功耗的实现NAS。</p>
+<p>我用samba和minidlna搭好NAS后，分别进行了测试，很明显minidlna的速度和资源损耗要比samba小的多，minidlna上到5G的电影也基本不卡，而samba就非常吃力，而且支持samba的视频播放器显示比DLNA/UPnP的要少！</p>
+<p>本方案主要由两部份组成：媒体服务器和ipad或其它移动设备客户端。</p>
+<h4 id="-minidlna-">第一部份：用MINIDLNA搭建媒体服务器</h4>
+<h5 id="-">一、移动硬盘的挂载</h5>
+<p>1、挂载FAT32格式的硬盘</p>
+<pre><code class="hljs shell"><span class="hljs-preprocessor">#创建挂载点</span>
+sudo mkdir /mnt/myusbdrive
+<span class="hljs-preprocessor">#编辑fstab让移动硬盘开机自动挂载</span>
+sudo nano /etc/fstab
+<span class="hljs-preprocessor">#在最后一行添加如下内容</span>
+/dev/sda1 /mnt/myusbdrive auto defaults,noexec,umask=<span class="hljs-number">0000</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>
+<span class="hljs-preprocessor">#保存重启，即可生效</span>
+</code></pre>
+<p><strong>说明：</strong></p>
+<p>sda1是取决于你的实际情况，a表示第一个硬盘，1表示第一个分区。<br>umask=0000 0 0<br>前面四个0就是对所有人,可读可写可执行, 后面两个0,第一个代表dump,0是不备份<br>第二个代表fsck检查的顺序,0表示不检查
+卸载：<code>sudo umount /mnt/myusbdrive</code></p>
+<p>2、挂载NTFS格式的硬盘(读写方式挂载)</p>
+<p>默认挂载NTFS格式的硬盘只有只读权限，需要借助其它工具实现。</p>
+<pre><code class="hljs shell"><span class="hljs-preprocessor">#安装所需软件包</span>
+sudo apt-<span class="hljs-keyword">get</span> install fuse-utils ntfs-<span class="hljs-number">3</span>g
+<span class="hljs-preprocessor">#加载内核模块</span>
+modprobe fuse
+<span class="hljs-preprocessor">#编辑fstab让移动硬盘开机自动挂载</span>
+sudo nano /etc/fstab
+<span class="hljs-preprocessor">#在最后一行添加如下内容</span>
+/dev/sda1 /mnt/myusbdrive ntfs-<span class="hljs-number">3</span>g defaults,noexec,umask=<span class="hljs-number">0000</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>
+<span class="hljs-preprocessor">#保存重启，即可生效</span>
+</code></pre>
+<p>3、测试硬盘挂载是否成功：</p>
+<pre><code class="hljs shell"><span class="hljs-keyword">cd</span> /mnt/myusbdrive
+<span class="hljs-keyword">ls</span>
+</code></pre>
+<h5 id="-minidlna">二、安装MiniDLNA</h5>
+<p>1、安装</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> apt-get install minidlna
+</code></pre>
+<p>2、修改配置</p>
+<pre><code class="hljs shell"><span class="hljs-preprocessor">#打开配置文件</span>
+sudo nano /etc/minidlna.conf
+<span class="hljs-preprocessor">#可参考修改的项有：</span>
+<span class="hljs-preprocessor">#媒体文件目录：</span>
+media_dir=/mnt/myusbdrive/
+<span class="hljs-preprocessor">#数据库目录，minidlna使用的是sqlite数据库来索引文件</span>
+db_dir=/<span class="hljs-keyword">var</span>/lib/minidlna
+<span class="hljs-preprocessor">#服务器IP</span>
+listening_ip=<span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.106</span>
+<span class="hljs-preprocessor">#端口</span>
+port=<span class="hljs-number">8200</span>
+<span class="hljs-preprocessor">#网络名称，用于其它设备发现当前设备</span>
+friendly_name=DLNA
+</code></pre>
+<p>3、你可以选择让minidlna随机启动</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> update-rc.d minidlna defaults
+</code></pre>
+<p>4、启动minidlna服务</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> service minidlna start
+</code></pre>
+<p>5、当你修改配置文件及媒体资源更新时，需要强制刷新，以便minidlna将最新的媒体文件进行索引</p>
+<pre><code class="hljs shell">sudo service minidlna <span class="hljs-keyword">force</span>-reload
+</code></pre>
+<p>6、查看资源个数</p>
+<p><a href="http://192.168.1.106:8200/">http://192.168.1.106:8200/</a></p>
+<p>7、取消minidlna的开机自动启动</p>
+<pre><code class="hljs shell"><span class="hljs-built_in">sudo</span> update-rc.d <span class="hljs-operator">-f</span> minidlna remove
+</code></pre>
+<p>8、停止minidlna服务</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> service minidlna stop
+</code></pre>
+<p>9、停止minidlna所有进程</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> killall minidlna
+</code></pre>
+<p>10、卸载minidlna</p>
+<pre><code class="hljs shell">sudo atp-<span class="hljs-built_in">get</span> remove <span class="hljs-comment">--purge minidlna</span>
+</code></pre>
+<h4 id="-ipad-">第二部份：ipad或其它移动设备客户端</h4>
+<h5 id="-ios-">一、IOS客户端</h5>
+<p>总的来说，IOS下几乎没有好的免费软件来支持UPnP和Samba视频，试用多个软件后总结如下：</p>
+<p>1、Yxplayer免费版，播放视频时有广告，索引UPnP资源时大概要5分钟才能索引完100多部电影</p>
+<p>2、playerXstreme免费版，虽然免费，但是要使用UPnP功能时，需要额外的花￥6买一个扩展功能，但非常悲剧的时，买好了，索引UPnP资源时，一个小时都没有结果，而且很容挂着，几乎钱是白花了。</p>
+<p>3、AVPlayer解码能力很强，不支持UPnP，某些网站有介绍说支持，千万别上当。</p>
+<p>4、【能用】BUZZ Player，￥25，能用，而且索引UPnP资源非常快，唯一不足，还有一些小BUG，有时会挂掉。</p>
+<h5 id="-html5">二、html5</h5>
+<p>w3c其实有一个标准的API，来支持DLNA/UPnP，即Network Service Discovery API（navigator.getNetworkServices() ）但目前只有opera有一个实验版本可以支持这个最新的API。</p>
+<p>chrome支持mkv视频，经测试Chrome html5 video支持mkv格式的视频，但不能外挂字幕！显示Google利用于自己收购的VP8编码技术力挺WebM（VP8/Vorbis/WebM），mkv也属于WebM的一种。</p>
+
+        <p><a href="/post/raspberry-pi-minidlna-nas-ipad" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月30日">2013年1月30日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-xbian-hei-ping">[翻译|转发自官方]XBian 1.0 Alpha 4的BUG修复（黑屏、找不到类库、不能保存视频源）</a></h2>
+        </header>
+        <h4 id="1-libraries-not-found-">1、类库找不到（Libraries not found）</h4>
+<p>bug描述：XBMC无法启动、黑屏，找不到“libEGL.so”<br>用SSH登陆并执行以下命令：</p>
+<pre><code class="hljs shell">sudo su     #default password = <span class="hljs-string">'raspberry'</span>
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"/opt/vc/lib"</span> &gt; /etc/ld.<span class="hljs-keyword">so</span>.<span class="hljs-keyword">conf</span>.<span class="hljs-keyword">d</span>/<span class="hljs-number">00</span>-vmcs.<span class="hljs-keyword">conf</span>
+ldconfig
+reboot
+</code></pre>
+<h4 id="2-sources-xml-">2、sources.xml不正常的权限</h4>
+<p>bug描述：XBMC不能保存视频源<br>用SSH登陆并执行以下命令：</p>
+<pre><code class="hljs shell">sudo /etc/init.d/xbmc <span class="hljs-operator"><span class="hljs-keyword">stop</span>     #<span class="hljs-keyword">default</span> <span class="hljs-keyword">password</span> = <span class="hljs-string">'raspberry'</span>
+sudo chown xbian:xbian .xbmc/userdata/sources.<span class="hljs-keyword">xml</span>
+sudo /etc/init.d/xbmc <span class="hljs-keyword">start</span></span>
+</code></pre>
+<h4 id="3-xbmc-">3、XBMC资源不足</h4>
+<p>bug描述：视频播放失败（一段时间后）黑屏<br>用SSH登陆并执行以下命令：</p>
+<pre><code class="hljs shell">sudo su     #<span class="hljs-keyword">default</span> password = <span class="hljs-string">'raspberry'</span>
+sed -i <span class="hljs-string">'s/gpu_mem_256=100/gpu_mem_256=128/g'</span> <span class="hljs-regexp">/boot/</span>config.txt
+sed -i <span class="hljs-string">'s/gpu_mem_512=100/gpu_mem_512=128/g'</span> <span class="hljs-regexp">/boot/</span>config.txt
+reboot
+</code></pre>
+<p>目前发现该版本，无法使用左下角的退出到命令行界面，播放“优酷”、“奇艺”等切换到下段时，只有声音，没有图像，黑屏。</p>
+<p>用上面第三个方法，应该能解决黑屏问题。</p>
+
+        <p><a href="/post/raspberry-pi-xbian-hei-ping" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月30日">2013年1月30日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-ds18b20-yeelink">【智能家居】树莓派+DS18B20温度传感器+Yeelink实现家庭室内温度监控（python）</a></h2>
+        </header>
+        <p>实现家庭室内温度远程监控只是“智能家居”的初步，目的是下班前如果发现家里温度过高，可提前用手机发送指令提前5-10分钟打开空调降温。</p>
+<h4 id="-">一、硬件准备</h4>
+<p>1、树莓派（Raspberry Pi）一个</p>
+<p>2、DS18B20温度传感器一个（淘宝大概5元左右）</p>
+<p>3、4.7kΩ电阻一个 或 DS18B20模块一个（笔者用，淘宝1.5元一个，其实就是店家帮忙把电阻焊好了，接线稍好看些）。</p>
+<p>4、杜邦线三根（双头母）</p>
+<h4 id="-">二、接线方式（如图所示）</h4>
+<p><img src="/assets/upload/RPI_DS1820.png" alt=""></p>
+
+        <p><a href="/post/raspberry-pi-ds18b20-yeelink" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月27日">2013年1月27日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-wifi-car">树莓派wifi小车成品展示【视频】</a></h2>
+        </header>
+        <p><img src="/assets/upload/DSC_0029.jpg" alt=""></p>
+<embed src="http://player.youku.com/player.php/sid/XNTA3NTgzMzQ0/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+        <p><a href="/post/raspberry-pi-wifi-car" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月25日">2013年1月25日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-mjpg-streamer">树莓派(B版)使用MJPG-Streamer实现网络监控方案（安装及报错处理）</a></h2>
+        </header>
+        <p>调了两个晚上，经过无数次的编译失败后，终于调试成功了，特分享一下安装过程。<br>本文以下将树莓派简称：RasPi</p>
+<h4 id="-">一、所需设备</h4>
+<p>1、RasPi主控板<br>2、实现 UVC 协议的摄像头，支持列表可查看：<a href="http://linux-uvc.berlios.de/">http://linux-uvc.berlios.de/</a> （本文采用淘宝购买的32元天敏N82）  </p>
+<h4 id="-mjpg-streamer-">二、mjpg-streamer下载</h4>
+<p><strong>官网：</strong></p>
+<ul>
+<li><a href="http://sourceforge.net/projects/mjpg-streamer/">http://sourceforge.net/projects/mjpg-streamer/</a>  </li>
+<li><a href="http://sourceforge.net/apps/mediawiki/mjpg-streamer/index.php?title=Main_Page">http://sourceforge.net/apps/mediawiki/mjpg-streamer/index.php?title=Main_Page</a></li>
+</ul>
+<p><strong>推荐版本：</strong></p>
+<ul>
+<li><a href="http://mjpg-streamer.svn.sourceforge.net/viewvc/mjpg-streamer/">http://mjpg-streamer.svn.sourceforge.net/viewvc/mjpg-streamer/</a></li>
+</ul>
+<p>下载SVN的mjpg-streamer的172版。</p>
+<h4 id="-">三、可能出现的安装错误</h4>
+<p>1、mjpg-streamer-r63.tar.gz</p>
+<p>RasPi B版使用此版本包，编译时会报如下错误：<br>error: linux/videodev.h: No such file or directory<br>这是因为内核版本太高的原因，videodev.h这个接口不支持了。  </p>
+<p><strong>解决办法：</strong></p>
+<p>安装：libv4l-dev</p>
+<pre><code class="hljs shell"><span class="hljs-built_in">sudo</span> apt-get <span class="hljs-operator">-f</span> install libv4l-dev
+</code></pre>
+<p>然后还需把这装包中，所有.c和.h文件中的头替换掉：</p>
+<pre><code class="hljs shell"><span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> &lt;linux/videodev.h&gt;</span>
+</code></pre>
+<p>代码，改为下面这行</p>
+<pre><code class="hljs shell"><span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> &lt;libv4l1-videodev.h&gt;</span>
+</code></pre>
+<p>但很不幸，笔者还是没能成功通过编译，虽然不报这个错误了，但是报出其它错误。</p>
+<p>2、报jpg不支持,需安装</p>
+<pre><code class="hljs shell">sudo apt-<span class="hljs-built_in">get</span> install libjpeg62-<span class="hljs-built_in">dev</span>
+</code></pre>
+<p>3、i: init_VideoIn failed错误</p>
+<p>错误原因：市面上大部分摄像头都是支持YUV的，而不是JPEG的。mjpg-stream支持JPEG和YUV两种格式。</p>
+<p><strong>解决方法：</strong></p>
+<p>1、打开以下文件：</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> nano mjpg-streamer/plugins/input_uvc/input_uvc.c
+</code></pre>
+<p>2、翻到大概第三页</p>
+<p>将一行中的： <code>int width = 640, height = 480, fps = -1, format = V4L2_PIX_FMT_MJPEG, i;</code>
+改成：<code>V4L2_PIX_FMT_YUYV</code></p>
+<p>需要重新编译才会有效。</p>
+<h4 id="-">四、安装</h4>
+<p>推荐使用第二步下载的安装包（172版）,或才用SVN进行下载。</p>
+<pre><code class="hljs shell"><span class="hljs-title">svn</span> co <span class="hljs-url">https://mjpg-streamer.svn.sourceforge.net/svnroot/mjpg-streamer</span> mjpg-streamer
+</code></pre>
+<p>以上操作，前提是需要安装SVN，如果你没有安装，也可以通过</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> apt-get install subversion
+</code></pre>
+<p>安装：</p>
+<pre><code class="hljs shell">tar -xvzf mjpg-streamer.tar.gz
+cd mjpg-streamer/mjpg-streamer
+<span class="hljs-preprocessor">#以下操原因，见错误3</span>
+sudo nano plugins/input_uvc/input_uvc.c
+<span class="hljs-preprocessor">#将V4L2_PIX_FMT_MJPEG改成V4L2_PIX_FMT_YUYV后保存退出</span>
+
+make
+./start.sh
+</code></pre>
+<h4 id="-web-">五、web访问</h4>
+<p><a href="http://你的IP:8080/stream.html（如：http://192.168.1.106:8080/stream.html）">http://你的IP:8080/stream.html（如：http://192.168.1.106:8080/stream.html）</a></p>
+
+        <p><a href="/post/raspberry-pi-mjpg-streamer" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月23日">2013年1月23日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-gpio-web">使用webiopi控制树莓派的GPIO引脚电平（WEB在线管理）</a></h2>
+        </header>
+        <h4 id="1-python-python-dev-">1、必须安装python开发版，即python-dev，不然后面很多软件都会安装不成功，提示目录无法找到之类的。（教训）</h4>
+<pre><code class="hljs shell">sudo apt-<span class="hljs-built_in">get</span> install <span class="hljs-keyword">python</span>-dev
+</code></pre>
+<p>正常情况下，以上在线安装命令即可安装成功，但运气不好的是，笔者在安装时，在线命令安装资源包404。
+<code>python2.7-dev_2.7.3~rc2-2.1_armhf.deb</code>找不到，后来只能手动找了以下包安装。</p>
+<pre><code class="hljs shell">wget <span class="hljs-symbol">http:</span>/<span class="hljs-regexp">/ftp.debian.org/debian</span><span class="hljs-regexp">/pool/main</span><span class="hljs-regexp">/p/python</span>2.<span class="hljs-number">7</span>/python2.<span class="hljs-number">7</span>-dev_2.<span class="hljs-number">7.3</span>-<span class="hljs-number">6_</span>armhf.deb
+sudo dpkg -i python2.<span class="hljs-number">7</span>-dev_2.<span class="hljs-number">7.3</span>-<span class="hljs-number">6_</span>armhf.deb
+</code></pre>
+<h4 id="2-python-gpio-">2、安装python的GPIO模块</h4>
+<p>Google Code项目地址：<a href="http://raspberry-gpio-python.googlecode.com">http://raspberry-gpio-python.googlecode.com</a></p>
+<pre><code class="hljs shell">wget <span class="hljs-keyword">http</span>://raspberry-gpio-python.googlecode.com/<span class="hljs-built_in">files</span>/RPi.GPIO-<span class="hljs-number">0.4</span><span class="hljs-number">.1</span><span class="hljs-operator">a</span>.tar.gz
+tar -xvzf RPi.GPIO-<span class="hljs-number">0.4</span><span class="hljs-number">.1</span><span class="hljs-operator">a</span>.tar.gz
+cd RPi.GPIO-<span class="hljs-number">0.4</span><span class="hljs-number">.1</span><span class="hljs-operator">a</span>
+sudo python setup.py install
+</code></pre>
+<h4 id="3-webopio">3、安装webopio</h4>
+<p>Google Code项目地址：<a href="http://code.google.com/p/webiopi/">http://code.google.com/p/webiopi/</a></p>
+<pre><code class="hljs shell"><span class="hljs-title">wget</span> <span class="hljs-url">http://webiopi.googlecode.com/files/WebIOPi-0.5.3.tar.gz</span>
+tar xvzf WebIOPi-<span class="hljs-number">0</span>.<span class="hljs-number">5</span>.<span class="hljs-number">3</span>.tar.gz
+cd WebIOPi-<span class="hljs-number">0</span>.<span class="hljs-number">5</span>.<span class="hljs-number">3</span>
+sudo ./setup.sh
+</code></pre>
+<h4 id="4-webopio-">4、首先设置或修改webopio的密码</h4>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> webiopi-passwd
+</code></pre>
+<p>用户名是：webiopi<br>如不修改密码，默认密码是：raspberry  </p>
+<h4 id="5-webopio">5、启动webopio</h4>
+<pre><code class="hljs shell">sudo <span class="hljs-keyword">python</span> -m webiopi <span class="hljs-number">8000</span>
+</code></pre>
+<p>端口可自行修改，默认是8000</p>
+<h4 id="6-webopio-ctarl-c-">6、让webopio后台运行，否则按ctarl+c就会断掉</h4>
+<pre><code class="hljs shell">sudo /etc/init.d/webiopi <span class="hljs-operator"><span class="hljs-keyword">start</span>
+<span class="hljs-keyword">and</span>
+sudo /etc/init.d/webiopi <span class="hljs-keyword">stop</span></span>
+</code></pre>
+<h4 id="7-webopio-">7、设置webopio随系统启动</h4>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> update-rc.d webiopi defaults
+</code></pre>
+<h4 id="8-ip-">8、用浏览器打开IP地址访问管理界面</h4>
+<p><a href="http://192.168.1.106:8000/webiopi/">http://192.168.1.106:8000/webiopi/</a></p>
+<p><img src="/assets/upload/webiopi.png" alt=""></p>
+<p><strong>控制方法：</strong></p>
+<ul>
+<li>a.点击外侧的“IN/OUT”切换GPIO的工作模式，输入/输出  </li>
+<li>b.输出模式下，点击内侧的数字，切换输出电平，高/低  </li>
+<li>c.输入模式下，内测数字代表GPIO的输入状态  </li>
+</ul>
+
+        <p><a href="/post/raspberry-pi-gpio-web" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月22日">2013年1月22日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-usb-wlan">树莓派(Raspberry Pi)USB无线网卡配置方法</a></h2>
+        </header>
+        <p>首先查看树莓派外设兼容列表：<a href="http://elinux.org/RPi_VerifiedPeripherals#USB_Wi-Fi_Adapters">http://elinux.org/RPi_VerifiedPeripherals#USB_Wi-Fi_Adapters</a>，以确定自己的无线网卡是否可用，一般免驱的大多可用。这种USB无线网卡，一般只要二三十块钱就可以搞定，推荐易迅购买。</p>
+<p>另外新版的镜像，包含的驱动比较多。</p>
+<h4 id="1-">1、查看自己的无线网卡是否生效</h4>
+<p>查看挂载的USB设备</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> lsusb
+</code></pre>
+<p>我的RPI显示如下：</p>
+<pre><code class="hljs shell">pi<span class="hljs-variable">@raspberrypi</span><span class="hljs-symbol">:/</span><span class="hljs-variable">$ </span>sudo lsusb
+<span class="hljs-constant">Bus </span><span class="hljs-number">001</span> <span class="hljs-constant">Device </span><span class="hljs-number">001</span><span class="hljs-symbol">:</span> <span class="hljs-constant">ID </span><span class="hljs-number">1</span><span class="hljs-symbol">d6b:</span><span class="hljs-number">0002</span> <span class="hljs-constant">Linux Foundation </span><span class="hljs-number">2.0</span> root hub
+<span class="hljs-constant">Bus </span><span class="hljs-number">001</span> <span class="hljs-constant">Device </span><span class="hljs-number">002</span><span class="hljs-symbol">:</span> <span class="hljs-constant">ID </span><span class="hljs-number">0424</span><span class="hljs-symbol">:</span><span class="hljs-number">9512</span> <span class="hljs-constant">Standard Microsystems Corp.</span>
+<span class="hljs-constant">Bus </span><span class="hljs-number">001</span> <span class="hljs-constant">Device </span><span class="hljs-number">003</span><span class="hljs-symbol">:</span> <span class="hljs-constant">ID </span><span class="hljs-number">0424</span><span class="hljs-symbol">:ec00</span> <span class="hljs-constant">Standard Microsystems Corp.</span>
+<span class="hljs-constant">Bus </span><span class="hljs-number">001</span> <span class="hljs-constant">Device </span><span class="hljs-number">004</span><span class="hljs-symbol">:</span> <span class="hljs-constant">ID </span>0<span class="hljs-symbol">bda:</span><span class="hljs-number">8176</span> <span class="hljs-constant">Realtek Semiconductor Corp.</span> <span class="hljs-constant">RTL8188CUS </span><span class="hljs-number">802.11</span>n <span class="hljs-constant">WLAN Adapter</span>
+</code></pre>
+<p>最后一行标有802.11n WLAN Adapter即是我的无线网卡，表明设备可用。</p>
+<h4 id="2-wifi-">2、测试wifi信号</h4>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> iwlist wlan0 scan
+</code></pre>
+<p>细心看，找到自己无线路由器的ssid(即用手机搜wifi，显示的wifi名字，路由器中可以配置)
+笔者ssid是：TP-LINK_FB5906</p>
+<h4 id="3-">3、编辑网卡配置信息</h4>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> nano /etc/network/interfaces
+</code></pre>
+<p>将wlan0的部份修改为：</p>
+<pre><code class="hljs shell"><span class="hljs-title">auto</span> lo
+
+iface lo inet loopback
+iface eth0 inet dhcp
+
+allow-hotplug wlan0
+iface wlan0 inet static
+    wpa-ssid 你要连接的wifi ssid
+    wpa-psk 你的wpa连接密码
+address <span class="hljs-number">192.168.1.106</span>   <span class="hljs-comment"># 设定的静态IP地址</span>
+netmask <span class="hljs-number">255.255.255.0</span>   <span class="hljs-comment"># 网络掩码</span>
+gateway <span class="hljs-number">192.168.1.1</span>     <span class="hljs-comment"># 网关</span>
+network <span class="hljs-number">192.168.1.1</span>     <span class="hljs-comment"># 网络地址</span>
+<span class="hljs-comment">#wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf</span>
+iface default inet dhcp
+</code></pre>
+<p>笔者把IP设在了静态的了，你总不想每次SSH登陆还要换IP吧！建议设成静态的</p>
+
+        <p><a href="/post/raspberry-pi-usb-wlan" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月20日">2013年1月20日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+                ,
+                <a href="/tag/NodeJs">NodeJs</a>
+            </span>
+            <h2><a href="/post/node-js-pi-gpio">nodejs（pi-gpio）控制树莓派GPIO引脚</a></h2>
+        </header>
+        <h4 id="-">一、基础概念</h4>
+<p>树莓派（Raspberry Pi）是啥？树莓派有啥用？请参考<a href="http://zh.wikipedia.org/zh-cn/%E6%A0%91%E8%8E%93%E6%B4%BE">wikipedia上树莓派条目</a>。</p>
+<p>GPIO，通用型的输入输出（General Purpose I/O）的简称。</p>
+<p>nodejs真是无处不在，可玩性越来越高了，连硬件控制都能胜任了。</p>
+<p>pi-gpio，是帮助树莓派控制GPIO的nodejs基础库，代码托管地址：<a href="https://github.com/rakeshpai/pi-gpio">https://github.com/rakeshpai/pi-gpio</a></p>
+<h4 id="-gpio-">二、关于树莓派GPIO引脚配置</h4>
+<p>树莓派GPIO引脚，较为混乱，各引脚之间没有逻辑关系，使用的是Broadcom芯片的命名。pi-gpio使GPIO的管理更加简单，参考以下图来进行管理。
+P1在左上角。</p>
+<p>图一：（来自pi-gpio）</p>
+<p><img src="/assets/upload/gpio_1.png" alt=""></p>
+<p>图二：（更详细的GPIO引脚分布图）</p>
+<p><a href="/assets/upload/gpio_2.jpg">/assets/upload/gpio_2.jpg</a></p>
+<p>图三：（GPIO物理分布图）</p>
+<p><img src="/assets/upload/gpio_3.jpg" alt=""></p>
+<h4 id="-pi-gpio">三、安装pi-gpio</h4>
+<p>1、如果你还没有安装nodejs的npm，你可以通过以下方式简易安装</p>
+<pre><code class="hljs shell">sudo apt-get install nodejs <span class="hljs-built_in">npm</span>
+</code></pre>
+<p>2、在树莓派下做以下操作（安装pi-gpio所有操作，请使用root账户登陆）</p>
+<pre><code class="hljs shell">git clone gi<span class="hljs-variable">t:</span>//github.<span class="hljs-keyword">com</span>/quick2wire/quick2wire-gpio-admin.git
+<span class="hljs-keyword">cd</span> quick2wire-gpio-admin
+<span class="hljs-keyword">make</span>
+sudo <span class="hljs-keyword">make</span> install
+sudo adduser $USER gpio
+</code></pre>
+<p>3、接下来，在打开工程目录，用nodejs的npm安装 pi-gpio</p>
+<pre><code class="hljs shell">npm <span class="hljs-operator"><span class="hljs-keyword">install</span> <span class="hljs-keyword">pi</span>-gpio</span>
+</code></pre>
+<h4 id="-pi-gpio-">四、pi-gpio的使用</h4>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> gpio = <span class="hljs-built_in">require</span>(<span class="hljs-string">"pi-gpio"</span>);
+
+gpio.open(<span class="hljs-number">16</span>, <span class="hljs-string">"output"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err)</span> </span>{     <span class="hljs-comment">// Open pin 16 for output</span>
+    gpio.write(<span class="hljs-number">16</span>, <span class="hljs-number">1</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{          <span class="hljs-comment">// Set pin 16 high (1)</span>
+        gpio.close(<span class="hljs-number">16</span>);                     <span class="hljs-comment">// Close pin 16</span>
+    });
+});
+</code></pre>
+<p><strong>方法列表：</strong></p>
+<p>每个方法都有一个回调函数，因为引脚操作是异步的。</p>
+<p>1、.open(pinNumber, [direction = &quot;output&quot;], [callback])<br>打开引脚，别名：.export<br>pinNumber：引脚号码，记住，引脚号码树莓派上的物理引脚号码<br>direction：[可选]，方向可以是“input”(简写：in)或“output”(简写：out),这取绝于你要做什么引脚。默认是“output”<br>callback：[可选]，引脚可用时的回调函数，当出错时，第一个错误即是error对象  </p>
+<p>2、.close(pinNumber, [callback])<br>关闭引脚<br>参数解释类似.open  </p>
+<p>3、.setDirection(pinNumber, direction, [callback])<br>改变方向<br>参数解释类似.open  </p>
+<p>4、.read(pinNumber, [callback])<br>读取引脚当前的值，当方向为“输入input”时，用途更大；<br>参数解释类似.open<br>callback，有两个参数，第一个参数为可能出错的参数error，第二个参数为引脚的当前值可能是数字“0”或“1”  </p>
+<p>5、.write(pinNumber, value, [callback])<br>写入一个引脚的值；第二个参数必须数字“0”或“1”；  </p>
+<p>运行和测试：  </p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">npm</span> install &amp;&amp; <span class="hljs-built_in">npm</span> test
+</code></pre>
+
+        <p><a href="/post/node-js-pi-gpio" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+
+    <nav role="navigation" class="pagination">
+        
+    	<span class="page-number">Page 1 of 2</span>
+        
+        <a href="/tag/RaspberryPi/2/" class="older-posts">Older Posts →</a>
+	</nav>
+
+
+</div>
+
+<footer>
+	<p class="copyright">&copy; 2014 <a href="/">Jason’s Blog</a>. All rights reserved.</p>
+    <p>Proudly published with <a href="http://metalsmith.io/" target="_blank">Metalsmith</a></p>
+    <p><a href="http://www.miibeian.gov.cn/" target="_blank">闽ICP备09029032号-1</a> |
+        <script language="javascript" type="text/javascript" src="http://js.users.51.la/6883474.js"></script></p>
+</footer>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/uitotop/js/easing.js?version=20140909"></script>
+<script type="text/javascript" src="/assets/uitotop/js/jquery.ui.totop.min.js?version=20140909"></script>
+<script src="/assets/js/app.js?version=20140909"></script>
+<!--[if lt IE 8]><script src="/assets/js/noLtIE8.js?version=20140909"></script><![endif]-->
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="keyword" content="二分之一,web前端,前端博客,树莓派,RaspberryPi,html5,css3,as3,javascript">
+  <meta name="description" content="二分之一博客是一个关注web前端及游戏前端的技术博客">
+  <title>树莓派(B版)使用MJPG-Streamer实现网络监控方案（安装及报错处理） - 二分之一 - Just Jason's Blog</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/highlight/pojoaque.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+  <!--[if lt IE 9]><script src="/assets/js/html5.js?version=20140909"></script><![endif]-->
+</head>
+
+<body>
+<div class="toolbar">
+    <div class="nav-wrapper clearfix">
+        <ul class="nav-list">
+            <li>
+                <a href="/tag/Unity3D">Unity3D</a>
+            </li>
+            <li>
+                <a href="/tag/javascript">Javascript</a>
+            </li>
+            <li>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </li>
+            <li>
+                <a href="/tag/html5">Html5</a>
+            </li>
+            <li>
+                <a href="/tag/RaspberryPi">Raspberry Pi</a>
+            </li>
+            <li>
+                <a href="/tag/metalsmith">Metalsmith</a>
+            </li>
+        </ul>
+
+        <ul class="nav-list menu">
+            <li>
+                <a href="/about.html">关于我</a>
+            </li>
+            <li>
+                <a href="/mobile/">
+                    <i class="mobile_icon"></i><span class="mobile_msg">手机访问</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<header class="top-header">
+	<section>
+    	<a href="/" class="logo"></a>
+        <h1 class="blog-name">二分之一</h1>
+        <h2 class="blog-description">Just Jason's Blog</h2>
+    </section>
+</header>
+
+
+<div class="wrapper">
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月25日">2013年1月25日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2>树莓派(B版)使用MJPG-Streamer实现网络监控方案（安装及报错处理）</h2>
+        </header>
+        <p>调了两个晚上，经过无数次的编译失败后，终于调试成功了，特分享一下安装过程。<br>本文以下将树莓派简称：RasPi</p>
+<h4 id="-">一、所需设备</h4>
+<p>1、RasPi主控板<br>2、实现 UVC 协议的摄像头，支持列表可查看：<a href="http://linux-uvc.berlios.de/">http://linux-uvc.berlios.de/</a> （本文采用淘宝购买的32元天敏N82）  </p>
+<h4 id="-mjpg-streamer-">二、mjpg-streamer下载</h4>
+<p><strong>官网：</strong></p>
+<ul>
+<li><a href="http://sourceforge.net/projects/mjpg-streamer/">http://sourceforge.net/projects/mjpg-streamer/</a>  </li>
+<li><a href="http://sourceforge.net/apps/mediawiki/mjpg-streamer/index.php?title=Main_Page">http://sourceforge.net/apps/mediawiki/mjpg-streamer/index.php?title=Main_Page</a></li>
+</ul>
+<p><strong>推荐版本：</strong></p>
+<ul>
+<li><a href="http://mjpg-streamer.svn.sourceforge.net/viewvc/mjpg-streamer/">http://mjpg-streamer.svn.sourceforge.net/viewvc/mjpg-streamer/</a></li>
+</ul>
+<p>下载SVN的mjpg-streamer的172版。</p>
+<h4 id="-">三、可能出现的安装错误</h4>
+<p>1、mjpg-streamer-r63.tar.gz</p>
+<p>RasPi B版使用此版本包，编译时会报如下错误：<br>error: linux/videodev.h: No such file or directory<br>这是因为内核版本太高的原因，videodev.h这个接口不支持了。  </p>
+<p><strong>解决办法：</strong></p>
+<p>安装：libv4l-dev</p>
+<pre><code class="hljs shell"><span class="hljs-built_in">sudo</span> apt-get <span class="hljs-operator">-f</span> install libv4l-dev
+</code></pre>
+<p>然后还需把这装包中，所有.c和.h文件中的头替换掉：</p>
+<pre><code class="hljs shell"><span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> &lt;linux/videodev.h&gt;</span>
+</code></pre>
+<p>代码，改为下面这行</p>
+<pre><code class="hljs shell"><span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> &lt;libv4l1-videodev.h&gt;</span>
+</code></pre>
+<p>但很不幸，笔者还是没能成功通过编译，虽然不报这个错误了，但是报出其它错误。</p>
+<p>2、报jpg不支持,需安装</p>
+<pre><code class="hljs shell">sudo apt-<span class="hljs-built_in">get</span> install libjpeg62-<span class="hljs-built_in">dev</span>
+</code></pre>
+<p>3、i: init_VideoIn failed错误</p>
+<p>错误原因：市面上大部分摄像头都是支持YUV的，而不是JPEG的。mjpg-stream支持JPEG和YUV两种格式。</p>
+<p><strong>解决方法：</strong></p>
+<p>1、打开以下文件：</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> nano mjpg-streamer/plugins/input_uvc/input_uvc.c
+</code></pre>
+<p>2、翻到大概第三页</p>
+<p>将一行中的： <code>int width = 640, height = 480, fps = -1, format = V4L2_PIX_FMT_MJPEG, i;</code>
+改成：<code>V4L2_PIX_FMT_YUYV</code></p>
+<p>需要重新编译才会有效。</p>
+<h4 id="-">四、安装</h4>
+<p>推荐使用第二步下载的安装包（172版）,或才用SVN进行下载。</p>
+<pre><code class="hljs shell"><span class="hljs-title">svn</span> co <span class="hljs-url">https://mjpg-streamer.svn.sourceforge.net/svnroot/mjpg-streamer</span> mjpg-streamer
+</code></pre>
+<p>以上操作，前提是需要安装SVN，如果你没有安装，也可以通过</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> apt-get install subversion
+</code></pre>
+<p>安装：</p>
+<pre><code class="hljs shell">tar -xvzf mjpg-streamer.tar.gz
+cd mjpg-streamer/mjpg-streamer
+<span class="hljs-preprocessor">#以下操原因，见错误3</span>
+sudo nano plugins/input_uvc/input_uvc.c
+<span class="hljs-preprocessor">#将V4L2_PIX_FMT_MJPEG改成V4L2_PIX_FMT_YUYV后保存退出</span>
+
+make
+./start.sh
+</code></pre>
+<h4 id="-web-">五、web访问</h4>
+<p><a href="http://你的IP:8080/stream.html（如：http://192.168.1.106:8080/stream.html）">http://你的IP:8080/stream.html（如：http://192.168.1.106:8080/stream.html）</a></p>
+
+        <p class="last-edit-time">最后修改时间：2014年9月10日星期三中午12点22</p>
+        <div class="share_wrapper">
+            <div class="jiathis_style_32x32">
+                <a class="jiathis_button_qzone"></a>
+                <a class="jiathis_button_tsina"></a>
+                <a class="jiathis_button_tqq"></a>
+                <a class="jiathis_button_renren"></a>
+                <a class="jiathis_button_kaixin001"></a>
+                <a class="jiathis_button_weixin"></a>
+                <a href="http://www.jiathis.com/share?uid=1879675" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+            </div>
+        </div>
+    </article>
+
+<a name="comment"></a>
+<div class="comment-widget">
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1879675"></script>
+<!-- UY END -->
+</div>
+
+</div>
+
+<footer>
+	<p class="copyright">&copy; 2014 <a href="/">Jason’s Blog</a>. All rights reserved.</p>
+    <p>Proudly published with <a href="http://metalsmith.io/" target="_blank">Metalsmith</a></p>
+    <p><a href="http://www.miibeian.gov.cn/" target="_blank">闽ICP备09029032号-1</a> |
+        <script language="javascript" type="text/javascript" src="http://js.users.51.la/6883474.js"></script></p>
+</footer>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/uitotop/js/easing.js?version=20140909"></script>
+<script type="text/javascript" src="/assets/uitotop/js/jquery.ui.totop.min.js?version=20140909"></script>
+<script src="/assets/js/app.js?version=20140909"></script>
+<!--[if lt IE 8]><script src="/assets/js/noLtIE8.js?version=20140909"></script><![endif]-->
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" >
+    var jiathis_config={
+        data_track_clickback:true,
+        shortUrl:false,
+        hideMore:false
+    }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1879675" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+</body>
+</html>

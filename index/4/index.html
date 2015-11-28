@@ -1,0 +1,594 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="keyword" content="二分之一,web前端,前端博客,树莓派,RaspberryPi,html5,css3,as3,javascript" />
+  <meta name="description" content="二分之一博客是一个关注web前端及游戏前端的技术博客" />
+  <title>二分之一 - Just Jason's Blog</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/highlight/pojoaque.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+  <!--[if lt IE 9]><script src="/assets/js/html5.js?version=20140909"></script><![endif]-->
+</head>
+
+<body>
+<div class="toolbar">
+    <div class="nav-wrapper clearfix">
+        <ul class="nav-list">
+            <li>
+                <a href="/tag/Unity3D">Unity3D</a>
+            </li>
+            <li>
+                <a href="/tag/javascript">Javascript</a>
+            </li>
+            <li>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </li>
+            <li>
+                <a href="/tag/html5">Html5</a>
+            </li>
+            <li>
+                <a href="/tag/RaspberryPi">Raspberry Pi</a>
+            </li>
+            <li>
+                <a href="/tag/metalsmith">Metalsmith</a>
+            </li>
+        </ul>
+
+        <ul class="nav-list menu">
+            <li>
+                <a href="/about.html">关于我</a>
+            </li>
+            <li>
+                <a href="/mobile/">
+                    <i class="mobile_icon"></i><span class="mobile_msg">手机访问</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<header class="top-header">
+	<section>
+    	<a href="/" class="logo"></a>
+        <h1 class="blog-name">二分之一</h1>
+        <h2 class="blog-description">Just Jason's Blog</h2>
+    </section>
+</header>
+
+
+<div class="wrapper">
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月27日">2013年1月27日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-wifi-car">树莓派wifi小车成品展示【视频】</a></h2>
+        </header>
+        <p><img src="/assets/upload/DSC_0029.jpg" alt=""></p>
+<embed src="http://player.youku.com/player.php/sid/XNTA3NTgzMzQ0/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+        <p><a href="/post/raspberry-pi-wifi-car" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月25日">2013年1月25日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-mjpg-streamer">树莓派(B版)使用MJPG-Streamer实现网络监控方案（安装及报错处理）</a></h2>
+        </header>
+        <p>调了两个晚上，经过无数次的编译失败后，终于调试成功了，特分享一下安装过程。<br>本文以下将树莓派简称：RasPi</p>
+<h4 id="-">一、所需设备</h4>
+<p>1、RasPi主控板<br>2、实现 UVC 协议的摄像头，支持列表可查看：<a href="http://linux-uvc.berlios.de/">http://linux-uvc.berlios.de/</a> （本文采用淘宝购买的32元天敏N82）  </p>
+<h4 id="-mjpg-streamer-">二、mjpg-streamer下载</h4>
+<p><strong>官网：</strong></p>
+<ul>
+<li><a href="http://sourceforge.net/projects/mjpg-streamer/">http://sourceforge.net/projects/mjpg-streamer/</a>  </li>
+<li><a href="http://sourceforge.net/apps/mediawiki/mjpg-streamer/index.php?title=Main_Page">http://sourceforge.net/apps/mediawiki/mjpg-streamer/index.php?title=Main_Page</a></li>
+</ul>
+<p><strong>推荐版本：</strong></p>
+<ul>
+<li><a href="http://mjpg-streamer.svn.sourceforge.net/viewvc/mjpg-streamer/">http://mjpg-streamer.svn.sourceforge.net/viewvc/mjpg-streamer/</a></li>
+</ul>
+<p>下载SVN的mjpg-streamer的172版。</p>
+<h4 id="-">三、可能出现的安装错误</h4>
+<p>1、mjpg-streamer-r63.tar.gz</p>
+<p>RasPi B版使用此版本包，编译时会报如下错误：<br>error: linux/videodev.h: No such file or directory<br>这是因为内核版本太高的原因，videodev.h这个接口不支持了。  </p>
+<p><strong>解决办法：</strong></p>
+<p>安装：libv4l-dev</p>
+<pre><code class="hljs shell"><span class="hljs-built_in">sudo</span> apt-get <span class="hljs-operator">-f</span> install libv4l-dev
+</code></pre>
+<p>然后还需把这装包中，所有.c和.h文件中的头替换掉：</p>
+<pre><code class="hljs shell"><span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> &lt;linux/videodev.h&gt;</span>
+</code></pre>
+<p>代码，改为下面这行</p>
+<pre><code class="hljs shell"><span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> &lt;libv4l1-videodev.h&gt;</span>
+</code></pre>
+<p>但很不幸，笔者还是没能成功通过编译，虽然不报这个错误了，但是报出其它错误。</p>
+<p>2、报jpg不支持,需安装</p>
+<pre><code class="hljs shell">sudo apt-<span class="hljs-built_in">get</span> install libjpeg62-<span class="hljs-built_in">dev</span>
+</code></pre>
+<p>3、i: init_VideoIn failed错误</p>
+<p>错误原因：市面上大部分摄像头都是支持YUV的，而不是JPEG的。mjpg-stream支持JPEG和YUV两种格式。</p>
+<p><strong>解决方法：</strong></p>
+<p>1、打开以下文件：</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> nano mjpg-streamer/plugins/input_uvc/input_uvc.c
+</code></pre>
+<p>2、翻到大概第三页</p>
+<p>将一行中的： <code>int width = 640, height = 480, fps = -1, format = V4L2_PIX_FMT_MJPEG, i;</code>
+改成：<code>V4L2_PIX_FMT_YUYV</code></p>
+<p>需要重新编译才会有效。</p>
+<h4 id="-">四、安装</h4>
+<p>推荐使用第二步下载的安装包（172版）,或才用SVN进行下载。</p>
+<pre><code class="hljs shell"><span class="hljs-title">svn</span> co <span class="hljs-url">https://mjpg-streamer.svn.sourceforge.net/svnroot/mjpg-streamer</span> mjpg-streamer
+</code></pre>
+<p>以上操作，前提是需要安装SVN，如果你没有安装，也可以通过</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> apt-get install subversion
+</code></pre>
+<p>安装：</p>
+<pre><code class="hljs shell">tar -xvzf mjpg-streamer.tar.gz
+cd mjpg-streamer/mjpg-streamer
+<span class="hljs-preprocessor">#以下操原因，见错误3</span>
+sudo nano plugins/input_uvc/input_uvc.c
+<span class="hljs-preprocessor">#将V4L2_PIX_FMT_MJPEG改成V4L2_PIX_FMT_YUYV后保存退出</span>
+
+make
+./start.sh
+</code></pre>
+<h4 id="-web-">五、web访问</h4>
+<p><a href="http://你的IP:8080/stream.html（如：http://192.168.1.106:8080/stream.html）">http://你的IP:8080/stream.html（如：http://192.168.1.106:8080/stream.html）</a></p>
+
+        <p><a href="/post/raspberry-pi-mjpg-streamer" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月23日">2013年1月23日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-gpio-web">使用webiopi控制树莓派的GPIO引脚电平（WEB在线管理）</a></h2>
+        </header>
+        <h4 id="1-python-python-dev-">1、必须安装python开发版，即python-dev，不然后面很多软件都会安装不成功，提示目录无法找到之类的。（教训）</h4>
+<pre><code class="hljs shell">sudo apt-<span class="hljs-built_in">get</span> install <span class="hljs-keyword">python</span>-dev
+</code></pre>
+<p>正常情况下，以上在线安装命令即可安装成功，但运气不好的是，笔者在安装时，在线命令安装资源包404。
+<code>python2.7-dev_2.7.3~rc2-2.1_armhf.deb</code>找不到，后来只能手动找了以下包安装。</p>
+<pre><code class="hljs shell">wget <span class="hljs-symbol">http:</span>/<span class="hljs-regexp">/ftp.debian.org/debian</span><span class="hljs-regexp">/pool/main</span><span class="hljs-regexp">/p/python</span>2.<span class="hljs-number">7</span>/python2.<span class="hljs-number">7</span>-dev_2.<span class="hljs-number">7.3</span>-<span class="hljs-number">6_</span>armhf.deb
+sudo dpkg -i python2.<span class="hljs-number">7</span>-dev_2.<span class="hljs-number">7.3</span>-<span class="hljs-number">6_</span>armhf.deb
+</code></pre>
+<h4 id="2-python-gpio-">2、安装python的GPIO模块</h4>
+<p>Google Code项目地址：<a href="http://raspberry-gpio-python.googlecode.com">http://raspberry-gpio-python.googlecode.com</a></p>
+<pre><code class="hljs shell">wget <span class="hljs-keyword">http</span>://raspberry-gpio-python.googlecode.com/<span class="hljs-built_in">files</span>/RPi.GPIO-<span class="hljs-number">0.4</span><span class="hljs-number">.1</span><span class="hljs-operator">a</span>.tar.gz
+tar -xvzf RPi.GPIO-<span class="hljs-number">0.4</span><span class="hljs-number">.1</span><span class="hljs-operator">a</span>.tar.gz
+cd RPi.GPIO-<span class="hljs-number">0.4</span><span class="hljs-number">.1</span><span class="hljs-operator">a</span>
+sudo python setup.py install
+</code></pre>
+<h4 id="3-webopio">3、安装webopio</h4>
+<p>Google Code项目地址：<a href="http://code.google.com/p/webiopi/">http://code.google.com/p/webiopi/</a></p>
+<pre><code class="hljs shell"><span class="hljs-title">wget</span> <span class="hljs-url">http://webiopi.googlecode.com/files/WebIOPi-0.5.3.tar.gz</span>
+tar xvzf WebIOPi-<span class="hljs-number">0</span>.<span class="hljs-number">5</span>.<span class="hljs-number">3</span>.tar.gz
+cd WebIOPi-<span class="hljs-number">0</span>.<span class="hljs-number">5</span>.<span class="hljs-number">3</span>
+sudo ./setup.sh
+</code></pre>
+<h4 id="4-webopio-">4、首先设置或修改webopio的密码</h4>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> webiopi-passwd
+</code></pre>
+<p>用户名是：webiopi<br>如不修改密码，默认密码是：raspberry  </p>
+<h4 id="5-webopio">5、启动webopio</h4>
+<pre><code class="hljs shell">sudo <span class="hljs-keyword">python</span> -m webiopi <span class="hljs-number">8000</span>
+</code></pre>
+<p>端口可自行修改，默认是8000</p>
+<h4 id="6-webopio-ctarl-c-">6、让webopio后台运行，否则按ctarl+c就会断掉</h4>
+<pre><code class="hljs shell">sudo /etc/init.d/webiopi <span class="hljs-operator"><span class="hljs-keyword">start</span>
+<span class="hljs-keyword">and</span>
+sudo /etc/init.d/webiopi <span class="hljs-keyword">stop</span></span>
+</code></pre>
+<h4 id="7-webopio-">7、设置webopio随系统启动</h4>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> update-rc.d webiopi defaults
+</code></pre>
+<h4 id="8-ip-">8、用浏览器打开IP地址访问管理界面</h4>
+<p><a href="http://192.168.1.106:8000/webiopi/">http://192.168.1.106:8000/webiopi/</a></p>
+<p><img src="/assets/upload/webiopi.png" alt=""></p>
+<p><strong>控制方法：</strong></p>
+<ul>
+<li>a.点击外侧的“IN/OUT”切换GPIO的工作模式，输入/输出  </li>
+<li>b.输出模式下，点击内侧的数字，切换输出电平，高/低  </li>
+<li>c.输入模式下，内测数字代表GPIO的输入状态  </li>
+</ul>
+
+        <p><a href="/post/raspberry-pi-gpio-web" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月22日">2013年1月22日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2><a href="/post/raspberry-pi-usb-wlan">树莓派(Raspberry Pi)USB无线网卡配置方法</a></h2>
+        </header>
+        <p>首先查看树莓派外设兼容列表：<a href="http://elinux.org/RPi_VerifiedPeripherals#USB_Wi-Fi_Adapters">http://elinux.org/RPi_VerifiedPeripherals#USB_Wi-Fi_Adapters</a>，以确定自己的无线网卡是否可用，一般免驱的大多可用。这种USB无线网卡，一般只要二三十块钱就可以搞定，推荐易迅购买。</p>
+<p>另外新版的镜像，包含的驱动比较多。</p>
+<h4 id="1-">1、查看自己的无线网卡是否生效</h4>
+<p>查看挂载的USB设备</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> lsusb
+</code></pre>
+<p>我的RPI显示如下：</p>
+<pre><code class="hljs shell">pi<span class="hljs-variable">@raspberrypi</span><span class="hljs-symbol">:/</span><span class="hljs-variable">$ </span>sudo lsusb
+<span class="hljs-constant">Bus </span><span class="hljs-number">001</span> <span class="hljs-constant">Device </span><span class="hljs-number">001</span><span class="hljs-symbol">:</span> <span class="hljs-constant">ID </span><span class="hljs-number">1</span><span class="hljs-symbol">d6b:</span><span class="hljs-number">0002</span> <span class="hljs-constant">Linux Foundation </span><span class="hljs-number">2.0</span> root hub
+<span class="hljs-constant">Bus </span><span class="hljs-number">001</span> <span class="hljs-constant">Device </span><span class="hljs-number">002</span><span class="hljs-symbol">:</span> <span class="hljs-constant">ID </span><span class="hljs-number">0424</span><span class="hljs-symbol">:</span><span class="hljs-number">9512</span> <span class="hljs-constant">Standard Microsystems Corp.</span>
+<span class="hljs-constant">Bus </span><span class="hljs-number">001</span> <span class="hljs-constant">Device </span><span class="hljs-number">003</span><span class="hljs-symbol">:</span> <span class="hljs-constant">ID </span><span class="hljs-number">0424</span><span class="hljs-symbol">:ec00</span> <span class="hljs-constant">Standard Microsystems Corp.</span>
+<span class="hljs-constant">Bus </span><span class="hljs-number">001</span> <span class="hljs-constant">Device </span><span class="hljs-number">004</span><span class="hljs-symbol">:</span> <span class="hljs-constant">ID </span>0<span class="hljs-symbol">bda:</span><span class="hljs-number">8176</span> <span class="hljs-constant">Realtek Semiconductor Corp.</span> <span class="hljs-constant">RTL8188CUS </span><span class="hljs-number">802.11</span>n <span class="hljs-constant">WLAN Adapter</span>
+</code></pre>
+<p>最后一行标有802.11n WLAN Adapter即是我的无线网卡，表明设备可用。</p>
+<h4 id="2-wifi-">2、测试wifi信号</h4>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> iwlist wlan0 scan
+</code></pre>
+<p>细心看，找到自己无线路由器的ssid(即用手机搜wifi，显示的wifi名字，路由器中可以配置)
+笔者ssid是：TP-LINK_FB5906</p>
+<h4 id="3-">3、编辑网卡配置信息</h4>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> nano /etc/network/interfaces
+</code></pre>
+<p>将wlan0的部份修改为：</p>
+<pre><code class="hljs shell"><span class="hljs-title">auto</span> lo
+
+iface lo inet loopback
+iface eth0 inet dhcp
+
+allow-hotplug wlan0
+iface wlan0 inet static
+    wpa-ssid 你要连接的wifi ssid
+    wpa-psk 你的wpa连接密码
+address <span class="hljs-number">192.168.1.106</span>   <span class="hljs-comment"># 设定的静态IP地址</span>
+netmask <span class="hljs-number">255.255.255.0</span>   <span class="hljs-comment"># 网络掩码</span>
+gateway <span class="hljs-number">192.168.1.1</span>     <span class="hljs-comment"># 网关</span>
+network <span class="hljs-number">192.168.1.1</span>     <span class="hljs-comment"># 网络地址</span>
+<span class="hljs-comment">#wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf</span>
+iface default inet dhcp
+</code></pre>
+<p>笔者把IP设在了静态的了，你总不想每次SSH登陆还要换IP吧！建议设成静态的</p>
+
+        <p><a href="/post/raspberry-pi-usb-wlan" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月20日">2013年1月20日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+                ,
+                <a href="/tag/NodeJs">NodeJs</a>
+            </span>
+            <h2><a href="/post/node-js-pi-gpio">nodejs（pi-gpio）控制树莓派GPIO引脚</a></h2>
+        </header>
+        <h4 id="-">一、基础概念</h4>
+<p>树莓派（Raspberry Pi）是啥？树莓派有啥用？请参考<a href="http://zh.wikipedia.org/zh-cn/%E6%A0%91%E8%8E%93%E6%B4%BE">wikipedia上树莓派条目</a>。</p>
+<p>GPIO，通用型的输入输出（General Purpose I/O）的简称。</p>
+<p>nodejs真是无处不在，可玩性越来越高了，连硬件控制都能胜任了。</p>
+<p>pi-gpio，是帮助树莓派控制GPIO的nodejs基础库，代码托管地址：<a href="https://github.com/rakeshpai/pi-gpio">https://github.com/rakeshpai/pi-gpio</a></p>
+<h4 id="-gpio-">二、关于树莓派GPIO引脚配置</h4>
+<p>树莓派GPIO引脚，较为混乱，各引脚之间没有逻辑关系，使用的是Broadcom芯片的命名。pi-gpio使GPIO的管理更加简单，参考以下图来进行管理。
+P1在左上角。</p>
+<p>图一：（来自pi-gpio）</p>
+<p><img src="/assets/upload/gpio_1.png" alt=""></p>
+<p>图二：（更详细的GPIO引脚分布图）</p>
+<p><a href="/assets/upload/gpio_2.jpg">/assets/upload/gpio_2.jpg</a></p>
+<p>图三：（GPIO物理分布图）</p>
+<p><img src="/assets/upload/gpio_3.jpg" alt=""></p>
+<h4 id="-pi-gpio">三、安装pi-gpio</h4>
+<p>1、如果你还没有安装nodejs的npm，你可以通过以下方式简易安装</p>
+<pre><code class="hljs shell">sudo apt-get install nodejs <span class="hljs-built_in">npm</span>
+</code></pre>
+<p>2、在树莓派下做以下操作（安装pi-gpio所有操作，请使用root账户登陆）</p>
+<pre><code class="hljs shell">git clone gi<span class="hljs-variable">t:</span>//github.<span class="hljs-keyword">com</span>/quick2wire/quick2wire-gpio-admin.git
+<span class="hljs-keyword">cd</span> quick2wire-gpio-admin
+<span class="hljs-keyword">make</span>
+sudo <span class="hljs-keyword">make</span> install
+sudo adduser $USER gpio
+</code></pre>
+<p>3、接下来，在打开工程目录，用nodejs的npm安装 pi-gpio</p>
+<pre><code class="hljs shell">npm <span class="hljs-operator"><span class="hljs-keyword">install</span> <span class="hljs-keyword">pi</span>-gpio</span>
+</code></pre>
+<h4 id="-pi-gpio-">四、pi-gpio的使用</h4>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> gpio = <span class="hljs-built_in">require</span>(<span class="hljs-string">"pi-gpio"</span>);
+
+gpio.open(<span class="hljs-number">16</span>, <span class="hljs-string">"output"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err)</span> </span>{     <span class="hljs-comment">// Open pin 16 for output</span>
+    gpio.write(<span class="hljs-number">16</span>, <span class="hljs-number">1</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{          <span class="hljs-comment">// Set pin 16 high (1)</span>
+        gpio.close(<span class="hljs-number">16</span>);                     <span class="hljs-comment">// Close pin 16</span>
+    });
+});
+</code></pre>
+<p><strong>方法列表：</strong></p>
+<p>每个方法都有一个回调函数，因为引脚操作是异步的。</p>
+<p>1、.open(pinNumber, [direction = &quot;output&quot;], [callback])<br>打开引脚，别名：.export<br>pinNumber：引脚号码，记住，引脚号码树莓派上的物理引脚号码<br>direction：[可选]，方向可以是“input”(简写：in)或“output”(简写：out),这取绝于你要做什么引脚。默认是“output”<br>callback：[可选]，引脚可用时的回调函数，当出错时，第一个错误即是error对象  </p>
+<p>2、.close(pinNumber, [callback])<br>关闭引脚<br>参数解释类似.open  </p>
+<p>3、.setDirection(pinNumber, direction, [callback])<br>改变方向<br>参数解释类似.open  </p>
+<p>4、.read(pinNumber, [callback])<br>读取引脚当前的值，当方向为“输入input”时，用途更大；<br>参数解释类似.open<br>callback，有两个参数，第一个参数为可能出错的参数error，第二个参数为引脚的当前值可能是数字“0”或“1”  </p>
+<p>5、.write(pinNumber, value, [callback])<br>写入一个引脚的值；第二个参数必须数字“0”或“1”；  </p>
+<p>运行和测试：  </p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">npm</span> install &amp;&amp; <span class="hljs-built_in">npm</span> test
+</code></pre>
+
+        <p><a href="/post/node-js-pi-gpio" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年1月20日">2013年1月20日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+                ,
+                <a href="/tag/NodeJs">NodeJs</a>
+            </span>
+            <h2><a href="/post/node-js-pi-gpio-l298n">通过nodejs（pi-gpio）+树莓派的GPIO接口控制L298N芯片驱动电机模块</a></h2>
+        </header>
+        <p>接上一篇文章：nodejs（pi-gpio）控制树莓派GPIO引脚，本文也可称之为《nodejs（pi-gpio）控制树莓派GPIO引脚（二）》。</p>
+<h4 id="-l298n-">一、L298N驱动版概要</h4>
+<p>原理图如下：</p>
+<p><img src="/assets/upload/l298n.jpg" alt=""></p>
+<p>可见，驱动板上有4个输入口：IN1~IN4，并且我们还要关心电源接口（VCC、GND）接口（5V）以及两个电机的接口。</p>
+<p>根据查阅L298N的相关文档，它的模块接口定义如下：</p>
+<p><strong>IN1-IN4：</strong></p>
+<p>逻辑输入端，其中IN1、IN2控制电机M1；IN3、IN4控制电机M2。例如IN1输入高电平1,IN2输入低电平0，对应电机M1正转；IN1输入低电平0,IN2输入高电平1，对应电机M1反转，调速就是改变高电平的占空比。</p>
+<p><strong>ENA、B：</strong></p>
+<p>L298N使能端（高电平有效，常态下用跳线帽接于VCC），可通过这两个端口实现PWM调速（使用PWM调速时取下跳线帽），具体参考L298N芯片手册。</p>
+<p><strong>VCC/GND：</strong></p>
+<p>L298N自身芯片供电，需要从外部接进5V电源（最好取逻辑部分的电压供电）.</p>
+<p><strong>VIN/GND：</strong></p>
+<p>电机供电电源接口，如果电机采用9V供电，那么电源正极接VIN，负极接GND即可。</p>
+<p><strong>M1：</strong></p>
+<p>电机1接口，没有正负之分，如果发现电机转向不对将电机两线调换即可。</p>
+<p><strong>M2：</strong></p>
+<p>电机2接口，没有正负之分，如果发现电机转向不对将电机两线调换即可。</p>
+<h4 id="-">二、连线，将各模块组装起来</h4>
+<p>1、根据上一篇文章中的GPIO引脚分布图，将树莓派的GPIO 11,12,15,16 口分别分配给L298N的IN1-IN4。</p>
+<p>2、将树莓派的GPIO 2 口5V电源分配给L298N的VCC。</p>
+<h4 id="-">三、初始化</h4>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> gpio = <span class="hljs-keyword">require</span>(<span class="hljs-string">'pi-gpio'</span>); <span class="hljs-comment">//引用pi-gpio库</span>
+<span class="hljs-keyword">var</span> pins = [<span class="hljs-number">11</span>, <span class="hljs-number">12</span>, <span class="hljs-number">15</span>, <span class="hljs-number">16</span>]; <span class="hljs-comment">//引脚号列表</span>
+<span class="hljs-keyword">var</span> flag = <span class="hljs-number">0</span>;
+<span class="hljs-comment">//依次打开GPIO引脚</span>
+pins.<span class="hljs-keyword">forEach</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(pin)</span></span>{
+    gpio.open(pin, <span class="hljs-string">'out'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+        flag += <span class="hljs-number">1</span>;
+    });
+});
+<span class="hljs-comment">//轮询来确定四个引脚有没有全部打开</span>
+<span class="hljs-keyword">var</span> t = setInterval(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-keyword">if</span>(flag == <span class="hljs-number">4</span>){ <span class="hljs-comment">//全部打开完了</span>
+        <span class="hljs-comment">//初始化完毕</span>
+        clearInterval(t);
+    }
+}, <span class="hljs-number">10</span>);
+</code></pre>
+<h4 id="-">四、启动电机（暂没有给完代码）</h4>
+<p>假设用0代表低电平，1代表高电平的话，M1电机代表左车轮，M2电机代表右车轮；</p>
+<pre><code class="hljs javascript"><span class="hljs-comment">//GPIO 11,12,15,16 口各方向电平列表</span>
+<span class="hljs-keyword">var</span> direction = {
+    <span class="hljs-string">"up"</span>:[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>],
+    <span class="hljs-string">"down"</span>:[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>],
+    <span class="hljs-string">"left"</span>:[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>],
+    <span class="hljs-string">"right"</span>:[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]
+}
+<span class="hljs-comment">//用以下方法给各引脚写入以上direction中各方向指定的电平值</span>
+gpio.write(pins[<span class="hljs-number">0</span>], <span class="hljs-number">1</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+
+});
+</code></pre>
+<h4 id="-">五、停止电机</h4>
+<pre><code class="hljs javascript">gpio.<span class="hljs-built_in">close</span>(pins<span class="hljs-number">[0</span>]);
+gpio.<span class="hljs-built_in">close</span>(pins<span class="hljs-number">[1</span>]);
+gpio.<span class="hljs-built_in">close</span>(pins<span class="hljs-number">[2</span>]);
+gpio.<span class="hljs-built_in">close</span>(pins<span class="hljs-number">[3</span>]);
+</code></pre>
+<p>等测试OK，再放出完整代码！</p>
+
+        <p><a href="/post/node-js-pi-gpio-l298n" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年11月23日">2012年11月23日</time>
+                <em>on</em>
+                <a href="/tag/javascript">javascript</a>
+                ,
+                <a href="/tag/html5">html5</a>
+            </span>
+            <h2><a href="/post/crossmessageevent">实现跨域通信（跨文档消息传输）的几种方法（crossMessageEvent.js）</a></h2>
+        </header>
+        <p>最近两天为实现一个跨域通信的问题，对这个问题进行了相关的学习，心得一二，在此分享。</p>
+<p><code>window.postMessage()</code>方法</p>
+<p>HTML5给我们带来了安全的跨域通信接口，即window.postMessage()方法。它方法原型是：</p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">window</span>.postMessage(msg, domain);
+</code></pre>
+<p>该方法的浏览器支持情况：E8+, FF3+, Chrome, Safari，且在IE下，msg参数必须是string，不能是object.由此可见，我们只要考虑IE6，IE7下的跨域实现。</p>
+<h4 id="-">一、方案一</h4>
+<p>使用window.postMessage + window.opener实现，该方式是利用IE6,7 opener hack的方式实现跨域，可以算一个安全漏洞。</p>
+<p><strong>实现方式：</strong></p>
+<ul>
+<li>1、www.a.com/a.html 和 www.b.com/b.html，b.html被a.html嵌套在iframe里面。</li>
+<li>2、首先两个页面各设置目标通信页面的opener = {}；opener对象可包含一个方法，这样当前页面可以直接调用目标页面的opener内的方法，并传递参数。  </li>
+</ul>
+<p><code>www.a.com/a.html</code></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> otherWindow = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"ifr_a"</span>).contentWindow; <span class="hljs-comment">//ifr_a为嵌套b.html的iframe ID</span>
+otherWindow.opener={
+    postMessage:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(str)</span></span>{
+        alert(str);
+    }
+}
+</code></pre>
+<p><code>www.b.com/b.html</code></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">parent</span>.opener={
+    postMessage:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(str)</span></span>{
+        alert(str);
+    }
+}
+</code></pre>
+<p><strong>发送消息：</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-built_in">window</span>.opener.postMessage(message);
+</code></pre>
+<p>这样目标页面就能收到消息了。</p>
+<p>我做了一下JS的封装，大家可以直接下载使用：crossMessageEvent_opener.js</p>
+<p><a href="/assets/upload/crossMessageEvent_opener.js">下载：crossMessageEvent_opener.js</a></p>
+<ul>
+<li>1、a.html和b.html分别引用该JS  </li>
+<li>2、分别进行初始化CrossMessageEvent.init(otherWindow); //otherWindow 为目标窗口的window对象  </li>
+<li>3、发送消息CrossMessageEvent.postMessage(otherWindow, message, targetOrigin);</li>
+</ul>
+<blockquote>
+<p>otherWindow:为目标窗口的window对象<br>message:消息内容，可以是object<br>targetOrigin：目标窗口的域 [可选]  </p>
+</blockquote>
+<ul>
+<li>4、添加消息接收的监听  </li>
+</ul>
+<pre><code class="hljs javascript">CrossMessageEvent.receiveMessage(funciton(<span class="hljs-keyword">event</span>){
+alert(<span class="hljs-keyword">event</span>.data); <span class="hljs-comment">//event.data为message的内容</span>
+});
+</code></pre>
+<p><strong>该方法的优点：</strong></p>
+<p>不需要使用代理页面，简单直接。</p>
+<p><strong>该方法的缺点：</strong></p>
+<p>只要打过微软的安全补丁.kb2497640就不能用了。</p>
+
+        <p><a href="/post/crossmessageevent" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年11月11日">2012年11月11日</time>
+                <em>on</em>
+                <a href="/tag/html5">html5</a>
+                ,
+                <a href="/tag/webapp">webapp</a>
+            </span>
+            <h2><a href="/post/android-zhua-bao-wireshark">android网络抓包及Wireshark介绍</a></h2>
+        </header>
+        <p>为了解phonegap及一些android应用的webview使用情况，查找了一些资料，总结如下：</p>
+<p><strong>主要操作流程如下：</strong></p>
+<p>使用TCPdump工具，抓TCP数据包。将数据包上传到PC,通过Wireshark查看数据包。</p>
+<p>如果要从物理设备（手机）上抓包，要确保拥有该设备的root权限。本文是用android虚拟设备进行实验。</p>
+<p><strong>1、下载TCPdump</strong></p>
+<p>TCPdump下载地址<a href="http://www.strazzere.com/android/tcpdump">http://www.strazzere.com/android/tcpdump</a></p>
+<p><strong>2、启动android虚拟机或手机，启动成功后，打开CMD，切换至adb.exe所在的目录</strong></p>
+<p>笔者的adb.exe所在目录为：E:\android\android-sdk\platform-tools\adb.exe</p>
+<p><strong>3、从PC上传TCPdump文件到手机的sd卡</strong></p>
+<pre><code class="hljs shell">adb push E:<span class="hljs-subst">\</span>android<span class="hljs-subst">\</span>tcpdump /<span class="hljs-built_in">data</span>/<span class="hljs-built_in">local</span>/tcpdump
+</code></pre>
+<p><strong>4、设置tcpdump文件的权限</strong></p>
+<pre><code class="hljs shell">adb <span class="hljs-built_in">shell</span> chmod <span class="hljs-number">6755</span> /data/<span class="hljs-built_in">local</span>/tcpdump
+</code></pre>
+<p><strong>5、启动监听程序 并将监听的数据包存放在/sdcard/capture.pcap</strong></p>
+<pre><code class="hljs shell">adb <span class="hljs-built_in">shell</span> /data/<span class="hljs-built_in">local</span>/tcpdump -p -vv -s <span class="hljs-number">0</span> -w /sdcard/capture.pcap
+</code></pre>
+<p><strong>6、取消监听ctrl+c</strong></p>
+<p><strong>7、下载数据包文件（.pcap文件扩展名）</strong></p>
+<pre><code class="hljs shell">adb pull <span class="hljs-regexp">/sdcard/</span>capture.pcap <span class="hljs-string">E:</span>\android
+</code></pre>
+<p>本文下载到E盘android目录</p>
+<p><strong>8、解包</strong></p>
+<p>得到的包文件是.pcap文件扩展名的文件。</p>
+<p>官网下载wireshark软件：（免费开源）</p>
+<p><a href="http://www.wireshark.org/download.html">http://www.wireshark.org/download.html</a></p>
+<p>wireshark是一个免费开源的网络协议包分析软件，对于分析网络协议有很重要的帮助，它不同于Fiddler，不是通过代理实现的，能更加底层的抓取网卡上的数据包。</p>
+<p>对于笔者，大多数情况只需要分析http包，所以我们打开数据包后，进行一下过滤。</p>
+<p><a href="/assets/upload/20121111161410.png">/assets/upload/20121111161410.png</a></p>
+
+        <p><a href="/post/android-zhua-bao-wireshark" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年11月4日">2012年11月4日</time>
+                <em>on</em>
+                <a href="/tag/html5">html5</a>
+                ,
+                <a href="/tag/webapp">webapp</a>
+            </span>
+            <h2><a href="/post/mobile-viewport-meta">移动网页开发中不可或缺的viewport meta标签</a></h2>
+        </header>
+        <p>看Ember.js的一个小项目实例，发现有viewport meta标签，查了一下资料，共享一下：</p>
+<pre><code class="hljs html">&lt;meta <span class="hljs-variable">name=</span><span class="hljs-string">"viewport"</span> <span class="hljs-variable">content=</span><span class="hljs-string">"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"</span> /&gt;
+</code></pre>
+<p>1、width: 控制viewport的大小，可以指定一个值，如600， 或者特殊的值，如device-width为设备的宽度（单位为缩放为100%的CSS的像素）</p>
+<p>2、height: 和width相对应，指定高度</p>
+<p>3、initial-scale: 初始缩放比例，页面第一次加载时的缩放比例</p>
+<p>4、maximum-scale: 允许用户缩放到的最大比例，范围从0到10.0</p>
+<p>5、minimum-scale: 允许用户缩放到的最小比例，范围从0到10.0</p>
+<p>6、user-scalable: 用户是否可以手动缩放，值可以是：①yes、 true允许用户缩放；②no、false不允许用户缩放</p>
+
+        <p><a href="/post/mobile-viewport-meta" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2012年11月4日">2012年11月4日</time>
+                <em>on</em>
+                <a href="/tag/html5">html5</a>
+                ,
+                <a href="/tag/webapp">webapp</a>
+            </span>
+            <h2><a href="/post/phonegap-eclipse-android">PhoneGap入门：使用Eclipse PhoneGap构建Android应用程序</a></h2>
+        </header>
+        <h4 id="-eclipse">一、安装Eclipse</h4>
+<p>Eclipse是完全免费的开源IDE，你可以从官网下载安装。</p>
+<p>1、访问Eclipse官网：<a href="http://www.eclipse.org/downloads/">http://www.eclipse.org/downloads/</a>，针对您的操作系统下载 Eclipse Classic 程序包。下载完后，解决即可，无需安装。</p>
+<p>2、软件汉化：
+下载语言包，笔者当前使用的Eclipse是4.2.1版本的，使用的最新语言包为<a href="http://www.eclipse.org/downloads/download.php?file=/technology/babel/babel_language_packs/R0.10.0/juno/BabelLanguagePack-eclipse-zh_4.2.0.v20120721043402.zip">BabelLanguagePack-eclipse-zh_4.2.0.v20120721043402.zip</a>。</p>
+<p>下载后的语言包，解决后直接覆盖到Eclipse对应的目录，然后将eclipse.ini文件中加-Duser.language=zh，重启即可。</p>
+<p>你也可以这里选择更多的语言包：<a href="http://www.eclipse.org/babel/downloads.php">http://www.eclipse.org/babel/downloads.php</a></p>
+<h4 id="-android-adt-eclipse-adt-">二、安装Android开发工具 ADT（为 Eclipse 配置 ADT 插件）</h4>
+<p><a href="http://developer.android.com/sdk/installing/installing-adt.html#Download">官网安装文档，请点这里。</a></p>
+<ul>
+<li>1、点击“帮助”菜单 – “安装新软件”  </li>
+<li>2、点击“添加”（右上角）  </li>
+<li>3、输入名称：“ADT Plugin”、链接填：<a href="http://dl-ssl.google.com/android/eclipse/">http://dl-ssl.google.com/android/eclipse/</a></li>
+<li>4、选择开发工具，然后一步步向下即可</li>
+</ul>
+<h4 id="-android-sdk">三、下载并配置 Android SDK</h4>
+<p>在安装完 ADT 插件并重新启动 Eclipse 后，您需要将它配置为使用已下载至本地文件系统的 Android SDK。</p>
+<ul>
+<li>1、下载安装SDK管理工具：<a href="http://developer.android.com/sdk/index.html">http://developer.android.com/sdk/index.html</a>  </li>
+<li>2、重启Eclipse  </li>
+<li>3、Eclipse – 菜单栏 – 窗口 – Android SDK Manager  </li>
+<li>4、选择SDK版本下载。个人建议你下2.2或者2.3，版本太高的运行速度超慢，而且现在大多数android手机都是2.2或者2.3的，高版本的很少。</li>
+</ul>
+<h4 id="-phonegap">四、下载并安装 PhoneGap</h4>
+<p>解压即可，需要新建Android项目进行配置，配置方法请参阅：</p>
+<p>官网指南：<a href="http://www.phonegap.cn/?page_id=442#android">http://www.phonegap.cn/?page_id=442#android</a></p>
+<p>Adobe：<a href="http://www.adobe.com/cn/devnet/html5/articles/getting-started-with-phonegap-in-eclipse-for-android.html">Adobe指南</a></p>
+
+        <p><a href="/post/phonegap-eclipse-android" rel="nofollow" class="read-more">Read more »</a></p>
+    </article>
+
+    <nav role="navigation" class="pagination">
+        <a href="/index/3" class="newer-posts">← Newer Posts</a>
+        
+    	<span class="page-number">Page 4 of 8</span>
+        
+        <a href="/index/5/" class="older-posts">Older Posts →</a>
+	</nav>
+
+
+</div>
+
+<footer>
+	<p class="copyright">&copy; 2014 <a href="/">Jason’s Blog</a>. All rights reserved.</p>
+    <p>Proudly published with <a href="http://metalsmith.io/" target="_blank">Metalsmith</a></p>
+    <p><a href="http://www.miibeian.gov.cn/" target="_blank">闽ICP备09029032号-1</a> |
+        <script language="javascript" type="text/javascript" src="http://js.users.51.la/6883474.js"></script></p>
+</footer>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/uitotop/js/easing.js?version=20140909"></script>
+<script type="text/javascript" src="/assets/uitotop/js/jquery.ui.totop.min.js?version=20140909"></script>
+<script src="/assets/js/app.js?version=20140909"></script>
+<!--[if lt IE 8]><script src="/assets/js/noLtIE8.js?version=20140909"></script><![endif]-->
+
+</body>
+</html>

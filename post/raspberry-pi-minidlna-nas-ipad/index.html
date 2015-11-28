@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="keyword" content="二分之一,web前端,前端博客,树莓派,RaspberryPi,html5,css3,as3,javascript">
+  <meta name="description" content="二分之一博客是一个关注web前端及游戏前端的技术博客">
+  <title>【智能家居】用树莓派+移动硬盘+MINIDLNA打造家用媒体服务器（电影服务器、NAS、ipad看片利器） - 二分之一 - Just Jason's Blog</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/highlight/pojoaque.css?version=20140909" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+  <!--[if lt IE 9]><script src="/assets/js/html5.js?version=20140909"></script><![endif]-->
+</head>
+
+<body>
+<div class="toolbar">
+    <div class="nav-wrapper clearfix">
+        <ul class="nav-list">
+            <li>
+                <a href="/tag/Unity3D">Unity3D</a>
+            </li>
+            <li>
+                <a href="/tag/javascript">Javascript</a>
+            </li>
+            <li>
+                <a href="/tag/NodeJs">NodeJs</a>
+            </li>
+            <li>
+                <a href="/tag/html5">Html5</a>
+            </li>
+            <li>
+                <a href="/tag/RaspberryPi">Raspberry Pi</a>
+            </li>
+            <li>
+                <a href="/tag/metalsmith">Metalsmith</a>
+            </li>
+        </ul>
+
+        <ul class="nav-list menu">
+            <li>
+                <a href="/about.html">关于我</a>
+            </li>
+            <li>
+                <a href="/mobile/">
+                    <i class="mobile_icon"></i><span class="mobile_msg">手机访问</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<header class="top-header">
+	<section>
+    	<a href="/" class="logo"></a>
+        <h1 class="blog-name">二分之一</h1>
+        <h2 class="blog-description">Just Jason's Blog</h2>
+    </section>
+</header>
+
+
+<div class="wrapper">
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta">
+                <time datetime="2013年2月23日">2013年2月23日</time>
+                <em>on</em>
+                <a href="/tag/RaspberryPi">RaspberryPi</a>
+            </span>
+            <h2>【智能家居】用树莓派+移动硬盘+MINIDLNA打造家用媒体服务器（电影服务器、NAS、ipad看片利器）</h2>
+        </header>
+        <p>关键词：树莓派、移动硬盘、MINIDLNA、电影服务器、NAS、ipad看片利器、DLNA、UPnP</p>
+<p>DLNA/UPnP概念，请自行搜索了解~~</p>
+<p>一直想实现用ipad观看移动硬盘中的电影，所以有了这个方案，再配合下载工具（aria2或Transmission）将树莓派打造成下载机，就能低成本，低功耗的实现NAS。</p>
+<p>我用samba和minidlna搭好NAS后，分别进行了测试，很明显minidlna的速度和资源损耗要比samba小的多，minidlna上到5G的电影也基本不卡，而samba就非常吃力，而且支持samba的视频播放器显示比DLNA/UPnP的要少！</p>
+<p>本方案主要由两部份组成：媒体服务器和ipad或其它移动设备客户端。</p>
+<h4 id="-minidlna-">第一部份：用MINIDLNA搭建媒体服务器</h4>
+<h5 id="-">一、移动硬盘的挂载</h5>
+<p>1、挂载FAT32格式的硬盘</p>
+<pre><code class="hljs shell"><span class="hljs-preprocessor">#创建挂载点</span>
+sudo mkdir /mnt/myusbdrive
+<span class="hljs-preprocessor">#编辑fstab让移动硬盘开机自动挂载</span>
+sudo nano /etc/fstab
+<span class="hljs-preprocessor">#在最后一行添加如下内容</span>
+/dev/sda1 /mnt/myusbdrive auto defaults,noexec,umask=<span class="hljs-number">0000</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>
+<span class="hljs-preprocessor">#保存重启，即可生效</span>
+</code></pre>
+<p><strong>说明：</strong></p>
+<p>sda1是取决于你的实际情况，a表示第一个硬盘，1表示第一个分区。<br>umask=0000 0 0<br>前面四个0就是对所有人,可读可写可执行, 后面两个0,第一个代表dump,0是不备份<br>第二个代表fsck检查的顺序,0表示不检查
+卸载：<code>sudo umount /mnt/myusbdrive</code></p>
+<p>2、挂载NTFS格式的硬盘(读写方式挂载)</p>
+<p>默认挂载NTFS格式的硬盘只有只读权限，需要借助其它工具实现。</p>
+<pre><code class="hljs shell"><span class="hljs-preprocessor">#安装所需软件包</span>
+sudo apt-<span class="hljs-keyword">get</span> install fuse-utils ntfs-<span class="hljs-number">3</span>g
+<span class="hljs-preprocessor">#加载内核模块</span>
+modprobe fuse
+<span class="hljs-preprocessor">#编辑fstab让移动硬盘开机自动挂载</span>
+sudo nano /etc/fstab
+<span class="hljs-preprocessor">#在最后一行添加如下内容</span>
+/dev/sda1 /mnt/myusbdrive ntfs-<span class="hljs-number">3</span>g defaults,noexec,umask=<span class="hljs-number">0000</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>
+<span class="hljs-preprocessor">#保存重启，即可生效</span>
+</code></pre>
+<p>3、测试硬盘挂载是否成功：</p>
+<pre><code class="hljs shell"><span class="hljs-keyword">cd</span> /mnt/myusbdrive
+<span class="hljs-keyword">ls</span>
+</code></pre>
+<h5 id="-minidlna">二、安装MiniDLNA</h5>
+<p>1、安装</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> apt-get install minidlna
+</code></pre>
+<p>2、修改配置</p>
+<pre><code class="hljs shell"><span class="hljs-preprocessor">#打开配置文件</span>
+sudo nano /etc/minidlna.conf
+<span class="hljs-preprocessor">#可参考修改的项有：</span>
+<span class="hljs-preprocessor">#媒体文件目录：</span>
+media_dir=/mnt/myusbdrive/
+<span class="hljs-preprocessor">#数据库目录，minidlna使用的是sqlite数据库来索引文件</span>
+db_dir=/<span class="hljs-keyword">var</span>/lib/minidlna
+<span class="hljs-preprocessor">#服务器IP</span>
+listening_ip=<span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.106</span>
+<span class="hljs-preprocessor">#端口</span>
+port=<span class="hljs-number">8200</span>
+<span class="hljs-preprocessor">#网络名称，用于其它设备发现当前设备</span>
+friendly_name=DLNA
+</code></pre>
+<p>3、你可以选择让minidlna随机启动</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> update-rc.d minidlna defaults
+</code></pre>
+<p>4、启动minidlna服务</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> service minidlna start
+</code></pre>
+<p>5、当你修改配置文件及媒体资源更新时，需要强制刷新，以便minidlna将最新的媒体文件进行索引</p>
+<pre><code class="hljs shell">sudo service minidlna <span class="hljs-keyword">force</span>-reload
+</code></pre>
+<p>6、查看资源个数</p>
+<p><a href="http://192.168.1.106:8200/">http://192.168.1.106:8200/</a></p>
+<p>7、取消minidlna的开机自动启动</p>
+<pre><code class="hljs shell"><span class="hljs-built_in">sudo</span> update-rc.d <span class="hljs-operator">-f</span> minidlna remove
+</code></pre>
+<p>8、停止minidlna服务</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> service minidlna stop
+</code></pre>
+<p>9、停止minidlna所有进程</p>
+<pre><code class="hljs shell"><span class="hljs-title">sudo</span> killall minidlna
+</code></pre>
+<p>10、卸载minidlna</p>
+<pre><code class="hljs shell">sudo atp-<span class="hljs-built_in">get</span> remove <span class="hljs-comment">--purge minidlna</span>
+</code></pre>
+<h4 id="-ipad-">第二部份：ipad或其它移动设备客户端</h4>
+<h5 id="-ios-">一、IOS客户端</h5>
+<p>总的来说，IOS下几乎没有好的免费软件来支持UPnP和Samba视频，试用多个软件后总结如下：</p>
+<p>1、Yxplayer免费版，播放视频时有广告，索引UPnP资源时大概要5分钟才能索引完100多部电影</p>
+<p>2、playerXstreme免费版，虽然免费，但是要使用UPnP功能时，需要额外的花￥6买一个扩展功能，但非常悲剧的时，买好了，索引UPnP资源时，一个小时都没有结果，而且很容挂着，几乎钱是白花了。</p>
+<p>3、AVPlayer解码能力很强，不支持UPnP，某些网站有介绍说支持，千万别上当。</p>
+<p>4、【能用】BUZZ Player，￥25，能用，而且索引UPnP资源非常快，唯一不足，还有一些小BUG，有时会挂掉。</p>
+<h5 id="-html5">二、html5</h5>
+<p>w3c其实有一个标准的API，来支持DLNA/UPnP，即Network Service Discovery API（navigator.getNetworkServices() ）但目前只有opera有一个实验版本可以支持这个最新的API。</p>
+<p>chrome支持mkv视频，经测试Chrome html5 video支持mkv格式的视频，但不能外挂字幕！显示Google利用于自己收购的VP8编码技术力挺WebM（VP8/Vorbis/WebM），mkv也属于WebM的一种。</p>
+
+        <p class="last-edit-time">最后修改时间：2014年9月10日星期三下午4点29</p>
+        <div class="share_wrapper">
+            <div class="jiathis_style_32x32">
+                <a class="jiathis_button_qzone"></a>
+                <a class="jiathis_button_tsina"></a>
+                <a class="jiathis_button_tqq"></a>
+                <a class="jiathis_button_renren"></a>
+                <a class="jiathis_button_kaixin001"></a>
+                <a class="jiathis_button_weixin"></a>
+                <a href="http://www.jiathis.com/share?uid=1879675" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+            </div>
+        </div>
+    </article>
+
+<a name="comment"></a>
+<div class="comment-widget">
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1879675"></script>
+<!-- UY END -->
+</div>
+
+</div>
+
+<footer>
+	<p class="copyright">&copy; 2014 <a href="/">Jason’s Blog</a>. All rights reserved.</p>
+    <p>Proudly published with <a href="http://metalsmith.io/" target="_blank">Metalsmith</a></p>
+    <p><a href="http://www.miibeian.gov.cn/" target="_blank">闽ICP备09029032号-1</a> |
+        <script language="javascript" type="text/javascript" src="http://js.users.51.la/6883474.js"></script></p>
+</footer>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/uitotop/js/easing.js?version=20140909"></script>
+<script type="text/javascript" src="/assets/uitotop/js/jquery.ui.totop.min.js?version=20140909"></script>
+<script src="/assets/js/app.js?version=20140909"></script>
+<!--[if lt IE 8]><script src="/assets/js/noLtIE8.js?version=20140909"></script><![endif]-->
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" >
+    var jiathis_config={
+        data_track_clickback:true,
+        shortUrl:false,
+        hideMore:false
+    }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1879675" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+</body>
+</html>
